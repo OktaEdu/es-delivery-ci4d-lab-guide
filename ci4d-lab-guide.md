@@ -1,6 +1,33 @@
+# Okta Customer Identity for Developers Lab Guide
+
+Copyright 2022 Okta, Inc. All Rights Reserved.
+
+## Table of Contents
+
+  - [Lab 1.1: Access Your Okta Org](#lab-11-access-your-okta-org)
+
+  - [Lab 1.2: Create Okta Accounts](#lab-12-create-okta-groups)
+
+  - [Lab 1.3: Create an Okta Group](#lab-13-create-okta-users)
+
+  - [Lab 1.4: Create an Application Integration](#lab-14-create-an-okta-application-integration)
+
+  - [Lab 2.1: Configure a Custom Domain](#)
+
+  - [Lab 2.2: Customize the Okta Sign-In Page with the Branding UI](#)
+
+  - [Lab 2.3: Customize the Okta Sign-In Page Using the Sign-In Page Code Editor](#)
+  
+  - [Lab 3: ](#)
+
+  - [Lab 4.1: Get an API Token and Set Up the Postman Environment](#lab-41-get-an-api-token-and-set-up-the-postman-environment)
+
 # Lab 1.1: Access Your Okta Org
 
 🎯 **Objective**:    Sign in to your virtual machine and authenticate to your Okta organization.
+
+⏱️ **Duration**:    15 minutes
+
 
 ## Access Your VM
 
