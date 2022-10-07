@@ -22,7 +22,7 @@ Copyright 2022 Okta, Inc. All Rights Reserved.
 
   - [Lab 4.1: Get an API Token and Set Up the Postman Environment](#lab-41-get-an-api-token-and-set-up-the-postman-environment)
 
-    - [Lab 4.1: Create and Okta User Via the Users API](#lab-42-create-an-okta-user-via-the-users-api)
+  - [Lab 4.1: Create and Okta User Via the Users API](#lab-42-create-an-okta-user-via-the-users-api)
 
 # Lab 1.1: Access Your Okta Org
 
