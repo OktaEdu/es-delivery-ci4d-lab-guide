@@ -717,7 +717,7 @@ Click `Save` and then `Send` to issue the request.
 
 3. Notice that the `lastName` is now updated, but all other profile attributes remain the same.
 
-# ✅ Checkpoint
+## ✅ Checkpoint
 
 You now have an understanding of how a partial update of a user's profile is performed by the Users API, which is used by Okta's Management SDKs.
 
