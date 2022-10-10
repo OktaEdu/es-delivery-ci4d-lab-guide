@@ -6,9 +6,9 @@ Copyright 2022 Okta, Inc. All Rights Reserved.
 
   - [Lab 1.1: Access Your Okta Org](#lab-11-access-your-okta-org)
 
-  - [Lab 1.2: Create Okta Accounts](#lab-12-create-okta-groups)
+  - [Lab 1.2: Create Okta Groups](#lab-12-create-okta-groups)
 
-  - [Lab 1.3: Create an Okta Group](#lab-13-create-okta-users)
+  - [Lab 1.3: Create Okta Users](#lab-13-create-okta-users)
 
   - [Lab 1.4: Create an Application Integration](#lab-14-create-an-okta-application-integration)
 
@@ -22,7 +22,9 @@ Copyright 2022 Okta, Inc. All Rights Reserved.
 
   - [Lab 4.1: Get an API Token and Set Up the Postman Environment](#lab-41-get-an-api-token-and-set-up-the-postman-environment)
 
-  - [Lab 4.1: Create and Okta User Via the Users API](#lab-42-create-an-okta-user-via-the-users-api)
+  - [Lab 4.2: Create an Okta User Via the Users API](#lab-42-create-an-okta-user-via-the-users-api)
+
+  - [Lab 4.3: Modify a User Via the Users API](#lab-43-modify-a-user-via-the-users-api)
 
 # Lab 1.1: Access Your Okta Org
 
@@ -51,7 +53,7 @@ At this point, you have access to your lab environment to complete the rest of t
 
 # Lab 1.2: Create Okta Groups
 
-  🎯 **Objective**   Create Okta Groups -- one for Okta Ice Franchisees and one for Okta Ice customers.
+  🎯 **Objective**   Create Okta Groups -- one for Okta Ice Franchisees and one for Okta Ice customers. Create a Group rule for automatically adding certain users to the Customers group.
 
   🎬 **Scenario**   Franchisees and customers require a distinct groups for application access and access policies.
 
@@ -75,6 +77,22 @@ At this point, you have access to your lab environment to complete the rest of t
 2.  This time, enter `Customers` in the `Name` field.
 
 3. Click `Save`
+
+## Create a Group Rule for the Customer Group
+
+Now we will create a rule so that any user created that has the `userType` `customer` will automatically be added to the Customer group. This will be helpful when we implement self-service registration for our customers.
+
+1. On the top of the **Groups** page, click the `Rules` tab.
+
+2. Click **Add Rule**
+
+3. Name the rule `Add customer userType to Customers Group`
+
+4. Set the **IF** section to read: IF `User attribute` `userType` `Equals` `customer`
+
+5. In the **THEN Assign to** section, type and select the `Customers` group.
+
+6. Click `Save`
 
 ## ✅ Checkpoint
 
@@ -138,7 +156,7 @@ Last, click the `Save` button.
 
 You now have a test user in the Franchisee group and a test user in the Customer group.
 
-## Lab 1.4: Create an Okta Application Integration
+# Lab 1.4: Create an Okta Application Integration
 
  🎯 **Objective**    Create an Okta Application Configuration for the Okta Ice Portal.
 
@@ -528,9 +546,7 @@ We're going to update the `Profile` object's default attributes and add some opt
   "email": "samus.aran@{{email-suffix}}",
   "login": "samus.aran@{{email-suffix}}",
   "nickName": "Sammy",
-  "title": "Senior Security Engineer",
-  "department": "IT",
-  "division": "Colony K-21"
+  "userType": "Customer",
 },
 "credentials": {
     "password" : { "value": "{{password}}" }
@@ -575,3 +591,16 @@ We're going to update the `Profile` object's default attributes and add some opt
 ## ✅ Checkpoint
 
 At this point, you have created an activated user with a password using the Users API. This has allowed you to see how a User is represented in Okta.
+
+# Lab 4.3: Modify an Okta User Via the Users API
+
+🎯 Objective: Modify an Okta User using a request from the Okta Users API collection in Postman.
+
+⏱️ Duration: 15 min
+
+⚠️ Prerequisite: Lab 4.2
+
+#
+
+# ✅ Checkpoint
+
