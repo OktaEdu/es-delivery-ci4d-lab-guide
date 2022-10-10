@@ -24,7 +24,7 @@ Copyright 2022 Okta, Inc. All Rights Reserved.
 
   - [Lab 4.2: Create an Okta User Via the Users API](#lab-42-create-an-okta-user-via-the-users-api)
 
-  - [Lab 4.3: Modify a User Via the Users API](#lab-43-modify-a-user-via-the-users-api)
+  - [Lab 4.3: Update a User Via the Users API](#lab-43-update-an-okta-user-via-the-users-api)
 
 # Lab 1.1: Access Your Okta Org
 
@@ -57,7 +57,7 @@ At this point, you have access to your lab environment to complete the rest of t
 
   🎬 **Scenario**   Franchisees and customers require a distinct groups for application access and access policies.
 
-  ⏱️ **Duration**     10 minutes
+  ⏱️ **Duration**     15 minutes
 
 ## Create a Franchisee Group
 1.  Ensure you are logged in as your Okta Super Admin account `oktatraining` and that you are on the `Admin` dashboard.
@@ -94,6 +94,19 @@ Now we will create a rule so that any user created that has the `userType` `cust
 
 6. Click `Save`
 
+## Activate the Rule
+
+You should now see the `Add customer userType to Customers Group` rule listed on the **Group Rules** page.
+
+Notice, however, that the `Status` is `Inactive`, so we'll need to activate it:
+
+1. Click `Actions`
+
+2. Select `Activate`
+
+3. Confirm the `Status` has changed to `Active`
+
+
 ## ✅ Checkpoint
 
 You now have two Okta Groups that you will use to manage access to applications.
@@ -104,7 +117,7 @@ You now have two Okta Groups that you will use to manage access to applications.
 
   🎬 **Scenario**:    We'll need some End Users to test out the Franchisee and Customer experience.
 
-  ⏱️ **Duration**:   10-15 minutes
+  ⏱️ **Duration**:   10 minutes
 
 ## Navigate to the People Directory
 
@@ -536,7 +549,9 @@ Let's take a moment to examine this request and its parameters. Ensure you are o
 
 The `Profile` object in this request only includes the four profile attributes that are required by default on Okta. We can include additional optional attributes as well!
 
-We're going to update the `Profile` object's default attributes and add some optional ones as well. The `Credentials` object will be left unchanged:
+We're going to update the `Profile` object's default attributes and add a `nickName` and `userType` attribute. Recall that we created a **Group Rule** in `Lab 1.2` that will automatically add a user with `userType` **customer** to our **Customers** group.
+
+The `Credentials` object will be left unchanged.
 
 ```json
 {
@@ -545,8 +560,8 @@ We're going to update the `Profile` object's default attributes and add some opt
   "lastName": "Aran",
   "email": "samus.aran@{{email-suffix}}",
   "login": "samus.aran@{{email-suffix}}",
-  "nickName": "Sammy",
   "userType": "Customer",
+  "nickName": "Sammy"
 },
 "credentials": {
     "password" : { "value": "{{password}}" }
@@ -586,21 +601,122 @@ We're going to update the `Profile` object's default attributes and add some opt
 
 6. You will also see a `Credentials` object, but the password is not echoed back.
 
-7. Finally, the `_links` section exposes additional Okta Users API endpoints relevant to this user's lifecycle.
+7. Finally, the `_links` section exposes additional Okta Users API endpoints relevant to this user's lifecycle. Notice that all of these links have the user's `id` as a URI parameter in them.
+
+## Set the `userId` Environment Variable
+
+You just saw that some API endpoints require a user's `id` as a URI parameter. Next, we're going to call an endpoint that will list all the Groups a user is a member of.
+
+We'll store the `id` in the `userId` environment variable:
+
+1. Scroll back to the top of the response body.
+
+2. Highlight the value to the right of the first `id` entry (excluding the quotes).
+
+3. Right click on the highlighted value.
+
+4. Select `Set` and then `userId`
+
+## Get Groups for User
+
+1. In the `Users (Okta API)` collection, click on the `Get Groups for User` request to open it.
+
+2. Notice that this endpoint uses the `{{userId}}` environment variable, which will pass in our user's `id` as a URI parameter.
+
+3. Notice that the HTTP method used for this request is `GET`. We're requesting information about this user.
+
+4. Click `Send` to send the request. You should get a `200 OK` response. If not, ensure you have correctly set the `userId` environment variable.
+
+5. Examine the reponse body. The first entry in the JSON data should be the **Everyone** group. 
+
+6. Scroll down to locate the second entry in the JSON data, which should be the **Customers** group.
 
 ## ✅ Checkpoint
 
-At this point, you have created an activated user with a password using the Users API. This has allowed you to see how a User is represented in Okta.
+At this point, you have created an activated user with a password using the Users API. This has allowed you to see how a User is represented on Okta and how a User is created when using any of Okta's Management SDKs.
 
-# Lab 4.3: Modify an Okta User Via the Users API
+# Lab 4.3: Update an Okta User Profile Via the Users API
 
-🎯 Objective: Modify an Okta User using a request from the Okta Users API collection in Postman.
+🎯 Objective: Update an existing Okta User's profile using an API request.
 
 ⏱️ Duration: 15 min
 
 ⚠️ Prerequisite: Lab 4.2
 
-#
+## Access Okta's Users API Documentation
+
+Although the `Users (Okta API)` collection does not have a request to perform updates on a User's profile, the endpoint is documented here: https://developer.okta.com/docs/reference/api/users/#update-user
+
+We'll use this documentation to craft our request in Postman. 
+
+From the documentation, we see that the endpoint we need to issue our request to is `/api/v1/users/{{userId}}` and that we should use the `POST` method for a partial update. A partial update means we only provide the data for the profile attributes we want to update.
+
+Alternatively, the `PUT` method can be used for a complete update. This would mean that any attributes that are not specified in the request body will be deleted from the user's profile.
+
+For our purposes, we will use the `POST` method for a partial update.
+
+## Create the Request
+
+1. In Postman, click `New` or hold `CTRL` + `N`
+
+2. In the window that pops up, click `HTTP REQUEST`
+
+3. Click the drop down menu and change the HTTP method from `GET` to `POST`
+
+4. For the request URL, enter `{{url}}/api/v1/users/{{userId}}`
+
+5. Click `Save`
+
+6. Name this request `Update User`
+
+7. Ensure the `Users (Okta API)` collection is selected
+
+8. Click `Save`
+
+## Set the Authorization Header
+
+1. Click on `Headers`
+
+2. In the next blank entry, enter `Authorization` in the `Key` column
+
+3. Enter `SSWS {{apikey}}` in the `Value` column
+
+4. Click `Save`
+
+## Set the Request Body to JSON
+
+1. Click on the `Body` tab of the request.
+
+2. Click the `raw` radio button
+
+3. Change the drop down value from `Text` to `JSON`
+
+4. Click `Save`
+
+## Create the Request Body JSON Payload
+
+In order to update the User, we'll need to craft a JSON payload that specifies what profile attributes need to be updated. 
+
+In this case, we can imagine that the user's `lastName` needs to be updated. Since we are performing a partial update, we only need to specify this attribute in the Profile object of our JSON payload:
+
+```json
+{
+  "profile": {
+  "lastName": "Nara"
+}
+}
+
+Click `Save` and then `Send` to issue the request.
+
+## Examine the Response Body
+
+1. You should get a `200 OK` response. If not, ensure you have followed all the prerequisite steps correctly, including setting the `userId` environment variable in `Lab 4.2`
+
+2. Locate the Profile object within the JSON in the Response body.
+
+3. Notice that the `lastName` is now updated, but all other profile attributes remain the same.
 
 # ✅ Checkpoint
+
+You now have an understanding of how a partial update of a user's profile is performed by the Users API, which is used by Okta's Management SDKs.
 
