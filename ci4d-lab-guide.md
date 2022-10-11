@@ -12,13 +12,13 @@ Copyright 2022 Okta, Inc. All Rights Reserved.
 
   - [Lab 1.4: Create an Application Integration](#lab-14-create-an-okta-application-integration)
 
-  - [Lab 2.1: Configure a Custom Domain](#)
+  - [Lab 2.1: Configure a Custom Domain](#lab-21-configure-a-custom-domain)
 
-  - [Lab 2.2: Customize the Okta Sign-In Page with the Branding UI](#lab-21-configure-a-custom-domain)
+  - [Lab 2.2: Customize the Okta Sign-In Page with the Branding UI](#lab-22-customize-the-okta-sign-in-page-with-the-branding-ui)
 
-  - [Lab 2.3: Customize the Okta Sign-In Page Using the Sign-In Page Code Editor](#lab-22-customize-the-okta-sign-in-page-with-the-branding-ui)
+  - [Lab 2.3: Customize the Okta Sign-In Page Using the Sign-In Page Code Editor](#lab-23-customize-the-okta-sign-in-page-using-the-sign-in-page-code-editor)
   
-  - [Lab 3: ](#lab-23-customize-the-okta-sign-in-page-using-the-sign-in-page-code-editor)
+  - [Lab 3: ](#)
 
   - [Lab 4.1: Get an API Token and Set Up the Postman Environment](#lab-41-get-an-api-token-and-set-up-the-postman-environment)
 
