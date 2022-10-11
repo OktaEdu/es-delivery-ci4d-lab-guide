@@ -560,7 +560,7 @@ The `Credentials` object will be left unchanged.
   "lastName": "Aran",
   "email": "samus.aran@{{email-suffix}}",
   "login": "samus.aran@{{email-suffix}}",
-  "userType": "Customer",
+  "userType": "customer",
   "nickName": "Sammy"
 },
 "credentials": {
