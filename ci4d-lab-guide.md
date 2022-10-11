@@ -24,7 +24,7 @@ Copyright 2022 Okta, Inc. All Rights Reserved.
 
   - [Lab 4.2: Create an Okta User Via the Users API](#lab-42-create-an-okta-user-via-the-users-api)
 
-  - [Lab 4.3: Update a User Via the Users API](#lab-43-update-an-okta-user-via-the-users-api)
+  - [Lab 4.3: Update a User Via the Users API](#lab-43-update-an-okta-user-profile-via-the-users-api)
 
 # Lab 1.1: Access Your Okta Org
 
