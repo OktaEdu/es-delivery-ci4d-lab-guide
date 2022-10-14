@@ -10,7 +10,7 @@ Copyright 2022 Okta, Inc. All Rights Reserved.
 
   - [Lab 1.3: Create Okta Users](#lab-13-create-okta-users)
 
-  - [Lab 1.4: Create an Application Integration](#lab-14-create-an-okta-application-integration)
+  - [Lab 1.4: Create Okta Application Integrations](#lab-14-create-an-okta-application-integration)
 
   - [Lab 2.1: Configure a Custom Domain](#lab-21-configure-a-custom-domain)
 
@@ -18,13 +18,15 @@ Copyright 2022 Okta, Inc. All Rights Reserved.
 
   - [Lab 2.3: Customize the Okta Sign-In Page Using the Sign-In Page Code Editor](#lab-23-customize-the-okta-sign-in-page-using-the-sign-in-page-code-editor)
   
-  - [Lab 3: ](#)
+  - [Lab 3.1: ](#)
 
   - [Lab 4.1: Get an API Token and Set Up the Postman Environment](#lab-41-get-an-api-token-and-set-up-the-postman-environment)
 
   - [Lab 4.2: Create an Okta User Via the Users API](#lab-42-create-an-okta-user-via-the-users-api)
 
   - [Lab 4.3: Update a User Via the Users API](#lab-43-update-an-okta-user-profile-via-the-users-api)
+
+  - [Lab 5.1 Configure Self-Service Registration](#lab-51-configure-self-service-registration)
 
 # Lab 1.1: Access Your Okta Org
 
@@ -169,199 +171,143 @@ Last, click the `Save` button.
 
 You now have a test user in the Franchisee group and a test user in the Customer group.
 
-# Lab 1.4: Create an Okta Application Integration
+# Lab 1.4: Create Okta Application Integrations
 
- 🎯 **Objective**    Create an Okta Application Configuration for the Okta Ice Portal.
+ 🎯 **Objective**    Create Okta application integrations for two existing applications. Assign one application to the Customers group and assign one application to the Franchisee group.
 
-  🎬 **Scenario**     Okta Ice is developing a custom portal, which is a Single Page
-                  App (SPA) that will expose relevant applications to their Franchisees and Customers.
+  🎬 **Scenario**     Customers and Franchisees require access to a different set of applications.
 
   ⏱️ **Duration**    15 minutes
 
-## Install Node Packages
+## Navigate to Applications
 
-The source files for the Portal app are in the `okta-ice-portal` directory of this workspace. Before we configure and run the app, we'll need to install the node packages the project depends on. You can do this manually by clicking on `TERMINAL` within VSCode and entering the following command: 
-```
-cd okta-ice-portal && npm install
-``` 
+1. Ensure you are logged in to the Admin Dashboard as `oktatraining`
 
-Alternatively, the same command will be issued for you automatically if you click [here](command:codetour.sendTextToTerminal?["cd okta-ice-portal && npm install"]).
+2. In the Admin menu, navigate to `Applications` > `Applications`
 
-Either way, this process will take a moment, so *don't* wait for it to complete before moving on to the next step.
+## Create an Application Integration for the Rewards App
 
-## Navigate to the Create a New App Integration Screen
+The Rewards app is an existing application in this project. We're going to set up an integration in Okta so our customers can access this application. We'll talk about the code implementation in subsequent modules.
 
-1.  Ensure you are logged in as your Okta Super Admin account `oktatraining` and that you are on the Admin dashboard.
+1. Click `Create App Integration`
 
-2.  Click `Application` > `Applications`.
+2. Select the `OIDC - OpenID Connect` radio button.
 
-3.  Click the `Create App Integration` button.
+3. Select the `Single-Page Application` radio button.
 
-## Specify the Sign In Method and Application Type
-1. In the `Sign-in method` section of this screen, select `OIDC-OpenID Connect`
-2. In the `Application Type` section that appears, select `Single-Page Application`
-3. Click `Next`
+4. Name this application `Customer Rewards`
 
-## Configure the General Settings
+5. In the **Sign-in redirect URIs** field, enter `http://localhost:8080/redirect/rewards.html`
 
-Fill in the following:
+6. Under **Assignments** click the radio button option for `Limit access to select groups`
 
-  |**Attribute**          | **Value**|
-  |:-----------------------|:-----------------------------------------------|
-  |App integration name   | `Okta Ice Portal`                              |
-  | Grant type | `Authorization Code` |
-  |Sign-in redirect URIs  | `http://localhost:8080/callback`              |
+7. Type in and select `Customers`
 
+8. Click `Save`
 
-## Set Assignments
-1. Still on the `General Settings` page, scroll down to the `Assignments` section.
-2. Select `Limit access to selected groups`
-3.  In the `Selected group(s)` field, type and select `Franchisees` and `Customers`
-4.  Click `Save`
+## Configure the Rewards Application `appClientID`
 
+The Rewards application makes use of Okta's AuthJS SDK, which we will learn about more in the next module. For now, you'll simply need to configure the ClientID and Okta Org URL to make this integration work.
 
-## Set Initiate Login URI
+1. Copy the `Client ID` that was displayed after you saved your integration. 
 
-1. After you save your configuration for the Okta Ice Portal, scroll down to `General Settings` once more.
-2. Click `Edit`
-3. Scroll down to `LOGIN`
-4. In the `Initiate login URI` field, put `http://localhost:8080/login`
-5. Click `Save`
+2. Paste the `Client ID` into the `appClientID` variable above.
 
-This is the URI that triggers Okta to initiate the sign-in flow. When Okta redirects to this URI, the client is triggered to send an `authorize` request. 
+## Configure the Rewards Application `baseOktaURL`
 
-## Enable CORS
+1. Change the `baseOktaURL` to match your assigned Okta org URL.
 
-1. Navigate to `Security > API` in the Admin menu.
+2. Click here to `Save` your `rewards.html` file.
 
-2.  In the `Trusted Origins` tab, click `Add Origin`.
+## Create an Application Integration for the CSRM App
 
-3.  In the modal that pops up, provide the following information:
+We will complete the same steps for the Franchisee app. The one difference is we will assign this app to the Franchisee group. See how many steps you can complete without referring to the instructions!
 
+1. Click `← Back to Applications`
 
-  |**Attribute**  | **Value**|
-  |:---------------|---------------------------------------------------------:|
-  |Name           | Portal                                            |
-  |Origin URL     | `http://localhost:8080`                                 |
-  |CORS           |CHECKED                  |
-  |Redirect       | UNCHECKED                    |
+2. Click `Create App Integration`
 
+3. Select the `OIDC - OpenID Connect` radio button.
 
-Finally, click `Save`
+4. Select the `Single-Page Application` radio button.
 
-## Install Okta Vue.js SDK
+5. Name this application `Franchisee CSRM`
 
+6. In the **Sign-in redirect URIs** field, enter `http://localhost:8080/redirect/csrm.html`
 
-Next, we will install the [Okta Vue.js SDK](https://github.com/okta/okta-vue/releases) using the NPM module. You can choose to do this step manually or simply click [here](command:codetour.sendTextToTerminal?["npm install @okta/okta-vue@5.1.1"]).
+7. Under **Assignments** click the radio button option for `Limit access to select groups`
 
-If completing manually, move to the `TERMINAL` at the bottom of VS Code and enter the command:
+8. Type in and select `Franchisees`
 
- ```bash
- npm install @okta/okta-vue@5.1.1
- ```
+9. Click `Save`
 
-## Install AuthJS
+## Configure the CSRM Application `appClientID`
 
-Next we will install [Okta's AuthJS SDK](https://github.com/okta/okta-auth-js/) using the NPM module. You can choose to do this step manually or simply click [here](command:codetour.sendTextToTerminal?["npm install @okta/okta-auth-js@6.0.0"]).
+1. Copy the `Client ID` that was displayed after you saved your integration. 
 
-If completing manually, move to the `TERMINAL` at the bottom of VS Code and enter the command:
+2. Paste the `Client ID` into the `appClientID` variable above.
 
- ```bash
- npm install @okta/okta-auth-js@6.0.0
- ```
+## Configure the CSRM Application `baseOktaURL`
 
- // config.js
-export default {
-  oidc:
-  {
-    clientId: 'xxxxxxxxxxxxxxxxxxxx',
-    issuer: 'https://oktaiceXXX.oktapreview.com',
-    redirectUri: window.location.origin + '/login/callback',
-    scopes: ['openid', 'profile', 'email']
-  }
-}
+1. Change the `baseOktaURL` to match your assigned Okta org URL.
 
-## Find and Enter Your Client ID
+2. Save your `csrm.html` file.
 
-To find your **Client ID**, go back to the Chrome tab we left open after setting up the application integration. If you navigated away from this page, you can return by clicking `Applications` > `Applications` and clicking on the `Okta Ice Portal` integration.
+3. **Log out** of your Okta org since you will be logging in as a different user in the subsequent steps.
 
-The **Client ID** is found on the **General** tab of the **Client Credentials** section. 
+## Start the Web Server
 
-Copy this value and paste it into the line highlighted above to replace the placeholder value.
+1. Open a new terminal in VSCode 
 
-## Find and Enter Your Issuer
+2. Notice that the terminal automatically opens to the project directory.
 
-The **Issuer** is simply your assigned Okta Org URI. Replace the the URI in the highlighted line with your URI.
+3. Issue the command `python -m http.server 8080`
 
-Note: You can also find this value by selecting `Security` > `API` from the left navigation pane examining the **Issuer URI** field for the authorization server.
+## Test out the Rewards App
 
-## Save and Run Application
+1. In Chrome, visit http://localhost:8080
 
-### Save
-Save your VSCode project by clicking `File` > `Save`.
+2. Click the `Rewards App (Redirect)` link. You should be redirected to Okta to sign in.
 
-### Run 
-In your `TERMINAL` tab, enter the command: 
+3. Log in as `soraya.esfeh@oktaice.com`/`Tra!nme4321`
 
-```
-npm run serve
-``` 
+You should be redirected back to the Rewards app and you should see some information printed to the page that we will discuss later. For now you can see Soraya's email address at the top as well as your app's Client ID at the bottom.
 
-Alternatively, you can click [here](command:codetour.sendTextToTerminal?["npm run serve"]) to issue the command automatically.
+## Try to Access the CSRM App
 
-Note that you should still be in the `okta-ice-portal` directory when you issue this command.
+1. Still logged in as Soraya, click `Return to Portal`
 
+2. Click on `CSRM App (Redirect)`
 
-## Access and Log In To the Application
-1. Visit http://localhost:8080 in an **incognito** Chrome tab
-2. Click `Log In` and notice that you are redirected to Okta to initiate the log in flow
-3. Enter the credentials for **soraya.esfeh@oktaice.com**
-4. Once authenticated, you will land back on the Portal page.
+3. The CSRM application does not load because Soraya is not authorized to access this application. The CSRM app is only assigned to users in the `Franchisees` group and she is not a member of that group.
 
-## Examine the Login Component: JavaScript
+4. Click the `Close Okta Session` button.
 
-Let's pause to examine the JavaScript in the Login component of our application. Particularly, we'll be looking at the script that triggers both Sign In and Sign Out with Okta. 
+5. Click `Return to Portal`
 
-## The AuthJS `signInWithRedirect(options)` method
+## Log in as a Franchisee Partner
 
-In our `login()` method, we see a call to `signInWithRedirect()`.
+Now we're going to log in as Kay West, who is a member of the Franchisees group.
 
-This is a method defined by [Okta's AuthJS SDK](https://github.com/okta/okta-auth-js#signinwithredirectoptions). When called, the method initiates a full-page redirect to Okta. In this flow, there is an `originalUri` parameter in `options` to track the route before the user signs in. 
+1. Click on `Rewards App (Redirect)`
 
-## The AuthJS `signOut() Method`
+2. Enter `kay.west@oktaice.com` as the login and click `Next`
 
-In our `logout()` method, we see a call to `signOut()`.
+3. Notice that this user did not have an existing session with Okta before trying to access an application that is not assigned to them. In this case, we are not even prompted for a password to authenticate and we are told that the application is not assigned to the user. The user still does not have a session.
 
-This method is also defined by [Okta's AuthJS SDK](https://github.com/okta/okta-auth-js#signout). A call thto this method signs a user out of their current Okta session and clears all tokens stored locally in the `TokenManger`. By default, the refresh token (if there is one) and access token are **revoked**. This means these tokens are no longer valid and cannot be used.
+4. Click `Return to Portal`
 
-## Examine the Login Component: HTML
+5. Click on `CSRM App (Redirect)` 
 
-Now let's take a moment to examine the HTML that exposes Okta Sign In and Sign Out on our application.
+6. Log in as `kay.west@oktaice.com`/`Tra!nme4321`
 
-## Conditionally Exposing Okta Sign Out
+You should be redirected back to the CSRM app and you should see see Kay's email address at the top as well as your app's Client ID at the bottom. 
 
-In this bit of HTML, we see a Vue directive `v-if` that is used to conditionally render a `Sign Out` link. This link will be rendered only if there is a valid `authState` (i.e., not `null`) and that the user is authenticated (logged in). 
+## End Your Okta Session and Shut Down the Web Server
 
-When the `Sign Out` link is rendered, a `@click` event listener is attached to it. When the `Sign Out` link is clicked, the event handler calls the `logout()` method we have defined in our JavaScript, which in turn makes a call to Okta's AuthJS `signOut()` method.
+1. Click the `Close Okta Session` button.
 
-## Conditionally Exposing Okta Sign In
-
-On the next line of HTML, we see the Vue directive `v-else` that complements the preceeding `v-if` we just examined. 
-
-When the preceeding `v-if` is `false`, the `Sign Out` link is not rendered. Instead, this line of HTML is reached and the `Sign In` link is rendered instead.
-
-When the `Sign In` link is rendered, a `@click` event listener is attached to it. When the `Sign In` link is clicked, the event handler calls the `login()` method we have defined in our JavaScript, which in turn makes a call to Okta's AuthJS `signInWithRedirect(options)` method.
-
-## View User Profile Claims
-
-Let's return to the Chrome tab where we signed in to the Okta Ice Portal. Now that you're logged in, let's take a look at the claims this user has stored in their profile:
-
-1. Click `Profile` from the top navigation bar.
-2. Oberserve the claims.
-
-## Examine the Profile Component: JavaScript
-
-Let's pause to examine the JavaScript in the Profile component of our application. Particularly, we'll be looking at the script that extracts the `claim` details from the issued `ID Token`.
+2. In the terminal window in VSCode where you launched the web server, press `CTRL`+`C` to stop the web server. 
 
 # Lab 2.1 Configure a Custom Domain
 
@@ -1210,4 +1156,74 @@ Click `Save` and then `Send` to issue the request.
 ## ✅ Checkpoint
 
 You now have an understanding of how a partial update of a user's profile is performed by the Users API, which is used by Okta's Management SDKs.
+
+# Lab 5.1 Configure Self-Service Registration
+
+ 🎯 **Objective**    Configure Self-Service Registration for customer applications.
+
+  🎬 **Scenario**     Okta Ice would like to allow customers to self-register to access customer applications.
+
+  ⏱️ **Duration**    15 minutes
+
+
+## Set User Permissions to `Read-Write`
+
+1. Ensure you are logged in to the Admin Dashboard as `oktatraining` 
+
+2. In the Admin menu, navigate to `Directory` > `Profile Editor`
+
+3. Click `User (default)` under the **Profile** column.
+
+4. Under **Attributes**, find the `Username` attribute and click the `i` icon in that row.
+
+5. Next to `User permission`, select the `Read-Write` radio button.
+
+6. Click `Save Attribute`
+
+## Create Profile Enrollment Policy
+
+1. Navigate to `Security` > `Profile Enrollment`
+
+2. Click `Add Profile Enrollment Policy`
+
+3. Name this policy `Customer Apps Enrollment Policy`
+
+4. Click `Save`
+
+## Enable Self-Registration in the Profile Enrollment Policy
+
+1. Click the `Pencil icon` next to the policy you just created (`Customer Apps Enrollment Policy`)
+
+2. Notice that `Self-service registration` is already `Allowed` in this policy. Keep it this way and stay on this page.
+
+3. In the **Profile Enrollment** section, click `Edit`
+
+4. Next to **Add the user to group**, enter and select `Customers`
+
+## Add Customer Applications to the Profile Enrollment Policy
+
+1. Click `Manage Apps`
+
+2. Click `Add App to this Policy`
+
+3. Next to `Customer App A`, click `Apply`
+
+4. Next to `Customer App B`, click `Apply`
+
+5. Click `Close`
+
+## Specify Fields for the Enrollment Form
+
+The Enrollment Form will appear during Self-Service Registation
+
+1. Click the `← Back to Profile Enrollment Policy` link at the top of the page.
+
+2. Scroll down to the **Profile enrollment form** section.
+
+3. Click `Add form input`
+
+4. Select `Username (login)`
+
+
+
 
