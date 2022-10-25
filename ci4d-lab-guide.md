@@ -18,7 +18,11 @@ Copyright 2022 Okta, Inc. All Rights Reserved.
 
   - [Lab 2.3: Customize the Okta Sign-In Page Using the Sign-In Page Code Editor](#lab-23-customize-the-okta-sign-in-page-using-the-sign-in-page-code-editor)
   
-  - [Lab 3.1: ](#)
+  - [Lab 3.1: Project Set Up](#lab-31-project-set-up)
+
+  - [Lab 3.2: Configure the Customer Polling App Using the Embedded Widget](#lab-32-configure-the-customer-polling-app-using-the-embedded-widget)
+
+  - [Lab 3.3: Test Web SSO](#lab-33-test-web-sso)
 
   - [Lab 4.1: Get an API Token and Set Up the Postman Environment](#lab-41-get-an-api-token-and-set-up-the-postman-environment)
 
@@ -798,9 +802,138 @@ If there's time remaining, feel free to continue tinkering and finding out what 
 
 At this point, you've investigated additional customizations you can make to the Sign-In Page by using the embedded Sign-In Page Code Editor. 
 
+# Lab 3.1 Project Set Up
+
+🎯 Objective: In order to have working copies of our previously configured redirect apps in our portal, we'll need to copy them to this workspace. This will be necessary to see how SSO works as we configure additional applications in the portal.
+
+⏱️ Duration: 1 min
+
+⚠️ Prerequisite: Lab 1.4
+
+## Copy Redirect Applications 
+
+Click here to copy the `redirect` directory to this workspace.
+
+# Lab 3.2: Configure the Customer Polling App Using the Embedded Widget
+
+🎯 Objective: Create an an Okta application integration and deploy authentication using the embedded Sign-In Widget.
+
+⏱️ Duration: 15 min
 
 
+## Enable Cross-Origin Resource Sharing (CORS)
 
+In Okta, **CORS** allows JavaScript hosted on your website to make a request using an
+`XMLHttpRequest` to the Okta API. Every website origin must be explicitly permitted as a **Trusted Origin** in your Okta org. 
+
+1. Ensure you are logged in to the Admin Dashboard as `oktatraining`
+
+2. In the Admin menu, navigate to `Security` > `API`
+
+3. Click on the `Trusted Origins`  tab.
+
+4. Click the `Add Origin` button
+
+5. Enter `Okta Ice Portal` into the **Origin name** field.
+
+6. Enter `http://localhost:8080` into the **Origin URL** field.
+
+7. Under **Choose Type**, select `Cross-Origin Resource Sharing (CORS)` 
+
+6. Click `Save`
+
+The Polling app is an existing application in this project. We're going to set up an integration in Okta so our customers can access this application. 
+
+1. In the Admin menu, navigate to `Applications` > `Applications`
+
+2. Click `Create App Integration`
+
+3. Select the `OIDC - OpenID Connect` radio button.
+
+4. Select the `Single-Page Application` radio button.
+
+5. Name this application `Customer Polling`
+
+6. Under **Grant Type** select both `Authorization Code` and `Interaction Code`. 
+
+7. In the **Sign-in redirect URIs** field, enter `http://localhost:8080/embedded/polling.html`
+
+8. Under **Assignments** click the radio button option for `Limit access to select groups`
+
+9. Type in and select `Customers`
+
+10. Click `Save`
+
+
+## Configure the Polling Application `appClientID`
+
+1. Copy the `Client ID` that was displayed after you saved your integration. 
+
+2. Paste the `Client ID` into the `appClientID` variable above.
+
+## Configure the Polling Application `baseOktaURL`
+
+1. Change the `baseOktaURL` to match your assigned Okta org URL.
+
+2. Click here to `Save` your `polling.html` file.
+
+## Embed the Sign-In Widget
+
+The Polling application imports Okta's Sign In Widget JavaScript library via CDN. Embedding tne Sign In Widget directly to the page allows for full customization.
+
+## ✅ Checkpoint
+
+At this point, you have configured an application using the Embedded Sign-In Widget model of deploying authentication.
+
+# Lab 3.3 Test Web SSO
+
+🎯 Objective: Now that we have deployed authentication on two applications assigned to the Customers group, we can test out web SSO.
+
+⏱️ Duration: 10 min
+
+## Log Out of Okta
+
+1. If you are still logged in on your Okta org, log out.
+
+## Start the Web Server
+
+1. Open a new terminal in VSCode 
+
+2. Notice that the terminal automatically opens to the project directory.
+
+3. Issue the command `python -m http.server 8080`
+
+## Test the Polling App
+
+1. In Chrome, visit http://localhost:8080
+
+2. Click the `Polling App (Embedded Widget)` link. 
+
+3. Notice that you are not redirected to Okta for authentication. Instead, the Sign-In Widget loads on the page of your website.
+
+4. Log in as `soraya.esfeh@oktaice.com`/`Tra!nme4321`
+
+You should now see the ID Token (which is formatted as a JSON web token or **JWT**) value and its claims, including:
+
+- `sub` (subject of the JWT): Soraya's Okta User ID
+- `name`: Soraya's name
+- `email`: Soray's email address
+- `ver`: Okta API version
+- `iss` (issuer of the JWT): The URL of your Okta Authorization server
+- `aud` (audience): Your app's Client ID
+- `iat` (issued at time): Time the JWT was issued. Expressed in Unix time.
+- `exp` (expiration time): Time the JWT expires. Expressed in Unix time.
+- `jti` (JWT ID): Unique identifier used to prevent the JWT from being replayed
+
+## Test the Rewards App
+
+1. Click on `Return to Portal`
+
+2. Click the `Rewards App (Redirect)` link.
+
+3. Notice that you are not prompted to authenticate again as you have an existing session. 
+
+You should see the ID Token value and its claims. Much of this content is the same as you saw on the Polling App. However, notice that the `jti` (JWT ID) and the `aud` (audience) are different. You should now see that the `aud` is this Client ID of the Rewards app.
 
 # Lab 4.1: Get an API token and set up the Postman Environment
 
