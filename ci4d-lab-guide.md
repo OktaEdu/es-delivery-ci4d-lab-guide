@@ -30,7 +30,9 @@ Copyright 2022 Okta, Inc. All Rights Reserved.
 
   - [Lab 4.3: Update a User Via the Users API](#lab-43-update-an-okta-user-profile-via-the-users-api)
 
-  - [Lab 5.1 Configure Self-Service Registration](#lab-51-configure-self-service-registration)
+  - [Lab 5.1 Modify the Default User Profile Requirements](#lab-51-modify-the-default-user-profile-requirements)
+
+  - [Lab 5.2 Enable Self-Service Registration](#lab-52-enable-self-service-registration)
 
 # Lab 1.1: Access Your Okta Org
 
@@ -1290,7 +1292,74 @@ Click `Save` and then `Send` to issue the request.
 
 You now have an understanding of how a partial update of a user's profile is performed by the Users API, which is used by Okta's Management SDKs.
 
-# Lab 5.1 Configure Self-Service Registration
+# Lab 5.1 Modify the Default User Profile Requirements.
+
+ 🎯 **Objective**    Update the required attributes in the Default User Profile to minimize sign up friction.
+
+  🎬 **Scenario**     Okta Ice wants to minimize customer self-registration by only requiring a username and password. Additionally, Okta Ice does not want to enforce the default email-formatted username.
+
+  ⏱️ **Duration**    15 minutes
+
+## Access the User Profile Editor
+
+1. Ensure you are logged in to the Admin dashboard as `oktatraining`
+
+2. Click on `Directory` > `User` from the Admin menu
+
+3. Click on `Profile Editor`
+
+4. Click `User (default)` under the **Profile** column.
+
+## Update Which Attributes Are Required
+
+Recall that Okta requires four User Profile attributes by default: `login` (Username), `firstName`, `lastName`, and `email`
+
+Let's change this!
+
+1. In the **Attributes** section, click on the `i` icon that is in the **First name** `firstName` row.
+
+2. Uncheck the `Attribute required` box.
+
+3. Click the `Save Attribute` button.
+
+4. Click on the `i` icon in the **Last name** `lastName` row.
+
+5. Uncheck the `Attribute required` box.
+
+6. Click the `Save Attribute` button.
+
+## Update Username Requirements
+
+By default, Okta requires usernames to be in the format of an email. Let's disable that requirement.
+
+1. Click on the `i` icon in the **Username**  `login` row.
+
+2. Next to **Format restrictions**, select `None` from the drop down menu.
+
+3. Do not save the changes just yet as we still have more to do in this section.
+
+## Update Permissions on Attributes
+
+In order to allow users to set their own username and email address during self-service registration, they will need write access to these attributes.
+
+1. Still in the `Username` editing window, find the to **User permission** section.
+
+2. Click the `Read-Write` radio button. 
+
+3. Click the `Save Attribute` button.
+
+4. Click the `i` icon in the **Primary email** `email` row.
+
+5. In the **User permission** section, click the `Read-Write` radio button. 
+
+6. Click the `Save Attribute` button.
+
+## ✅ Checkpoint
+
+At this point, you have updated the default User Profile and attribute permissions. Now you are ready to enable self-service registration for Okta Ice's customer applications!
+
+
+# Lab 5.2 Enable Self-Service Registration
 
  🎯 **Objective**    Configure Self-Service Registration for customer applications.
 
@@ -1298,20 +1367,6 @@ You now have an understanding of how a partial update of a user's profile is per
 
   ⏱️ **Duration**    15 minutes
 
-
-## Set User Permissions to `Read-Write`
-
-1. Ensure you are logged in to the Admin Dashboard as `oktatraining` 
-
-2. In the Admin menu, navigate to `Directory` > `Profile Editor`
-
-3. Click `User (default)` under the **Profile** column.
-
-4. Under **Attributes**, find the `Username` attribute and click the `i` icon in that row.
-
-5. Next to `User permission`, select the `Read-Write` radio button.
-
-6. Click `Save Attribute`
 
 ## Create Profile Enrollment Policy
 
@@ -1339,9 +1394,9 @@ You now have an understanding of how a partial update of a user's profile is per
 
 2. Click `Add App to this Policy`
 
-3. Next to `Customer App A`, click `Apply`
+3. Next to `Customer Rewards`, click `Apply`
 
-4. Next to `Customer App B`, click `Apply`
+4. Next to `Customer Polling`, click `Apply`
 
 5. Click `Close`
 
@@ -1356,6 +1411,10 @@ The Enrollment Form will appear during Self-Service Registation
 3. Click `Add form input`
 
 4. Select `Username (login)`
+
+## ✅ Checkpoint
+
+At this point, you have configured self-service registration for the the customer applications.
 
 
 
