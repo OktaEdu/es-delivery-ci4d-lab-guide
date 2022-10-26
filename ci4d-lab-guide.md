@@ -225,7 +225,7 @@ The Rewards application makes use of Okta's AuthJS SDK, which we will learn abou
 
 2. Click here to `Save` your `rewards.html` file.
 
-## Create an Application Integration for the CSRM App
+## Create an Application Integration for the CRM App
 
 We will complete the same steps for the Franchisee app. The one difference is we will assign this app to the Franchisee group. See how many steps you can complete without referring to the instructions!
 
@@ -237,9 +237,9 @@ We will complete the same steps for the Franchisee app. The one difference is we
 
 4. Select the `Single-Page Application` radio button.
 
-5. Name this application `Franchisee CSRM`
+5. Name this application `Franchisee CRM`
 
-6. In the **Sign-in redirect URIs** field, enter `http://localhost:8080/redirect/csrm.html`
+6. In the **Sign-in redirect URIs** field, enter `http://localhost:8080/redirect/crm.html`
 
 7. Under **Assignments** click the radio button option for `Limit access to select groups`
 
@@ -247,17 +247,17 @@ We will complete the same steps for the Franchisee app. The one difference is we
 
 9. Click `Save`
 
-## Configure the CSRM Application `appClientID`
+## Configure the CRM Application `appClientID`
 
 1. Copy the `Client ID` that was displayed after you saved your integration. 
 
 2. Paste the `Client ID` into the `appClientID` variable above.
 
-## Configure the CSRM Application `baseOktaURL`
+## Configure the CRM Application `baseOktaURL`
 
 1. Change the `baseOktaURL` to match your assigned Okta org URL.
 
-2. Save your `csrm.html` file.
+2. Save your `crm.html` file.
 
 3. **Log out** of your Okta org since you will be logging in as a different user in the subsequent steps.
 
@@ -279,13 +279,13 @@ We will complete the same steps for the Franchisee app. The one difference is we
 
 You should be redirected back to the Rewards app and you should see some information printed to the page that we will discuss later. For now you can see Soraya's email address at the top as well as your app's Client ID at the bottom.
 
-## Try to Access the CSRM App
+## Try to Access the CRM App
 
 1. Still logged in as Soraya, click `Return to Portal`
 
-2. Click on `CSRM App (Redirect)`
+2. Click on `CRM App (Redirect)`
 
-3. The CSRM application does not load because Soraya is not authorized to access this application. The CSRM app is only assigned to users in the `Franchisees` group and she is not a member of that group.
+3. The CRM application does not load because Soraya is not authorized to access this application. The CRM app is only assigned to users in the `Franchisees` group and she is not a member of that group.
 
 4. Click the `Close Okta Session` button.
 
@@ -303,11 +303,11 @@ Now we're going to log in as Kay West, who is a member of the Franchisees group.
 
 4. Click `Return to Portal`
 
-5. Click on `CSRM App (Redirect)` 
+5. Click on `CRM App (Redirect)` 
 
 6. Log in as `kay.west@oktaice.com`/`Tra!nme4321`
 
-You should be redirected back to the CSRM app and you should see see Kay's email address at the top as well as your app's Client ID at the bottom. 
+You should be redirected back to the CRM app and you should see see Kay's email address at the top as well as your app's Client ID at the bottom. 
 
 ## End Your Okta Session and Shut Down the Web Server
 
