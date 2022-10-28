@@ -1468,11 +1468,11 @@ Notice that it references the profile attribute `user.profile.firstName`
 
 `Hi , `
 
-This doesn't look very professional at all, so let's fix this by greeting the user by their `login` (username).
+This doesn't look very professional at all, so let's fix this by greeting the user by their `login` (username) instead.
 
 ## Edit the Email Factor Verification Template
 
-Let's replace the highlighted line so that it reads:
+Let's edit the highlighted line so that it references the user's `login` profile attribute:
 
 ```html
 Hi $!{StringTool.escapeHtml($!{user.profile.login})},
@@ -1542,8 +1542,6 @@ We will now copy the web applications we previously configured to this workspace
 
 5. Click the `Sign Up` button.
 
-6. Enter `Tra!nme4321` to set the password.
-
 ## Set Up a Password
 
 You'll now be asked to set up a password.
@@ -1554,7 +1552,7 @@ You'll now be asked to set up a password.
 
 ## Verify Your Email
 
-Since we must verify our email upon self-service registration, we get to see our custom **Email Factor Verification** email!
+Since you must verify our email upon self-service registration, you get to see your custom **Email Factor Verification** email!
 
 1. In a new Chrome tab, login to the email you used to register your account and locate the **Confirm your email address** email.
 
@@ -1579,6 +1577,12 @@ It may seem like you are only registered for the Rewards app. However, recall th
 2. Click on `Polling App (Embedded Widget)`
 
 Because you have an existing session and are a member of the **Customers** group, you are authenticated for the Polling App without having to register for this application or enter your credentials again!
+
+## Close Your Okta Session
+
+1. In the Polling App in the Chrome browser, click the `Close Okta Session` button.
+
+2. You may now close this browser tab.
 
 ## ✅ Checkpoint
 
