@@ -1418,7 +1418,7 @@ The Enrollment Form will appear during Self-Service Registation
 
 At this point, you have configured self-service registration for the the customer applications.
 
-# Lab 5.3 Customize An Email Template
+# Lab 5.3 Customize an Email Template
 
  🎯 **Objective**    Customize the email template used to generate the email customers receive when they sign up for Okta Ice's customer apps.
 
@@ -1457,7 +1457,7 @@ Now we're going to customize the content of the **Email Factor Verification** em
 
 3. Click `Edit`
 
-## Edit the Email Factor Verification Template
+## Examine the Email Factor Verification Template
 
 For your convenience, we've displayed an editable copy of the default HTML code used to generate the Email Factor Verification emails here in VSCode. 
 
@@ -1470,17 +1470,21 @@ Notice that it references the profile attribute `user.profile.firstName`
 
 This doesn't look very professional at all, so let's fix this by greeting the user by their `login` (username).
 
-3. Let's replace the highlighted line so that it reads:
+## Edit the Email Factor Verification Template
+
+Let's replace the highlighted line so that it reads:
 
 ```html
 Hi $!{StringTool.escapeHtml($!{user.profile.login})},
 ```
 
-4. Click here to save your changes.
+You can do this by manually editing the line, or by clicking the **Insert Code** link above. 
+
+Finally, click here to save your changes.
 
 ## Apply the Changes in the Email UI
 
-1. Highlight and copy the entire contents of the `custom-email.html` file that is open in VSCode.
+1. Highlight and copy the entire contents of the `custom-email-template.html` file that is open in VSCode.
 
 2. Switch back to your Chrome browser.
 
