@@ -6,39 +6,57 @@ Copyright 2022 Okta, Inc. All Rights Reserved.
 
 ## Table of Contents
 
-  - [Lab 1.1: Access Your Okta Org](#lab-11-access-your-okta-org)
+  - [Module 1: Introducing Okta](#module-1-introducing-okta)
 
-  - [Lab 1.2: Create Okta Groups](#lab-12-create-okta-groups)
+    - [Lab 1.1: Access Your Okta Org](#lab-11-access-your-okta-org)
 
-  - [Lab 1.3: Create Okta Users](#lab-13-create-okta-users)
+    - [Lab 1.2: Create Okta Groups](#lab-12-create-okta-groups)
 
-  - [Lab 1.4: Create Okta Application Integrations](#lab-14-create-an-okta-application-integration)
+    - [Lab 1.3: Create Okta Users](#lab-13-create-okta-users)
 
-  - [Lab 2.1: Configure a Custom Domain](#lab-21-configure-a-custom-domain)
+    - [Lab 1.4: Create Okta Application Integrations](#lab-14-create-an-okta-application-integration)
 
-  - [Lab 2.2: Customize the Okta Sign-In Page with the Branding UI](#lab-22-customize-the-okta-sign-in-page-with-the-branding-ui)
+  - [Module 2: Customizing the Okta-Hosted Sign In Widget](#module-2-customizing-the-okta-hosted-sign-in-widget) 
 
-  - [Lab 2.3: Customize the Okta Sign-In Page Using the Sign-In Page Code Editor](#lab-23-customize-the-okta-sign-in-page-using-the-sign-in-page-code-editor)
+    - [Lab 2.1: Configure a Custom Domain](#lab-21-configure-a-custom-domain)
+
+    - [Lab 2.2: Customize the Okta Sign-In Page with the Branding UI](#lab-22-customize-the-okta-sign-in-page-with-the-branding-ui)
+
+    - [Lab 2.3: Customize the Okta Sign-In Page Using the Sign-In Page Code Editor](#lab-23-customize-the-okta-sign-in-page-using-the-sign-in-page-code-editor)
+
+  - [Module 3: Exploring Authentication Protocol Flows](#module-3-exploring-authentication-protocol-flows)
   
-  - [Lab 3.1: Project Set Up](#lab-31-project-set-up)
+    - [Lab 3.1: Project Set Up](#lab-31-project-set-up)
 
-  - [Lab 3.2: Configure the Customer Polling App Using the Embedded Widget](#lab-32-configure-the-customer-polling-app-using-the-embedded-widget)
+    - [Lab 3.2: Configure the Customer Polling App Using the Embedded Widget](#lab-32-configure-the-customer-polling-app-using-the-embedded-widget)
 
-  - [Lab 3.3: Test Web SSO](#lab-33-test-web-sso)
+    - [Lab 3.3: Test Web SSO](#lab-33-test-web-sso)
 
-  - [Lab 4.1: Get an API Token and Set Up the Postman Environment](#lab-41-get-an-api-token-and-set-up-the-postman-environment)
+  - [Module 4: Exploring the Okta Data Model](#module-4-exploring-the-okta-data-model)
 
-  - [Lab 4.2: Create an Okta User Via the Users API](#lab-42-create-an-okta-user-via-the-users-api)
+    - [Lab 4.1: Get an API Token and Set Up the Postman Environment](#lab-41-get-an-api-token-and-set-up-the-postman-environment)
 
-  - [Lab 4.3: Update a User Via the Users API](#lab-43-update-an-okta-user-profile-via-the-users-api)
+    - [Lab 4.2: Create an Okta User Via the Users API](#lab-42-create-an-okta-user-via-the-users-api)
 
-  - [Lab 5.1 Modify the Default User Profile Requirements](#lab-51-modify-the-default-user-profile-requirements)
+    - [Lab 4.3: Update a User Via the Users API](#lab-43-update-an-okta-user-profile-via-the-users-api)
 
-  - [Lab 5.2 Enable Self-Service Registration](#lab-52-enable-self-service-registration)
-  
-  - [Lab 5.3 Customize An Email Template](#lab-53-customize-an-email-template)
+  - [Module 5: Implementing Self-Service Registration](#module-5-implementing-self-service-registration)
 
-# Lab 1.1: Access Your Okta Org
+    - [Lab 5.1 Modify the Default User Profile Requirements](#lab-51-modify-the-default-user-profile-requirements)
+
+    - [Lab 5.2 Enable Self-Service Registration](#lab-52-enable-self-service-registration)
+    
+    - [Lab 5.3 Customize An Email Template](#lab-53-customize-an-email-template)
+
+  - Module 6: Migrating and Managing Users
+
+  - Module 7: Securing Your Environment with Policies and MFA
+
+  - Module 8: Authenticating to Okta with External IdPs
+
+# Module 1: Introducing Okta
+
+## Lab 1.1: Access Your Okta Org
 
 🎯 **Objective**:    Sign in to your virtual machine and authenticate to your Okta organization.
 
@@ -386,7 +404,9 @@ You now know how to set up an application integration in Okta.
 ## 🎉 End of Module 1 Labs
 **You may close this workspace project, ensuring all changes were saved.**
 
-# Lab 2.1 Configure a Custom Domain
+# Module 2: Customizing the Okta-Hosted Sign In Widget 
+
+## Lab 2.1 Configure a Custom Domain
 
 🎯 **Objective:**   Configure a custom domain in Okta and configure your DNS to support the custom URL. 
 
@@ -911,7 +931,9 @@ If there's time remaining, feel free to continue tinkering and finding out what 
 
 At this point, you've investigated additional customizations you can make to the Sign-In Page by using the embedded Sign-In Page Code Editor. 
 
-# Lab 3.1 Project Set Up
+# Module 3: Exploring Authentication Protocol Flows
+
+## Lab 3.1 Project Set Up
 
 🎯 Objective: In order to have working copies of our previously configured redirect apps in our portal, we'll need to copy them to this workspace. This will be necessary to see how SSO works as we configure additional applications in the portal.
 
@@ -1059,7 +1081,9 @@ You should see the ID Token value and its claims. Much of this content is the sa
 
 At this point, you have seen how web SSO works between two applications accessible to members of the Customer group.
 
-# Lab 4.1: Get an API token and set up the Postman Environment
+# Module 4: Exploring the Okta Data Model
+
+## Lab 4.1: Get an API token and set up the Postman Environment
 
 🎯 Objective: Create an Okta service account for administrative tasks and associations with API tokens. Set up the Postman environment to make API requests to Okta.
 
@@ -1423,7 +1447,9 @@ Click `Save` and then `Send` to issue the request.
 
 You now have an understanding of how a partial update of a user's profile is performed by the Users API, which is used by Okta's Management SDKs.
 
-# Lab 5.1 Modify the Default User Profile Requirements.
+# Module 5: Implementing Self-Service Registration
+
+## Lab 5.1 Modify the Default User Profile Requirements.
 
  🎯 **Objective**    Update the required attributes in the Default User Profile to minimize sign up friction.
 
@@ -1720,7 +1746,7 @@ At this point, you have customized the email template used to generate the **Ema
 
 # Lab 5.4 Customize Implement a Registration Inline Hook
 
- 🎯 **Objective**    Customize the email template used to generate the email customers receive when they sign up for Okta Ice's customer apps.
+ 🎯 **Objective**    Implement an Okta Registration inline hook
 
   🎬 **Scenario**     Okta Ice would like to apply their own branding to the email that customers receive after registration. They also need to modify the HTML code so that customers are greeted by their username.
 
