@@ -1,5 +1,7 @@
 # Okta Customer Identity for Developers Lab Guide
 
+[![Okta Training](./.tour-resources/oktaeduservices.png "Okta Education Services")](https://www.okta.com/services/training/)
+
 Copyright 2022 Okta, Inc. All Rights Reserved.
 
 ## Table of Contents
@@ -43,19 +45,35 @@ Copyright 2022 Okta, Inc. All Rights Reserved.
 ⏱️ **Duration**:    15 minutes
 
 
-## Access Your VM
+## Access Your Credentials
 
-## Access Your Okta Admin Dashboard
+ In your VM, click on the arrow to the right of the Desktop to expand the **Credentials** panel that will reveal your Okta org credentials.
+
+ ![Expand the Credentials Panel](./.tour-resources/1-1_expand_sidebar.gif)
+
+
+ Keep this panel open for the following step.
+
+ ## Access Your Okta Admin Dashboard
 
 1. Launch the Chrome browser.
 
-2. Copy the Okta Org assigned to you (e.g. `https://oktaiceXXX.oktapreview.com`)
+2. In your VM's **Credentials** panel, click the  ![copy](./.tour-resources/copy.png) icon in the `Link` section. This will automatically paste your Okta org URL into the Chrome browser.
 
-3.  On the **Okta Sign In** page, sign in with the credentials assigned to you.
+3. Click into the URL address bar in the Chrome browser and hit `Enter` to navigate to your Okta org.
 
-4.  Select a recovery question and enter in a recovery answer.
+4.  Once the Okta Sign-In page loads, click into the `Username` field.
 
-5.  Click `Create My Account`
+5. In your VM's **Credentials** panel, click the ![copy](./.tour-resources/copy.png)  icon in the `Login` section. This will automatically paste your admin account's username into the **Username** field.
+
+5.  In the Okta interface, click `Next`
+
+6.  In your VM's **Credentials** panel, click the ![copy](./.tour-resources/copy.png)  icon in the `Password` section. This will automatically paste your admin account's password into the **Password** field.
+
+7. In the Okta interface, click `Verify`
+8. Once logged in to Okta, click the `Admin` button to enter the Admin Dashboard.
+
+You may now collapse the Credentials side panel in your VM.
 
 ## ✅ Checkpoint
 
@@ -65,9 +83,9 @@ At this point, you have access to your lab environment to complete the rest of t
 
   🎯 **Objective**   Create Okta Groups -- one for Okta Ice Franchisees and one for Okta Ice customers. Create a Group rule for automatically adding certain users to the Customers group.
 
-  🎬 **Scenario**   Franchisees and customers require a distinct groups for application access and access policies.
+  🎬 **Scenario**   Franchisees and customers require distinct groups for application access and access policies.
 
-  ⏱️ **Duration**     15 minutes
+  ⏱️ **Duration**     10 minutes
 
 ## Create a Franchisee Group
 1.  Ensure you are logged in as your Okta Super Admin account `oktatraining` and that you are on the `Admin` dashboard.
@@ -78,13 +96,15 @@ At this point, you have access to your lab environment to complete the rest of t
 
 4.  In the `Name` field, enter `Franchisees`
 
-5. Click `Save`
+5. In the `Description` field, enter `All Franchisees`
+
+6. Click `Save`
 
 ## Create a Customer Group
 
 1.  Click `Add Group` again.
 
-2.  This time, enter `Customers` in the `Name` field.
+2.  This time, enter `Customers` in the `Name` field and `All Customers` in the `Description` field.
 
 3. Click `Save`
 
@@ -104,13 +124,13 @@ Now we will create a rule so that any user created that has the `userType` `cust
 
 6. Click `Save`
 
-## Activate the Rule
+## Activate the Group Rule
 
 You should now see the `Add customer userType to Customers Group` rule listed on the **Group Rules** page.
 
 Notice, however, that the `Status` is `Inactive`, so we'll need to activate it:
 
-1. Click `Actions`
+1. Click the drop down next to `Inactive`
 
 2. Select `Activate`
 
@@ -119,7 +139,8 @@ Notice, however, that the `Status` is `Inactive`, so we'll need to activate it:
 
 ## ✅ Checkpoint
 
-You now have two Okta Groups that you will use to manage access to applications.
+You now have two Okta Groups that you will use to manage access to applications. You also have a Group Rule that will automatically add users with `userType` **customer** to the **Customers** group. We'll leverage this rule when we implement self-service registration for customers in Module 5.
+
 
 # Lab 1.3 Create Okta Users
   
@@ -127,7 +148,7 @@ You now have two Okta Groups that you will use to manage access to applications.
 
   🎬 **Scenario**:    We'll need some End Users to test out the Franchisee and Customer experience.
 
-  ⏱️ **Duration**:   10 minutes
+  ⏱️ **Duration**:   15 minutes
 
 ## Navigate to the People Directory
 
@@ -187,11 +208,29 @@ You now have a test user in the Franchisee group and a test user in the Customer
 
   ⏱️ **Duration**    15 minutes
 
-## Navigate to Applications
+  ## Enable Cross-Origin Resource Sharing (CORS)
+
+In Okta, **CORS** allows JavaScript hosted on your website to make a request using an
+`XMLHttpRequest` to the Okta API. While we aren't hosting the Okta Sign-In Widget when we use the Redirect Model, our sample applications ***do*** call out to Okta's API to close an Okta session and log a user out. Every website origin must be explicitly permitted as a **Trusted Origin** in your Okta org. 
 
 1. Ensure you are logged in to the Admin Dashboard as `oktatraining`
 
-2. In the Admin menu, navigate to `Applications` > `Applications`
+2. In the Admin menu, navigate to `Security` > `API`
+
+3. Click on the `Trusted Origins`  tab.
+
+4. Click the `Add Origin` button
+
+5. Enter `Okta Ice Portal` into the **Origin name** field.
+
+6. Enter `http://localhost:8080` into the **Origin URL** field.
+
+7. Under **Choose Type**, select `Cross-Origin Resource Sharing (CORS)` 
+6. Click `Save`
+
+## Navigate to Applications
+
+In the Admin menu, navigate to `Applications` > `Applications`
 
 ## Create an Application Integration for the Rewards App
 
@@ -203,35 +242,45 @@ The Rewards app is an existing application in this project. We're going to set u
 
 3. Select the `Single-Page Application` radio button.
 
-4. Name this application `Customer Rewards`
+4. Click `Next`
 
-5. In the **Sign-in redirect URIs** field, enter `http://localhost:8080/redirect/rewards.html`
+5. Name this application `Customer Rewards`
 
-6. Under **Assignments** click the radio button option for `Limit access to select groups`
+6. In the **Sign-in redirect URIs** field, enter `http://localhost:8080/redirect/rewards.html`
 
-7. Type in and select `Customers`
+7. Under **Assignments** click the radio button option for `Limit access to select groups`
 
-8. Click `Save`
+8. Type in and select `Customers`
 
-## Configure the Rewards Application `appClientID`
+9. Click `Save`
+
+## Configure the Rewards Application `appClientId`
 
 The Rewards application makes use of Okta's AuthJS SDK, which we will learn about more in the next module. For now, you'll simply need to configure the ClientID and Okta Org URL to make this integration work.
 
 1. Copy the `Client ID` that was displayed after you saved your integration. 
 
-2. Paste the `Client ID` into the `appClientID` variable above.
+2. Here in VSCode, notice that `rewards.html` has opened for you automatically and the line containing the `appClientID` variable is highlighted. Currently there is a placeholder value of `"XXXXXXXXXXXXXXXXXXXXXXX"`
+
+3. Double click the placeholder value to highlight its contents and press `CTRL`+`V` to paste your `Client ID` value so that it is enclosed in the double quotes.
 
 ## Configure the Rewards Application `baseOktaURL`
 
-1. Change the `baseOktaURL` to match your assigned Okta org URL.
+1. Notice that `rewards.html` is still open, but now the line containg the the `baseOktaURL` variable is highlighted. It contains the placeholder value `https://oktaice########.oktapreview.com`
 
-2. Click here to `Save` your `rewards.html` file.
+3. Highlight the placeholder value **excluding** the quotation marks. Ensure your cursor is now between the quotation marks.
+
+4. Open your VM's **Credentials** panel by clicking on the arrow to the right hand side of the VM screen.
+
+5. In your VM's **Credentials** panel, click the  ![copy](./.tour-resources/copy.png) icon in the `Link` section. This will automatically paste your Okta org URL into `rewards.html` where your cursor was placed. Ensure it was pasted in the correct location and that the URL is enclosed in double quotes.
+
+6. Save your `rewards.html` file.
 
 ## Create an Application Integration for the CRM App
 
 We will complete the same steps for the Franchisee app. The one difference is we will assign this app to the Franchisee group. See how many steps you can complete without referring to the instructions!
 
-1. Click `← Back to Applications`
+1. Back in Okta, click `← Back to Applications`
 
 2. Click `Create App Integration`
 
@@ -239,29 +288,40 @@ We will complete the same steps for the Franchisee app. The one difference is we
 
 4. Select the `Single-Page Application` radio button.
 
-5. Name this application `Franchisee CRM`
+5. Click `Next`
 
-6. In the **Sign-in redirect URIs** field, enter `http://localhost:8080/redirect/crm.html`
+6. Name this application `Franchisee CRM`
 
-7. Under **Assignments** click the radio button option for `Limit access to select groups`
+7. In the **Sign-in redirect URIs** field, enter `http://localhost:8080/redirect/crm.html`
 
-8. Type in and select `Franchisees`
+8. Under **Assignments** click the radio button option for `Limit access to select groups`
 
-9. Click `Save`
+9. Type in and select `Franchisees`
 
-## Configure the CRM Application `appClientID`
+10. Click `Save`
+
+## Configure the CRM Application `appClientId`
+
 
 1. Copy the `Client ID` that was displayed after you saved your integration. 
 
-2. Paste the `Client ID` into the `appClientID` variable above.
+2. Here in VSCode, notice that `crm.html` has opened for you automatically and the line containing the `appClientID` variable is highlighted. Currently there is a placeholder value of `"XXXXXXXXXXXXXXXXXXXXXXX"`
+
+3. Double click the placeholder value to highlight its contents and press `CTRL`+`V` to paste your `Client ID` value so that it is enclosed in the double quotes.
 
 ## Configure the CRM Application `baseOktaURL`
 
-1. Change the `baseOktaURL` to match your assigned Okta org URL.
+1. Notice that `crm.html` is still open, but now the line containg the the `baseOktaURL` variable is highlighted. It contains the placeholder value `https://oktaice########.oktapreview.com`
 
-2. Save your `crm.html` file.
+3. Highlight the placeholder value **excluding** the quotation marks. Ensure your cursor is now between the quotation marks.
 
-3. **Log out** of your Okta org since you will be logging in as a different user in the subsequent steps.
+4. Open your VM's **Credentials** panel by clicking on the arrow to the right hand side of the VM screen.
+
+5. In your VM's **Credentials** panel, click the  ![copy](./.tour-resources/copy.png) icon in the `Link` section. This will automatically paste your Okta org URL into `crm.html` where your cursor was placed. Ensure it was pasted in the correct location and that the URL is enclosed in double quotes.
+
+6. Save your `crm.html` file.
+
+7. **Log out** of your Okta org since you will be logging in as a different user in the subsequent steps.
 
 ## Start the Web Server
 
@@ -273,7 +333,9 @@ We will complete the same steps for the Franchisee app. The one difference is we
 
 ## Test out the Rewards App
 
-1. In Chrome, visit http://localhost:8080
+Before following the directions below, that ensure you are **logged out** of any Okta sessions. **DO NOT use an Incognito browser window** for the steps that follow.
+
+1. In Chrome, visit http://localhost:8080 
 
 2. Click the `Rewards App (Redirect)` link. You should be redirected to Okta to sign in.
 
@@ -317,6 +379,13 @@ You should be redirected back to the CRM app and you should see see Kay's email 
 
 2. In the terminal window in VSCode where you launched the web server, press `CTRL`+`C` to stop the web server. 
 
+## ✅ Checkpoint
+
+You now know how to set up an application integration in Okta.
+
+## 🎉 End of Module 1 Labs
+**You may close this workspace project, ensuring all changes were saved.**
+
 # Lab 2.1 Configure a Custom Domain
 
 🎯 **Objective:**   Configure a custom domain in Okta and configure your DNS to support the custom URL. 
@@ -330,36 +399,35 @@ You should be redirected back to the CRM app and you should see see Kay's email 
 1. Log in to your Okta org as `oktatraining`.
 2.  Click `Customizations` > `Domain`.
 3.  Click `Edit` and then click the `Get started` button.
+4. To prepare for the next step, expand the **Credentials** panel in your VM.
 
-In the next step, you will find your assigned fully-qualifed domain for this class, which you will enter on this page.
+![Start Code Tour](./.tour-resources/1-1_expand_sidebar.gif)
 
-## Find Your Fully-Qualified Subdomain 
+## Fill Out Your Fully-Qualified Domain 
 
-To locate the fully-qualified domain name assigned to you for this class:
+The fully-qualified domain you will use for this step consists of a **subdomain** and a **domain** in the format `oktaice########.coffee-ice.com`
 
-1. Open the credentials spreadsheet
+1. In the **Add domain** form on Okta, click into the `Domain` field. 
 
-2.  Navigate to the `CLOUDFLARE` section
+2.  In the **Credentials** panel in your VM, click the ![paste from VM](./.tour-resources/copy.png) icon next to `Subdomain` to paste your subdomain into this field.
 
-3.  Locate the `SUBDOMAIN` and `DOMAIN` next to your name in the list
+3.  Click back into the `Domain` field in the **Add domain** form.
 
-4.  Your fully-qualified domain is `<SUBDOMAIN>.<DOMAIN>`, e.g. `signin###.coffee-ice.com`.
+4.  Append `.coffee-ice.com` after your subdomain. It should now look something like `oktaice########.coffee-ice.com`
 
-5.  Enter this fully-qualified domain name into the `Domain` field in Okta.
+5.  Under **Certificate management**, ensure `Okta-managed` is selected.
 
-6.  Under **Certificate management**, ensure Okta-managed is selected.
-
-7.  Click `Next`.
+6.  Click `Next`.
 
 Okta will now provide you with a `TXT` value and a `CNAME` value, which we will use in the next step to verify that we own this domain.
 ![Getting values from Okta to set up the custom domain](./.tour-resources/custom-domain.gif)
 
 ## Log In to the DNS Configuration Tool
-In a new tab, navigate to our DNS configuration tool at [https://oktaice.store/ciam/](https://oktaice.store/ciam/) and log in with the following information (replacing ### with your assigned subdomain number)
+In a new tab, navigate to our DNS configuration tool at [https://oktaice.store/ciam/](https://oktaice.store/ciam/) and log in with the following information (replacing ######## with your assigned subdomain number from the **Credentials** panel in your VM)
 
 | Field Name | Value |
 |-----------|--------:|
-| Subdomain | `signin###` |
+| Subdomain | `oktaice########` |
 | Domain | `coffee-ice.com` |
 | Username | `oktatraining` |
 | Password | `Tra!nme4321` |
@@ -377,34 +445,35 @@ There should not be any entries. If there are, delete them.
 
 3.  Switch back to your Okta tab
 
-4.  Copy the **TXT entry name** (e.g.,`_acme-challenge.signin###.coffee-ice.com`)
+4.  Copy the **Host** value next to in the **TXT** row (e.g.,`_acme-challenge.oktaice########.coffee-ice.com`)
 
 5.  Switch back to the DNS configuration tool
 
-6.  Paste this text into the `Name` field
+6.  Paste this text into the `Host` field
 
 7.  Switch back to your Okta tab
 
-8.  Copy the **TXT entry content** (a unique value generated by Okta)
+8.  Copy the **Value** entry in the **TXT** row (a unique value generated by Okta)
 
 9.  Switch back to the DNS configuration tool
 
-10.  Paste this text into the `Content` field
+10.  Paste this text into the `Value` field
 
 11. Click `Add`
 
 ![Adding the TXT contents](./.tour-resources/add-txt.gif)
+
 ## Add the CNAME Entry
 
 1.  In the `Type` section, choose `CNAME`
 2.  Switch back to your Okta tab
-3. Copy the **CNAME entry name** (e.g., `signin###.coffee-ice.com`)
+3. Copy the **Host** entry in the **CNAME** row (e.g., `oktaice########.coffee-ice.com`)
 4. Switch back to the DNS configuration tool
-5. Paste this text into the `Name` field
+5. Paste this text into the `Host` field
 6. Switch back to your Okta tab
-7. Copy the **TXT entry content** (Your Okta org URL)
+7. Copy the **Value** entry in the **CNAME** row (Your Okta org URL)
 8. Switch back to the DNS configuration tool
-9. Paste this text into the `Content` field
+9. Paste this text into the `Value` field
 10. Click `Add`
 11. Click `Cancel`
 12. You should now see the two entries you added
@@ -420,17 +489,11 @@ Navigate back to the Okta tab and click `Next`. Okta will take a moment to verif
 
 - If verification is successful, Okta will issue a TLS certificate for your custom domain. Click `Finish`.
 
-![Issue Okta Cert](./.tour-resources/issue-cert.gif)
-
-To verify your custom domain, you can open an incognito window and visit `https://<SUBDOMAIN>.<DOMAIN>`. You should see the Okta Sign In page.
-
-However, since we just configured these DNS records, old records may still be cached by DNS providers or your local machine. If your custom domain isn't resolving, you can [flush the DNS cache](https://support.opendns.com/hc/en-us/articles/227987067-How-to-refresh-the-DNS-cache-on-OpenDNS-Global-Resolvers-).
-
-📝 **Note:** The custom domain is valid for the User Home console and the Self-Service screens. The custom domain is not used in the admin console.
+You will see a status of **Pending** for your custom domain as it can take several minutes to half an hour for the domain to become ready.
 
 ## ✅ Checkpoint
 
-At this point, you have done the configuration that will allow you to access your Okta org with your custom domain. Setting up a custom domain also allows you to customize the Okta-hosted SIW.
+At this point, you have configured a custom domain for your Okta org. Setting up a custom domain also allows you to customize the Okta-hosted SIW.
 
 # Lab 2.2: Customize the Okta Sign-In Page With the Branding UI
 🎯 **Objective:**  Customize the Okta Sign-In Page with Okta Ice branding.    
@@ -449,9 +512,10 @@ At this point, you have done the configuration that will allow you to access you
 
 You will see the default Sign-in page code, which we'll walk through next.
 
+
 ## The Default Sign-in Page Code
 
-The code from the default Okta-hosted sign-in Page has been copied here so we can explore it more in depth. You can customize the Okta-hosted sign-in page, not only by modifying the code in the Sign-in Page Code Editor, but by configuring settings in Okta's Theme Builder. Your Okta org must have Theme Builder enabled to use these macros in the Sign In Page code editor.
+The code from the default Okta-hosted sign-in Page has been copied here so we can explore it more in depth. You can customize the Okta-hosted sign-in page, not only by modifying the code in the Sign-in Page Code Editor, but by configuring settings in Okta's Branding UI. Your Okta org must have Branding enabled to use these macros in the Sign In Page code editor.
 
 ```html
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -500,7 +564,7 @@ The code from the default Okta-hosted sign-in Page has been copied here so we ca
 
 ## Examine the Sign-in Page Macros
 
-Throughout the default Sign-in Page code, you will see entries surrounded by curly braces `{{}}` such as the one highlighted here. These are called **macros**. Macros generate code that can be applied in the Sign-In Page code editor. The data these macros depend upon are configurable in Okta's Theme Builder.  
+Throughout the default Sign-in Page code, you will see entries surrounded by curly braces `{{}}` such as the one highlighted here. These are called **macros**. Macros generate code that can be applied in the Sign-In Page code editor. The data these macros depend upon are configurable in Okta's Branding UI.  
 
 ## Sign-in Page Macro: `themedStylesUrl`
 
@@ -539,7 +603,7 @@ This line instantiates a new `OktaSignIn` object with the configurations we have
 
 
 ## SIW JavaScript: Rendering the Okta SIW
-The `OktaSignIn` object is then used to call the `renderEl()` funtion to render the SIW. Let's take a look at the method signature to break down what's being passed to this method:
+The `OktaSignIn` object is then used to call the `renderEl()` method to render the SIW. Let's take a look at the method signature to break down what's being passed to this method:
 
 ```
  renderEl(renderOptions: RenderOptions, successFn?: RenderSuccessCallback, errorFn?: RenderErrorCallback): Promise<RenderResult> 
@@ -557,7 +621,7 @@ This paramater expects a function, which gets called if there is an error when c
 
 
 ## Access the Okta Branding UI
-Before we make any changes to the default Sign-in Page code, let's see what we can customize the SIW without touching any code at all. We'll do this with Okta's Theme Builder.
+Before we make any changes to the default Sign-in Page code, let's see what we can customize the SIW without touching any code at all. We'll do this with Okta's Branding UI.
 
 Navigate to `Customize` > `Branding`
 
@@ -602,7 +666,7 @@ Next, we're going to upload a custom background image.
 
 1. Click the pencil icon next to the `Background` item
 2. Select `Upload new image`
-3. Open `C:\ClassFiles\okta-hosted-siw\img\ice-cream-bg.png`
+3. Open `C:\ClassFiles\02-customizing-okta-hosted-siw\img\ice-cream-bg.png`
 
 ![Our Custom Logo](./img/ice-cream-bg.png)
 
@@ -631,7 +695,7 @@ You should now see a customized Sign-in Page, which we've achieved without chang
 
 ## ✅  Checkpoint
 
-We saw how we could customize the SIW without touching the Sign-In Page code through Okta's Branding UI. For some use cases, this level of customization is enough! For other use cases, we might want to customize the Sign-In Page beyond what Okta's Branding UI can offer. In the next lab, we use the integrated Sign-In Page code editor to achieve this.
+We have seen how we could customize the SIW without touching the Sign-In Page code through Okta's Branding UI. For some use cases, this level of customization is enough! For other use cases, we might want to customize the Sign-In Page beyond what Okta's Branding UI can offer. In the next lab, we use the integrated Sign-In Page code editor to achieve this.
 
 # Lab 2.3: Customize the Okta Sign-In Page Using the Sign-In Page Code Editor
 
@@ -673,7 +737,7 @@ Notice that this updates what we see in `Elements` and `Style` and we can see th
 
 We now know that the text color of the general text elements in the SIW is defined by the `#okta-sign-in *` selector so now we can add some embedded CSS to the Sign-In Page code. We'll make changes here first before checking the changes in the embedded Sign-In Page Code Editor.
 
-Notice that this lab step automatically points to a particular line in the HTML code. This is where you will be adding some embedded CSS to change the font color of the general text in the SIW to a pink hue that matches the Okta Ice logo. 
+Notice that this lab step automatically points to a particular line in the HTML code. This is where you will be adding some embedded CSS to change the font color of the general text in the SIW to a blue hue that matches the Okta Ice logo. 
 
 Type in the following embedded CSS **or** use the `Insert Code` link to add it automatically:
 
@@ -685,23 +749,32 @@ Type in the following embedded CSS **or** use the `Insert Code` link to add it a
 </style>
 ```
 
+Finally, save your `HTML` file.
+
 ## Preview Font Color Change in the Sign-In Page Code Editor
 
-Notice that this step has automatically highlighted the entire HTML file for you. 
+Notice that this step has automatically opened the the HTML file for you here in VSCode.
 
-1. Right click into the code frame and select `Copy`.
-2. Go back to your Okta Sign-In Page Code Editor tab in Chrome.
-3. Highlight the contents of the `HTML` box.
-4. Right click and select `Paste` to replace the code with the contents of your clipboard.
-5. Scroll up and verify that your embedded CSS now appears in the code.
-6. Click the `Preview` button and observe the font color change.
+1. Click into this HTML file and press `CTRL`+`A` to select the entire contents.
+
+2. Press `CTRL`+`C` to copy the code.
+
+3. Go back to your Okta Sign-In Page Code Editor tab in Chrome.
+
+4. Click inside of the Code Editor box and press `CTRL`+`A` to highlight the entire contents and press `BACKSPACE` to delete it.
+
+5. Press `CTRL`+`V` to paste in your updated code.
+
+6. Scroll up and verify that your embedded CSS now appears in the code.
+
+7. Click the `Preview` button and observe the font color change.
 
 ![Preview font color change](./.tour-resources/preview-text-color.gif)
 
 
 ## Inspect the SIW Form Header
 
-Notice that our font color change was not applied to the `Sign In` header on above the form in the SIW. Let's inspect the Sign-In Page code again. In your latest preview of the Sign-In Page, on the `Sign-In` text and select `Inspect`
+Notice that our font color change was not applied to the `Sign In` header on above the form in the SIW. Let's inspect the Sign-In Page code again. In your latest preview of the Sign-In Page, right click on on the `Sign-In` text and select `Inspect`
 
 When we do this, we see that the font color for this element is specified in the selector `#okta-sign-in.auth-container h2`
 
@@ -718,31 +791,43 @@ As always, we recommend manually typing in the following code segment, but you m
 
 ```css
 #okta-sign-in.auth-container h2 {
-    color: #E4AACD;
+    color: #0E2D5B;
 }
 ```
+
+Finally, [Click here to `Save`](command:workbench.action.files.save) your `HTML` file.
+
 ## Preview Font Color Change of Form Header
 
-Notice that this step has automatically highlighted the entire HTML file for you. 
 
-1. Right click into the code frame and select `Copy`
-2. Go back to your Okta Sign-In Page Code Editor tab in Chrome.
-3. Highlight the contents of the `HTML` box.
-4. Right click and select `Paste` to replace the code with the contents of your clipboard.
-5. Scroll up and verify that your embedded CSS now appears in the code.
-6. Click the `Preview` button and observe that the font color of the form header now matches the other text in the SIW.
+Notice that this step has automatically opened the the HTML file for you here in VSCode.
+
+1. Click into this HTML file and press `CTRL`+`A` to select the entire contents.
+
+2. Press `CTRL`+`C` to copy the code.
+
+3. Go back to your Okta Sign-In Page Code Editor tab in Chrome.
+
+4. Click inside of the Code Editor box and press `CTRL`+`A` to highlight the entire contents and press `BACKSPACE` to delete it.
+
+5. Press `CTRL`+`V` to paste in your updated code.
+
+6. Scroll up and verify that your updated embedded CSS now appears in the code.
+
+7. Click the `Preview` button and observe the font color change of the header.
 
 ![Preview font color change](./.tour-resources/preview-header-color.gif)
 
-## Inspect the SIW Main Container
+## Inspect the SIW Header
 
-Next, let's find out what selector we can access to change the background color of the SIW. In your latest preview of the Sign-In Page, right click into the body of the SIW. Here find the selector `#okta-sign-in.auth-container.main-container` that we can use for this purpose.
+Next, let's find out what selector we can access to change the background color of the SIW header area. In your latest preview of the Sign-In Page, right click into the header area of the SIW. Here we see the selector `#okta-sign-in.auth-container .okta-sign-in-header`
 
 ![Inspect SIW container](./.tour-resources/inspect-siw-container.gif)
 
 ## Update the SIW Header Background Color
+Notice that this step automatically opens our HTML file and selects the line where we can add to our code. Let's add some custom CSS that will change the background color of the SIW header to a dark blue. We'll use the `#okta-sign-in.auth-container .okta-sign-in-header` selector to do this.
 
-Let's change the background color of the SIW header to a dark blue. We'll use the `#okta-sign-in.auth-container .okta-sign-in-header` selector to do this by adding to our embedded CSS code:
+As always, we recommend manually typing in the following code segment, but you may alternatively use the `Insert Code` link.
 
 ```css
 #okta-sign-in.auth-container .okta-sign-in-header {
@@ -750,17 +835,25 @@ Let's change the background color of the SIW header to a dark blue. We'll use th
 }
 ```
 
-## Preview the SIW Background Color Change
+Finally, [Click here to `Save`](command:workbench.action.files.save) your `HTML` file.
 
+## Preview the SIW Header Background Color Change
 
-Notice that this step has automatically highlighted the entire HTML file for you. 
+Notice that this step has automatically opened the the HTML file for you here in VSCode.
 
-1. Right click into the code frame and select `Copy`
-2. Go back to your Okta Sign-In Page Code Editor tab in Chrome.
-3. Highlight the contents of the `HTML` box.
-4. Right click and select `Paste` to replace the code with the contents of your clipboard.
-5. Scroll up and verify that your embedded CSS now appears in the code.
-6. Click the `Preview` button and observe that the background color of the SIW has changed.
+1. Click into this HTML file and press `CTRL`+`A` to select the entire contents.
+
+2. Press `CTRL`+`C` to copy the code.
+
+3. Go back to your Okta Sign-In Page Code Editor tab in Chrome.
+
+4. Click inside of the Code Editor box and press `CTRL`+`A` to highlight the entire contents and press `BACKSPACE` to delete it.
+
+5. Press `CTRL`+`V` to paste in your updated code.
+
+6. Scroll up and verify that your updated embedded CSS now appears in the code.
+
+7. Click the `Preview` button and observe that the background color of the SIW header has changed.
 
 ![Preview bg color change](./.tour-resources/preview-bg-siw.gif)
 
@@ -768,33 +861,45 @@ Notice that this step has automatically highlighted the entire HTML file for you
 
 Let's change the color of the `Help` so it stands out a bit more and matches our branding. In your latest preview of the Sign-In Page, right click on the `Help` link at the bottom of the SIW and select `Inspect`
 
-Here we find the relevant selectors: `#okta-sign-in.auth-container .link` and `#okta-sign-in.auth-container .link::visited`
+Here we find the relevant selectors: `#okta-sign-in.auth-container .link:link` and `#okta-sign-in.auth-container .link:visited`
 
 ![Inspect link element](./.tour-resources/inspect-link.gif)
 
 ## Update the SIW Link Color
 
-We're going to add to our embedded CSS at the indicated line of the HTML file. Not only are we going to define the link color, but we'll define the color for a visited link as well. We'll define both as a bright blue:
+We're going to add to our embedded CSS at the indicated line of the HTML file. Not only are we going to define the link color, but we'll define the color for a visited link as well. We'll define both as a light blue.
+
+Notice that this step highlights the line where you should be adding this code, which is just under the CSS we added in the previous step.
+
+As always, we recommend manually typing in the following code segment, but you may alternatively use the `Insert Code` link.
 
 ```css
   #okta-sign-in.auth-container .link:visited, 
-  #okta-sign-in.auth-container .link {
+  #okta-sign-in.auth-container .link:link {
     color: #5AB9F2;
   }
 ```
 
+Finally, [Click here to `Save`](command:workbench.action.files.save) your `HTML` file.
+
 ## Preview the Link Color Change
 
+Notice that this step has automatically opened the the HTML file for you here in VSCode.
+
+1. Click into this HTML file and press `CTRL`+`A` to select the entire contents.
+
+2. Press `CTRL`+`C` to copy the code.
+
+3. Go back to your Okta Sign-In Page Code Editor tab in Chrome.
+
+4. Click inside of the Code Editor box and press `CTRL`+`A` to highlight the entire contents and press `BACKSPACE` to delete it.
+
+5. Press `CTRL`+`V` to paste in your updated code.
+
+6. Scroll up and verify that your updated embedded CSS now appears in the code.
 
 
-Notice that this step has automatically highlighted the entire HTML file for you. 
-
-1. Right click into the code frame and select `Copy`
-2. Go back to your Okta Sign-In Page Code Editor tab in Chrome.
-3. Highlight the contents of the `HTML` box.
-4. Right click and select `Paste` to replace the code with the contents of your clipboard.
-5. Scroll up and verify that your embedded CSS now appears in the code.
-6. Click the `Preview` button and observe that the color of the `Help` link in the SIW has changed to white.
+7. Click the `Preview` button and observe that the color of the `Help` link in the SIW has changed to white.
 
 ![Preview bg color change](./.tour-resources/preview-link.gif)
 
@@ -816,7 +921,19 @@ At this point, you've investigated additional customizations you can make to the
 
 ## Copy Redirect Applications 
 
-Click here to copy the `redirect` directory to this workspace.
+Copy the `redirect` directory to this workspace:
+
+1. Open a new terminal in VSCode. Notice it open the terminal in the root directory of the workspace.
+
+2. Issue the command:
+
+```bash
+mkdir redirect; cp ../01-introducing-okta/redirect/* redirect
+```
+
+## ✅ Checkpoint
+
+At this point, you have copies of the apps you configured in `Lab 1.4` in the current workspace. This will be necessary to see how SSO works as we configure additional applications in the portal.
 
 # Lab 3.2: Configure the Customer Polling App Using the Embedded Widget
 
@@ -825,65 +942,64 @@ Click here to copy the `redirect` directory to this workspace.
 ⏱️ Duration: 15 min
 
 
-## Enable Cross-Origin Resource Sharing (CORS)
+## A Note on Cross-Origin Resource Sharing (CORS)
 
-In Okta, **CORS** allows JavaScript hosted on your website to make a request using an
+Recall that we have already enabled CORS for the Okta Ice Portal in Module 1. This is necessary when deploying authentication using the Embedded Widget model. In Okta, **CORS** allows JavaScript hosted on your website to make a request using an
 `XMLHttpRequest` to the Okta API. Every website origin must be explicitly permitted as a **Trusted Origin** in your Okta org. 
 
-1. Ensure you are logged in to the Admin Dashboard as `oktatraining`
 
-2. In the Admin menu, navigate to `Security` > `API`
-
-3. Click on the `Trusted Origins`  tab.
-
-4. Click the `Add Origin` button
-
-5. Enter `Okta Ice Portal` into the **Origin name** field.
-
-6. Enter `http://localhost:8080` into the **Origin URL** field.
-
-7. Under **Choose Type**, select `Cross-Origin Resource Sharing (CORS)` 
-
-6. Click `Save`
+## Create an Application Integration for the Customer Polling App
 
 The Polling app is an existing application in this project. We're going to set up an integration in Okta so our customers can access this application. 
 
-1. In the Admin menu, navigate to `Applications` > `Applications`
+1. Ensure you are logged in to the Admin Panel as `oktatraining`
 
-2. Click `Create App Integration`
+2. In the Admin menu, navigate to `Applications` > `Applications`
 
-3. Select the `OIDC - OpenID Connect` radio button.
+3. Click `Create App Integration`
 
-4. Select the `Single-Page Application` radio button.
+4. Select the `OIDC - OpenID Connect` radio button.
 
-5. Name this application `Customer Polling`
+5. Select the `Single-Page Application` radio button.
 
-6. Under **Grant Type** select both `Authorization Code` and `Interaction Code`. 
+6. Click `Next`
 
-7. In the **Sign-in redirect URIs** field, enter `http://localhost:8080/embedded/polling.html`
+7. Name this application `Customer Polling`
 
-8. Under **Assignments** click the radio button option for `Limit access to select groups`
+8. Under **Grant Type** select both `Authorization Code` and `Interaction Code`. 
 
-9. Type in and select `Customers`
+9. In the **Sign-in redirect URIs** field, enter `http://localhost:8080/embedded/polling.html`
 
-10. Click `Save`
+10. Under **Assignments** click the radio button option for `Limit access to select groups`
 
+11. Type in and select `Customers`
+
+12. Click `Save`
 
 ## Configure the Polling Application `appClientID`
 
 1. Copy the `Client ID` that was displayed after you saved your integration. 
 
-2. Paste the `Client ID` into the `appClientID` variable above.
+2. Paste the `Client ID` into the `appClientID` variable.
 
 ## Configure the Polling Application `baseOktaURL`
 
-1. Change the `baseOktaURL` to match your assigned Okta org URL.
+1. Update the value of `baseOktaURL` to match your assigned Okta org URL. Recall that you can access this URL from the `Link` section of the **Credentials** panel in your VM.
 
-2. Click here to `Save` your `polling.html` file.
+2. `Save` your `polling.html` file.
 
-## Embed the Sign-In Widget
+## Import the Okta Sign-In Widget Library
 
-The Polling application imports Okta's Sign In Widget JavaScript library via CDN. Embedding tne Sign In Widget directly to the page allows for full customization.
+We're going to import Okta's Sign In Widget JavaScript and CSS library from a CDN (Content Delivery Network) by adding the followng two lines to the `<head>` section of the Customer Polling app:
+
+```html
+<script src="https://global.oktacdn.com/okta-signin-widget/5.8.3/js/okta-sign-in.min.js" type="text/javascript"></script>
+<link href="https://global.oktacdn.com/okta-signin-widget/5.8.3/css/okta-sign-in.min.css" type="text/css" rel="stylesheet"/>
+```
+
+The libraries imported here are the same ones used by the Okta-hosted Sign-In Widget that we saw in Module 2.
+
+Embedding the Sign In Widget directly to a page in your application allows for full customization.
 
 ## ✅ Checkpoint
 
@@ -921,7 +1037,7 @@ You should now see the ID Token (which is formatted as a JSON web token or **JWT
 
 - `sub` (subject of the JWT): Soraya's Okta User ID
 - `name`: Soraya's name
-- `email`: Soray's email address
+- `email`: Soraya's email address
 - `ver`: Okta API version
 - `iss` (issuer of the JWT): The URL of your Okta Authorization server
 - `aud` (audience): Your app's Client ID
@@ -938,6 +1054,10 @@ You should now see the ID Token (which is formatted as a JSON web token or **JWT
 3. Notice that you are not prompted to authenticate again as you have an existing session. 
 
 You should see the ID Token value and its claims. Much of this content is the same as you saw on the Polling App. However, notice that the `jti` (JWT ID) and the `aud` (audience) are different. You should now see that the `aud` is this Client ID of the Rewards app.
+
+## ✅ Checkpoint
+
+At this point, you have seen how web SSO works between two applications accessible to members of the Customer group.
 
 # Lab 4.1: Get an API token and set up the Postman Environment
 
@@ -971,15 +1091,15 @@ Last, click the `Save` button.
 
 ## Assign Administrator Permissions
 
-1.	Navigate to `Security` > `Administrators`
+1. Navigate to `Security` > `Administrators`
 
-2.	Click `Add Administrator`
+2. Click `Add Administrator`
 
 3. In the `Admin` field, type and select the user `Okta Service`
 
-4.	In the `Role` field, select `Super Administrator`
+4. In the `Role` field, select `Super Administrator`
 
-5.	Click `Save Changes`
+5. Click `Save Changes`
 
 ## Sign In to Service Account
 
@@ -1008,13 +1128,13 @@ Copy this value by clicking the clipboard button.
 
 ## Import the Postman Environment
 
-1.	In the VM, launch the Postman app (an orange circular icon).
+1. In the VM, launch the Postman app (an orange circular icon).
 
-2.	Click the `Import` button on the top left of the application.
+2. Click the `Import` button on the top left of the application.
 
-3.	Click `Link`.
+3. Click `Link`.
 
-4.	Paste the URL `https://developer.okta.com/docs/api/postman/example.oktapreview.com.environment`
+4. Paste the URL `https://developer.okta.com/docs/api/postman/example.oktapreview.com.environment`
 
 5. Click `Continue` and then `Import` to confirm.
 
@@ -1026,7 +1146,7 @@ Copy this value by clicking the clipboard button.
 
 3.	Click `Edit`.
 
-4.	Rename the environment `oktaice###.oktapreview.com`, replacing `###` with your unique Okta org number.
+4.	Rename the environment `oktaice########.oktapreview.com`, replacing `########` with your unique Okta org number.
 
 ## Configure the Postman Environment Variables
 
@@ -1034,23 +1154,23 @@ In the next steps, you will define certain environment variables so that you can
 
 ## Configure the `url` Environment Variable
 
-Update the `CURRENT VALUE` of `url` to your Okta org's url, e.g. `http://oktaice###.oktapreview.com`
+Update the `CURRENT VALUE` of `url` to your Okta org's url, e.g. `http://oktaice########.oktapreview.com`
 
 ## Configure the `apikey` Environment Variable
 
-Copy the API Token from the text file opened here and paste it into the `CURRENT VALUE` column of the `apikey` variable
+Copy the API Token from the text file opened above and paste it into the `CURRENT VALUE` column of the `apikey` variable
 
 ## Configure the `email-suffix` Environment Variable
 
-Enter `okta-ice.com` for in the `CURRENT VALUE` column for the `email-suffix` variable
+Enter `okta-ice.com` in in the `CURRENT VALUE` column for the `email-suffix` variable.
 
-## Persist and Save all Environment Variables
+## Persist and Update all Environment Variables
 
-1.	Click `Persist All`
+1. Click `Persist All`
 
-2.	Click `Save`
+2. Scroll down and click `Update`
 
-3.	You may now close the environment variable tab.
+3. You may now close the environment variable tab.
 
 ## ✅ Checkpoint
 
@@ -1074,7 +1194,9 @@ At this point, Postman is now configured to make API calls to Okta. In the next 
 
 4. If prompted, click `Open Postman`
 
-5. In the **Import Collection** window that opens in Postman, choose `My Workspace`
+5. After a moment, you should see a toast notification saying that the **Users (Okta API)** collection was successfully imported.
+
+6. Click on the `Collections` tab and you  should now see the **Users (Okta API)** collection with 42 requests.
 
 You should now see the **Users (Okta API)** collection under **Collections**
 
@@ -1082,7 +1204,7 @@ You should now see the **Users (Okta API)** collection under **Collections**
 
 1. Click on the **Users (Okta API)** collection to expand it.
 
-2. Click on the **Create Users** subfolder to expand it.
+2. Click on the **Create User** subfolder to expand it.
 
 3. Click on the **Create Activated User with Password** request to open it in a tab.
 
@@ -1118,13 +1240,15 @@ Let's take a moment to examine this request and its parameters. Ensure you are o
 
 4. The `Credentials` object consists of a `password`.
 
-## Edit the Request Body
+## Update the Request Body
 
 The `Profile` object in this request only includes the four profile attributes that are required by default on Okta. We can include additional optional attributes as well!
 
 We're going to update the `Profile` object's default attributes and add a `nickName` and `userType` attribute. Recall that we created a **Group Rule** in `Lab 1.2` that will automatically add a user with `userType` **customer** to our **Customers** group.
 
 The `Credentials` object will be left unchanged.
+
+Your updated request body will be:
 
 ```json
 {
@@ -1142,7 +1266,9 @@ The `Credentials` object will be left unchanged.
 }
 ```
 
-## Set the `password` Environment Variable
+(You can ignore the **Insert Code** link above and simply copy and paste the JSON into the request body in Postman)
+
+## Update the `password` Environment Variable
 
 1. Click the eyeball icon to the right of your Postman environment drop down.
 
@@ -1150,7 +1276,7 @@ The `Credentials` object will be left unchanged.
 
 3. Scroll down to the `password` variable and enter `Tra!nme4321` in the `CURRENT VALUE` column.
 
-4. Click `Persist All` and then `Save`
+4. Click `Persist All` and then scroll down and click `Update`
 
 5. Close the Environment variable tab and return to the **Create Activated User with Password** request tab.
 
@@ -1188,7 +1314,7 @@ We'll store the `id` in the `userId` environment variable:
 
 3. Right click on the highlighted value.
 
-4. Select `Set` and then `userId`
+4. Select `Set: {environment name}` and then `userId`
 
 ## Get Groups for User
 
@@ -1206,11 +1332,11 @@ We'll store the `id` in the `userId` environment variable:
 
 ## ✅ Checkpoint
 
-At this point, you have created an activated user with a password using the Users API. This has allowed you to see how a User is represented on Okta and how a User is created when using any of Okta's Management SDKs.
+At this point, you have created an activated user with a password using the Users API. This has allowed you to see how a User is represented in Okta.
 
 # Lab 4.3: Update an Okta User Profile Via the Users API
 
-🎯 Objective: Update an existing Okta User's profile using an API request.
+🎯 Objective: Update an existing Okta User using a request from the Okta Users API collection in Postman.
 
 ⏱️ Duration: 15 min
 
@@ -1230,19 +1356,19 @@ For our purposes, we will use the `POST` method for a partial update.
 
 ## Create the Request
 
-1. In Postman, click `New` or hold `CTRL` + `N`
+1. In Postman, click the big orange `+ New` button.
 
 2. In the window that pops up, click `HTTP REQUEST`
 
-3. Click the drop down menu and change the HTTP method from `GET` to `POST`
+3. Enter `Update User` as the **Request name**
 
-4. For the request URL, enter `{{url}}/api/v1/users/{{userId}}`
+4. Select `Users (Okta API)` in the **Select a collection or folder to save to**  section.
 
-5. Click `Save`
+5. Click `Save to Users (Okta API)` 
 
-6. Name this request `Update User`
+6. In the new request tab that opens, click the drop down menu and change the HTTP method from `GET` to `POST`
 
-7. Ensure the `Users (Okta API)` collection is selected
+7. For the request URL, enter `{{url}}/api/v1/users/{{userId}}`
 
 8. Click `Save`
 
@@ -1279,6 +1405,9 @@ In this case, we can imagine that the user's `lastName` needs to be updated. Sin
 }
 }
 ```
+
+**Ignore the Insert code link above**
+
 
 Click `Save` and then `Send` to issue the request.
 
@@ -1587,3 +1716,12 @@ Because you have an existing session and are a member of the **Customers** group
 ## ✅ Checkpoint
 
 At this point, you have customized the email template used to generate the **Email Factor Verification** customers receive when they sign up for applications. You have also verified that self-service registration works for customer applications, and that these users can access all customer applications via web SSO.
+
+
+# Lab 5.4 Customize Implement a Registration Inline Hook
+
+ 🎯 **Objective**    Customize the email template used to generate the email customers receive when they sign up for Okta Ice's customer apps.
+
+  🎬 **Scenario**     Okta Ice would like to apply their own branding to the email that customers receive after registration. They also need to modify the HTML code so that customers are greeted by their username.
+
+  ⏱️ **Duration**    15 minutes
