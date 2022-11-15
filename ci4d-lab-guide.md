@@ -1875,7 +1875,11 @@ Both the `commands` array and `error` object are sent in the response to Okta la
 ### Test the Registration Inline Hook 
 
 1. Visit the Okta Ice Portal at http://localhost:8080 
-  >> If your Okta Ice Portal app is no longer running, click here to run it first.
+  >> If your Okta Ice Portal app is no longer running, run in with this command:
+
+  ```bash
+  python -m http.server 8080
+  ```
 
 2. Click on `Rewards App (Redirect)`
 
@@ -1929,6 +1933,158 @@ Invalid email domain: gmail.com (message from inline hook)
 ## ✅ Checkpoint
 
 At this point, you have created and enabled a Registration Inline Hook in a self-service registration Profile Enrollment Policy in Okta. This hook calls out to our custom Nodejs hosted on Glitch and determines whether or not a user can register for a customer application, depending on the value of their email address. Only users who register with  `allow.example.com` email addresses will be permitted to register for customer applications.
+
+## Lab 5.5: Implement a User Account Update Event Hook
+
+🎯 Objective: Implement a User account update event hook
+
+🎬 **Scenario**  Okta Ice would like to forward user account update event information to their own external logging service.
+
+⏱️ Duration: 20 min
+
+### Preparation and Background
+
+Event hooks are outbound calls from Okta that can be used to notify your own software systems of events occurring in your Okta org. 
+
+Setting up an event hook in your Okta org requires the following generic steps:
+
+1. Implement your external web service to receive event hook calls from Okta.
+
+2. Register the endpoint of your external service with Okta and configure event hook parameters.
+
+3. Verify to Okta that you control the endpoint.
+
+4. Begin receiving ongoing delivery of event notifications.
+
+### Examine `eventHooks.js`
+
+While our custom code for the inline hook is hosted on Glitch the contents of `eventHooks.js` is copied and opened here so we can walk through it.
+
+`eventHooks.js` defines two routes with the endpoint `/user-profile/update`.  One handles a `POST` request, and the other handles a `GET` request.
+
+Let's take a look at the `GET` route first.
+
+### Examine `eventHooks.js` - `GET /user-profile/update`
+
+When setting up an Okta event hook, Okta will issue a one-time `GET` request to the endpoint we specify. To verify that we truly own that endpoint, Okta requires a response with a request header named `verification` with whatever value Okta sent in its request header named `x-okta-verification-challenge`.
+
+For example, if Okta sends a request with the header
+
+```json
+{"x-okta-verification-challenge": "topsecret"}
+```
+
+Then, our application should send a response with the header:
+
+```json
+{"verification ": "topsecret"}
+```
+
+Examine the highlighted segment in `eventHooks.js`. This segment handles `GET` requests to the `user-profile/update` endpoint. It extracts the value from the request header `x-okta-verification-challenge` and returns that value in a response header named `verification`. This meets the criteria Okta expects when verifying that we own the endpoint.
+
+### Examine `eventHooks.js` - `POST /user-profile/update`
+
+When Okta logs an event our event hook is registered to, Okta will sent to our a request to our endpoint. The `body` of that request will contain JSON data in the following format:
+
+```json
+{
+"eventType": "com.okta.event_hook",
+"eventTypeVersion": "1.0",
+"cloudEventsVersion": "0.1",
+"source": "<base-url-of-okta-org>/api/v1/eventHooks/############",
+"eventId": "#####################",
+"data": {
+    "events": [
+        {  "uuid": "########################",
+            "published": "######################",
+            "eventType": "user.account.update_profile",
+            "version": "0",
+            "displayMessage": "Update user profile for Okta",
+            "severity": "INFO",
+            <...additional entries...>
+        }
+    ]
+},
+"eventTime": "2022-11-15T05:54:21.133Z",
+"contentType": "application/json"
+}
+```
+Examine the highlighted segment in `eventHooks.js` This handles the `POST` request to `/user-profile/update`. It will first verify that we received a valid request payload by checking that the `body` of the request contains a JSON object `data` with an entry named `events`. If we received a valid payload, the `eventType` entry located in the `events` JSON array is stored to a variable called `eventType`. In the example payload above, this would be `"user.account.update_profile"`. 
+
+The event type (embedded in a `description` string), requesting URL, and the entire request body, are then sent to the **Hook Viewer**, which stands in for our logging system. We'll look at the Hook Viewer when we start logging events.
+
+
+### Create the User Account Update Event Hook
+
+1. Ensure you are signed in to the Okta Admin dashboard as your Super Admin account, `oktatraining`.
+
+2. In the Admin menu, select `Workflows` > `Event Hooks`
+
+3. Click  `Create Event Hook`
+
+4. For `Name`, enter `User Account Update Event Hook`
+
+5. For `URL`, enter `https://es-okta-hooks.glitch.me/okta/hooks/event/user-profile/update`
+
+6. Leave the `Authentication` fields blank as we will not use them for the purposes of this lab.
+
+7. Next to `Subscribe to events`, type in and select `User's Okta profile updated`
+
+8. Click `Save & Continue`
+
+### Verify the User Account Update Event Hook
+
+At this stage, Okta will ask you to **verify** the endpoint that Okta will post event data to. This is where Okta will make a `GET` request with the `x-okta-verification-challenge` header and our application will send a `verfication` header in the response.
+
+Click the `Verify` button.
+
+If verification fails, double check that you have entered the correct `URL` in the previous step.
+
+
+### Open the Hook Viewer
+
+Open a new tab and visit https://es-okta-hooks.glitch.me/ 
+
+We will use this page to view logged events. Keep in mind that the endpoint we are using in this example is shared among all classmates, so you will see events logged from other orgs here.
+
+### Test the User Account Update Event Hook
+
+1. Switch to your Okta tab
+
+2. In the Admin menu, navigate to `Directory` > `People`
+
+3. Click on `Kay West`
+
+4. Click on the `Profile` tab.
+
+5. Click `Edit`
+
+6. Update the **Last Name** to `East`.
+
+7. Expand the VM's **Credentials** panel.
+
+8. Scroll down and click `Save`
+
+### Check the Hook Viewer
+
+1. Switch back to the Hook Viewer tab
+
+2. Verify that an event was logged from your Okta org. Your org URL will be listed as the `source`
+
+### ✅ Checkpoint
+
+At this point, you have created and registered an Event Hook for logging updates to user's accounts to an external service using these four steps:
+
+1. Implement your external web service to receive event hook calls from Okta.
+
+2. Register the endpoint of your external service with Okta and configure event hook parameters.
+
+3. Verify to Okta that you control the endpoint.
+
+4. Begin receiving ongoing delivery of event notifications.
+
+### 🎉 End of Module 5 Labs
+**You may close this workspace project, ensuring all changes were saved.**
 
 
 
