@@ -931,6 +931,9 @@ If there's time remaining, feel free to continue tinkering and finding out what 
 
 At this point, you've investigated additional customizations you can make to the Sign-In Page by using the embedded Sign-In Page Code Editor. 
 
+### 🎉 End of Module 2 Labs
+**You may close this workspace project, ensuring all changes were saved.**
+
 # Module 3: Exploring Authentication Protocol Flows
 
 ## Lab 3.1 Project Set Up
@@ -956,6 +959,7 @@ mkdir redirect; cp ../01-introducing-okta/redirect/* redirect
 ### ✅ Checkpoint
 
 At this point, you have copies of the apps you configured in `Lab 1.4` in the current workspace. This will be necessary to see how SSO works as we configure additional applications in the portal.
+
 
 ## Lab 3.2: Configure the Customer Polling App Using the Embedded Widget
 
@@ -1080,6 +1084,9 @@ You should see the ID Token value and its claims. Much of this content is the sa
 ### ✅ Checkpoint
 
 At this point, you have seen how web SSO works between two applications accessible to members of the Customer group.
+
+### 🎉 End of Module 3 Labs
+**You may close this workspace project, ensuring all changes were saved.**
 
 # Module 4: Exploring the Okta Data Model
 
@@ -1447,6 +1454,9 @@ Click `Save` and then `Send` to issue the request.
 
 You now have an understanding of how a partial update of a user's profile is performed by the Users API, which is used by Okta's Management SDKs.
 
+### 🎉 End of Module 4 Labs
+**You may close this workspace project, ensuring all changes were saved.**
+
 # Module 5: Implementing Self-Service Registration
 
 ## Lab 5.1 Modify the Default User Profile Requirements.
@@ -1744,10 +1754,181 @@ Because you have an existing session and are a member of the **Customers** group
 At this point, you have customized the email template used to generate the **Email Factor Verification** customers receive when they sign up for applications. You have also verified that self-service registration works for customer applications, and that these users can access all customer applications via web SSO.
 
 
+
 ## Lab 5.4 Customize Implement a Registration Inline Hook
 
- 🎯 **Objective**    Implement an Okta Registration inline hook
+ 🎯 **Objective**    Implement an Okta Inline Hook to customize the Profile Enrollment flow during Self-Service Registration.
 
-  🎬 **Scenario**     Okta Ice would like to apply their own branding to the email that customers receive after registration. They also need to modify the HTML code so that customers are greeted by their username.
+  🎬 **Scenario**     During their testing phase, Okta Ice would like to limit self-service registration to their customer applications to people with certain email domain names.
 
-  ⏱️ **Duration**    15 minutes
+  ⏱️ **Duration**    20 minutes
+
+### Preparation and Background
+
+The Okta registration inline hook allows you to integrate your own custom code into Okta's Profile Enrollment flow. The hook is triggered after Okta receives the registration or profile update request. Your custom code can:
+
+- Allow or deny the registration attempt, based on your own validation of the information the user has submitted
+
+- Set or override the values that are populated in attributes of the user's Okta profile
+
+This custom code must be accessible publicly on the Internet rather than our localhost. 
+
+Our custom code that will handle the profile enrollment flow during self-service registration is a Nodejs app hosted on Glitch at: https://es-okta-hooks.glitch.me/
+
+### Examine `registrationHooks.js` - Routing
+
+While our custom code for the inline hook is hosted on Glitch the contents of `registrationHooks.js` is copied and opened here so we can walk through it.
+
+`registrationHooks.js` defines a route with the endpoint `/domain`. The anonymous function in this route gets called when the application receives a `POST` request to `https://es-okta-hooks.glitch.me/okta/hooks/registration/domain`
+
+This is the URL Okta will need to call to via the inline hook during self-service registration.   
+
+### Examine `registrationHooks.js` - Payload Validation
+
+When our application on Glitch receives a `POST` request to `domain`, the request data is validated. We check if there is a JSON object named `data` and if that object has a `userProfile` object. The `data.userProfile` object appears in SSR requests from Okta.
+
+If `data` or `data.userProfile` are null, the application returns a response that tells Okta to `DENY` registration. Let's take a closer look at how that response is formed.
+
+### Examine `registrationHooks.js` - Response to Invalid Payload
+
+When Okta sends a request to your customer code via the Registration Inline Hook, Okta expects a JSON response that contains:
+
+- an array of one or more **commands** to be executed by Okta
+
+and/or
+
+- an **error** object to indicate problems with the registration request
+
+We can see in the code highlighted above that, if we have an invalid payload, we construct a `commands` array that contains one command of **type** `com.okta.action.update` and the **value** of that command is `"registration": "DENY"`
+
+Additionally, we create an `error` object specifying that there was an invalid request payload. These two objects will be sent in the response to Okta.
+
+This tells Okta to deny the registration request with the specified error.
+
+### Examine `registrationHooks.js` - Parse Email
+
+What happens if the payload our app receives is valid? We get the `email` from the `data.userProfile` object and parse out certain components of the email address to handle whether we will allow or deny the registration. This decision is handled by switch cases later on in the script.
+
+- `emailName`: Everything to the left of the `@` symbol in the email address
+
+- `emailDomain`: Everything to the right of the `@` symbol in the email address
+
+- `emailPrefix`: We'll use a predetermined prefix that we'll append to email addresses (e.g. `allow.gmail.com`) to demonstrate how we can limit registration to specific email domains.
+
+- `parsedEmail`: The complete email address without the `emailPrefix` so that we can still receive Okta activation emails when we register with an email like `user@allow.gmail.com` (the activation email will be sent to `user@gmail.com`)
+
+### Examine `registrationHooks.js` - Allow Case
+
+If a user attempts to register with an email address with the prefix `allow` in the domain, two commands are added to the `commands` array:
+
+- The first command is of **type** `command.okta.action.update` with a **value** of `registration: "ALLOW"`
+
+- The second command is of **type** `com.okta.user.profile.update` with a **value** of `email: parsedEmail`
+
+Note that the command that allows registration is not required, as it is given by default. It is provided here for clarity. The second command that updates the user's email address is provided since we are using `allow.email.com` as a stand-in for our allowed email domain. Because we want to make sure the Okta activation email goes to our actual email address at `email.com`, we issue a command to update the user's profile with the actual email address without this special `allow` prefix.
+
+Finally, there is no **error** object for this case since it is not relevant.
+
+### Examine `registrationHooks.js` - Default Deny Case
+
+If a user attempts to register with any other email address, the `commands` array will contain a single command to deny the registration, similar to the case when Okta sent an invalid payload. 
+
+In addition to this, an `error` object is created. The `errorCauses.errorSummary` string will be in the Sign-In Widget. The other information in this `error` object is used for logging purposes.
+
+Both the `commands` array and `error` object are sent in the response to Okta later in this script.
+
+
+### Create the Registration Inline Hook
+
+1. Ensure you are signed in to the Okta Admin dashboard as your Super Admin account, `oktatraining`.
+
+2. In the Admin menu, select `Workflows` > `Inline Hooks`
+
+3. Click  `Add Inline Hook` and select `Registration` from the drop down menu.
+
+4. For `Name`, enter `Email Domain Registration Hook`
+
+5. For `URL`, enter `https://es-okta-hooks.glitch.me/okta/hooks/registration/domain`
+
+6. For `Authentication key`, enter `x-api-key`
+
+7. For `Authentication secret`, enter `NOTUSED` (this is just a placeholder value for our class demonstration purposes)
+
+8. Click `Save`
+
+### Enable the Registration Inline Hook
+
+📝 **Note:** You can associate only one inline hook at a time with your Profile Enrollment policy.
+
+1. In the Admin menu, go to `Security` > `Profile Enrollment`.
+
+2. Click the pencil icon next to `Customer Apps Enrollment Policy`
+
+3. In the **Profile Enrollment** section, click `Edit`
+
+4. In the **Inline Hook** section, select `Email Domain Registration Hook` from the drop down menu.
+
+5. Click `Save`
+
+6. **Log out** of Okta.
+
+### Test the Registration Inline Hook 
+
+1. Visit the Okta Ice Portal at http://localhost:8080 
+  >> If your Okta Ice Portal app is no longer running, click here to run it first.
+
+2. Click on `Rewards App (Redirect)`
+
+3. Click the `Sign up` link
+
+In the next steps, we are going to test the following cases (where `example.com` is any domain):
+
+- **`allow.example.com`** - Registration will be allowed, and the response to Okta will include a debugContext message.
+
+- **any other domain** - The response to Okta will include a command to deny the registration, an error object that will be displayed in the Sign-In widget, and a debugContext message.
+
+### Test the Registration Inline Hook - Allow Case
+
+1. In the `Email` field, enter an email address you can check so that it fits the `allow` case.
+  >> For example, if your email is `user@gmail.com`, you would enter **`user@allow.gmail.com`**
+
+2. For `Username`, enter `testuser`
+
+3. Click `Sign Up`
+
+4. You will now see that your registration is allowed since you are prompted to set your password. Set your password to `Tra!nme4321`
+
+5. Check your email and enter the numeric code you receive in the `Enter Code` field.
+
+You're now registered and logged in to the Customer Rewards app.
+
+### Test the Registration Inline Hook - Default Deny Case
+
+Now we'll test the default (deny) case, which should display a custom error in the Okta Sign-In widget
+
+1. Click `Close Session` in the Okta Ice Portal app 
+
+2. Click `Return to Portal`
+
+3. Click `Rewards App (Rewards)`
+
+4. Click the `Sign up` link
+
+5. In the `Email` field, enter your email address without any modifications.
+
+6. In the `Username` field, enter `iamerror`
+
+7. Click `Sign Up`
+
+You will now see that your registration is denied with a custom error displayed in the Okta Sign-In widget:
+
+```
+Invalid email domain: gmail.com (message from inline hook)
+```
+
+## ✅ Checkpoint
+
+At this point, you have created and enabled a Registration Inline Hook in a self-service registration Profile Enrollment Policy in Okta. This hook calls out to our custom Nodejs hosted on Glitch and determines whether or not a user can register for a customer application, depending on the value of their email address. Only users who register with  `allow.example.com` email addresses will be permitted to register for customer applications.
+
+
+
