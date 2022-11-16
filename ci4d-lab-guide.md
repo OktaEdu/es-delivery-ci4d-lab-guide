@@ -50,7 +50,9 @@ Copyright 2022 Okta, Inc. All Rights Reserved.
 
   - Module 6: Migrating and Managing Users
 
-  - Module 7: Securing Your Environment with Policies and MFA
+  - [Module 7: Securing Your Environment with Policies and MFA](#module-7-securing-your-environment-with-policies-and-mfa)
+    - [Lab 7.1 Configure Passwordless Authentication with Email Magic Link](#lab-71-configure-passwordless-authentication-with-email-magic-link)
+    - [Lab 7.2: Configure MFA with Two Factor Types](#lab-72-configure-mfa-with-two-factor-types)
 
   - Module 8: Authenticating to Okta with External IdPs
 
@@ -2255,6 +2257,11 @@ At this point, you have configured and enabled MFA using two authentication fact
 Note that the existing **Default Policy** applies to `Everyone`. We want to create a policy that only affects **Customers** and not **Franchisees**. So, in the next step, we will create a new Authenticators Enrollment Policy that will allow self-service account recovery.
 
 ### Create the Customer Authenticators Enrollment Policy
+1. Click `Add a policy`
+2. Name the policy `Customer Self-Service Recovery`
+3. In the `Assign to groups` section, type and select `Customers`
+4. Click `Create policy`
+
 3. Select the Default Policy and add a new Rule.
 4. Click Add rule.
 5. In Rule Name, type the name Self Service Password and Unlock Rule.
