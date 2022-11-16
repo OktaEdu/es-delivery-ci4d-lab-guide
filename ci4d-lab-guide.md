@@ -126,38 +126,10 @@ At this point, you have access to your lab environment to complete the rest of t
 
 3. Click `Save`
 
-#### Create a Group Rule for the Customer Group
-
-Now we will create a rule so that any user created that has the `userType` `customer` will automatically be added to the Customer group. This will be helpful when we implement self-service registration for our customers.
-
-1. On the top of the **Groups** page, click the `Rules` tab.
-
-2. Click **Add Rule**
-
-3. Name the rule `Add customer userType to Customers Group`
-
-4. Set the **IF** section to read: IF `User attribute` `userType` `Equals` `customer`
-
-5. In the **THEN Assign to** section, type and select the `Customers` group.
-
-6. Click `Save`
-
-#### Activate the Group Rule
-
-You should now see the `Add customer userType to Customers Group` rule listed on the **Group Rules** page.
-
-Notice, however, that the `Status` is `Inactive`, so we'll need to activate it:
-
-1. Click the drop down next to `Inactive`
-
-2. Select `Activate`
-
-3. Confirm the `Status` has changed to `Active`
-
 
 #### ✅ Checkpoint
 
-You now have two Okta Groups that you will use to manage access to applications. You also have a Group Rule that will automatically add users with `userType` **customer** to the **Customers** group. We'll leverage this rule when we implement self-service registration for customers in Module 5.
+You now have two Okta Groups that you will use to manage access to applications. 
 
 
 ## Lab 1.3 Create Okta Users
@@ -1579,6 +1551,8 @@ The Enrollment Form will appear during Self-Service Registation
 
 4. Select `Username (login)`
 
+5. Delete `First Name` and `Last Name`
+
 ### ✅ Checkpoint
 
 At this point, you have configured self-service registration for the the customer applications.
@@ -1930,11 +1904,11 @@ You will now see that your registration is denied with a custom error displayed 
 Invalid email domain: gmail.com (message from inline hook)
 ```
 
-## ✅ Checkpoint
+### ✅ Checkpoint
 
 At this point, you have created and enabled a Registration Inline Hook in a self-service registration Profile Enrollment Policy in Okta. This hook calls out to our custom Nodejs hosted on Glitch and determines whether or not a user can register for a customer application, depending on the value of their email address. Only users who register with  `allow.example.com` email addresses will be permitted to register for customer applications.
 
-## Lab 5.5: Implement a User Account Update Event Hook
+### Lab 5.5: Implement a User Account Update Event Hook
 
 🎯 Objective: Implement a User account update event hook
 
@@ -2086,5 +2060,212 @@ At this point, you have created and registered an Event Hook for logging updates
 ### 🎉 End of Module 5 Labs
 **You may close this workspace project, ensuring all changes were saved.**
 
+## Module 6: 
+
+## Module 7: Securing Your Environment with Policies and MFA
 
 
+### Lab 7.1 Configure Passwordless Authentication with Email Magic Link
+
+ 🎯 **Objective**    Configure passwordless authentication with Email Magic Link
+
+  🎬 **Scenario**    Okta Ice would like to provide customers with the option of using a passwordless method of authentication when accessing the Rewards and Polling apps.
+
+  ⏱️ **Duration**    15 minutes
+
+### Import And Run Your Previously Configured Web Apps
+
+We will now copy the web applications we previously configured to this workspace, so that we can test out passwordless authentication and, later, multifactor authentication and self-service account recovery.
+
+1. Click [here to copy the previously configured applications](command:codetour.sendTextToTerminal?["mkdir redirect; mkdir embedded; cp ../03-exploring-authentication-protocol-flows/redirect/* redirect; cp ../03-exploring-authentication-protocol-flows/* embedded"]).
+
+2. Click [here to launch the web server](command:codetour.sendTextToTerminal?["python -m http.server 8080"]).
+
+### Enable the Authentication and Recovery Options
+
+1.In the Admin menu, go to `Security` > `Authenticators`
+
+2. Click the  `Actions` drop-down in the  **Email** row of the list of authenticators.
+
+3. Click `Edit`
+
+4. In the **Used for** section, select  `Authentication and recovery` 
+
+5. Click `Save`
+
+This means that email can now be used as an authenticator and not just for account recovery. We'll still need to configure a Sign On policy to use email as an authenticator.
+
+### Disable Unused Authenticators
+
+For the purposes of this class, we'll only be using the Password and Email (Magic Link) authenticators. So, let's disable the ones we aren't using.
+
+1. On the Authenticators page, click on the `Enrollment` tab.
+2. Click the `Edit` button.
+3. Change **Okta Verify** to `Disabled`
+4. Change **Phone** to `Disabled`
+5. **Email** should be `Optional` and **Password** should be `Required`
+
+### Configure the Email Magic Link Sign On Policy
+
+1. Ensure you are logged in to the Admin Dashboard as `oktatraining`
+
+2. In the Admin menu, go to `Security` > `Authentication Policies`
+
+3. Click `Add a Policy`
+
+4. Name the policy `Email Magic Link`
+
+5. Click `Save`
+
+6. Click `Add Rule`
+
+7. Name the rule `Customers Email Magic Link Rule`
+
+8. Next to **User's group membership includes**, click the drop-down and 
+select `At least one of the following groups`
+
+9. In the `Enter groups to include` field that pops up below, search for and 
+select the `Customers` group
+
+10. Next to **User must authenticate with**, select `Any 1 factor type` from the drop-down.
+
+11. Next to **Possession factor constraints are**, uncheck `Exclude phone and email authenticators`
+
+12. Click `Save`
+
+### Configure Customer Apps to Use the Email Magic Link Sign On Policy
+
+1. Back on the `Email Magic Link` policy page, click the `Applications` tab.
+
+2. Click `Add App`
+
+3. Click the `Add` button next to `Customer Rewards App`
+
+4. Click the `Add` button next to `Customer Polling App`
+
+5. Click `Close`
+
+6. Log out of Okta.
+
+### Test the Email Magic Link Sign On Policy
+
+1. Navigate to http://localhost:8080
+2. Click on `Rewards App (Redirect)`
+3. Enter the username `testuser`, which was previously registered with your personal email address in Module 5.
+4. You now have the choice to authenticate with Email or Password. Click `Email`
+5. Click `Send me an email`
+6. Click `Enter a verification code instead`
+7. Check your personal email for an email from your Okta Org and copy the numeric code into the `Enter Code` field
+8. Click `Verify` and you will be logged in to the Customer Rewards application!
+9. Click `Close Okta Session`
+10. Click `Return to Portal`
+
+📝 **Note**: In order for the clickable Email Magic Link to work, the link must be clicked in the same device that the authentication process was initiated. Since we're using a VM and you are likely checking your email on a personal device, we circumvent this by using the verification code instead.
+
+### ✅ Checkpoint
+
+At this point, you have configured and enabled passwordless authentication for Okta Ice's customers. You have done this by creating a Sign On Policy that specifies that any user in the customer group can sign in with any one factor. Since this policy was applied to the Customer Rewards and Customer Polling apps, customers can choose to authenticate with email or password when accessing this application.
+
+### Lab 7.2: Configure MFA with Two Factor Types
+
+ 🎯 **Objective**    Configure multifactor authentication (MFA) with two factor types.
+
+  🎬 **Scenario**    Okta Ice would like to secure the Franchisee CRM application with MFA. They'd like to require franchisees to authenticate with a knowledge factor (password) and a possession factor (email).
+
+  ⏱️ **Duration**    15 minutes
+
+### Make Yourself a Franchisee
+
+1. Log in to your Okta org as `oktatraining` and access the Admin dashboard.
+
+2. From the Admin menu, select `Directory` > `People`
+3. Click on `Kay West`
+4. Click on `Profile`
+5. Click `Edit`
+6. Update the **Primary email** to your personal email address
+7. Click `Save`
+
+### Create the Franchisee Two Factor Okta Sign-On Policy
+1. In the Admin menu, go to `Security` > `Okta Sign-On Policy`.
+2. Click `Add a Policy`
+3. Name the policy `Franchisee Two Factor`
+4. Click `Save`
+5. Click `Add Rule`
+6. Name the rule `Franchisee Two Factor Rule`
+7. Next to **User's group membership includes**, click the drop-down and 
+select `At least one of the following groups`
+
+8. In the `Enter groups to include` field that pops up below, search for and 
+select the `Franchisees` group
+
+9. Next to **User must authenticate with**, select `Password + Another factor` from the drop-down.
+
+10. Next to **Possession factor constraints are**, uncheck `Exclude phone and email authenticators`
+
+11. Click `Save`
+
+### Configure Franchisee CRM App to Use Two Factor Sign On Policy
+
+1. Back on the `Franchisee Two Factor` policy page, click the `Applications` tab.
+
+2. Click `Add App`
+
+3. Click the `Add` button next to `Franchisee CRM App`
+
+4. Click `Close`
+
+5. Log out of Okta.
+
+### Test the Two Factor Sign On Policy
+
+1. Navigate to http://localhost:8080
+2. Click on `CRM App (Redirect)`
+3. Enter the **Username** `kay.west@oktaice.com` and click `Next`
+4. Enter the **Password** `Tra!nme4321!` and click `Verify`
+5. You are now prompted for a email as a second factor of authentication.
+6. Click `Send me an email`
+7. Click `Enter a verification code instead`
+8. Check your personal email for an email from your Okta Org and copy the numeric code into the `Enter Code` field
+9. Click `Verify` and you will be logged in to the Customer Rewards application!
+10. Click `Close Okta Session`
+11. Click `Return to Portal`
+
+📝 **Note**: In order for the clickable Email Magic Link to work, the link must be clicked in the same device that the authentication process was initiated. Since we're using a VM and you are likely checking your email on a personal device, we circumvent this by using the verification code instead.
+
+### ✅ Checkpoint
+
+At this point, you have configured and enabled MFA using two authentication factors -- Knowledge (password) and Possession (email) You have done this by creating a Sign On Policy that specifies that any user in the Franchisee group must sign in with a password and an additional factor. Since this policy was applied to the Franchisee CRM app, any Franchisee must authenticate with a password and an additional factor. Since we've only configured email as an additional factor, that is the only other factor available in this case.
+
+### Lab 7.3: Enable and Configure Self-Service Account Recovery
+
+ 🎯 **Objective**    Enable and configure self-service account recovery.
+
+  🎬 **Scenario**    Okta Ice would like to allow their customers to be able to recover their account without having to contact an administrator.
+
+  ⏱️ **Duration**    15 minutes
+
+### Navigate to Authenticators Enrollment Policies
+
+1. Log in to your Okta org as `oktatraining` and access the Admin dashboard.
+
+2. In the Admin menu, go to `Security` > `Authenticators`.
+
+3. Click on the `Enrollment` tab.
+
+Note that the existing **Default Policy** applies to `Everyone`. We want to create a policy that only affects **Customers** and not **Franchisees**. So, in the next step, we will create a new Authenticators Enrollment Policy that will allow self-service account recovery.
+
+### Create the Customer Authenticators Enrollment Policy
+3. Select the Default Policy and add a new Rule.
+4. Click Add rule.
+5. In Rule Name, type the name Self Service Password and Unlock Rule.
+6. Modify the Self Service Password and Unlock Rule with the following
+a. Scroll down to THEN Users can perform self-service.
+i. Ensure Password change (from account settings) is 
+enabled.
+ii. Ensure Password reset is enabled.
+iii. Ensure Unlock Account is enabled.  
+7. Scroll down to AND Users can initiate recovery with.
+a. Enable Okta Verify (Push notification only).
+b. Enable Phone (SMS/Voice call).
+c. Enable Email.
+8. Click Create rule.
