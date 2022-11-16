@@ -56,7 +56,7 @@ Copyright 2022 Okta, Inc. All Rights Reserved.
 
   - Module 8: Authenticating to Okta with External IdPs
 
-# Module 1: Introducing Okta
+## Module 1: Introducing Okta
 
 ### Lab 1.1: Access Your Okta Org
 
@@ -200,7 +200,7 @@ You now have a test user in the Franchisee group and a test user in the Customer
 
   ⏱️ **Duration**    15 minutes
 
-  #### Enable Cross-Origin Resource Sharing (CORS)
+#### Enable Cross-Origin Resource Sharing (CORS)
 
 In Okta, **CORS** allows JavaScript hosted on your website to make a request using an
 `XMLHttpRequest` to the Okta API. While we aren't hosting the Okta Sign-In Widget when we use the Redirect Model, our sample applications ***do*** call out to Okta's API to close an Okta session and log a user out. Every website origin must be explicitly permitted as a **Trusted Origin** in your Okta org. 
@@ -315,7 +315,7 @@ We will complete the same steps for the Franchisee app. The one difference is we
 
 7. **Log out** of your Okta org since you will be logging in as a different user in the subsequent steps.
 
-### Start the Web Server
+#### Start the Web Server
 
 1. Open a new terminal in VSCode 
 
@@ -323,7 +323,7 @@ We will complete the same steps for the Franchisee app. The one difference is we
 
 3. Issue the command `python -m http.server 8080`
 
-### Test out the Rewards App
+#### Test out the Rewards App
 
 Before following the directions below, that ensure you are **logged out** of any Okta sessions. **DO NOT use an Incognito browser window** for the steps that follow.
 
@@ -335,7 +335,7 @@ Before following the directions below, that ensure you are **logged out** of any
 
 You should be redirected back to the Rewards app and you should see some information printed to the page that we will discuss later. For now you can see Soraya's email address at the top as well as your app's Client ID at the bottom.
 
-### Try to Access the CRM App
+#### Try to Access the CRM App
 
 1. Still logged in as Soraya, click `Return to Portal`
 
@@ -347,7 +347,7 @@ You should be redirected back to the Rewards app and you should see some informa
 
 5. Click `Return to Portal`
 
-### Log in as a Franchisee Partner
+#### Log in as a Franchisee Partner
 
 Now we're going to log in as Kay West, who is a member of the Franchisees group.
 
@@ -365,20 +365,20 @@ Now we're going to log in as Kay West, who is a member of the Franchisees group.
 
 You should be redirected back to the CRM app and you should see see Kay's email address at the top as well as your app's Client ID at the bottom. 
 
-### End Your Okta Session and Shut Down the Web Server
+#### End Your Okta Session and Shut Down the Web Server
 
 1. Click the `Close Okta Session` button.
 
 2. In the terminal window in VSCode where you launched the web server, press `CTRL`+`C` to stop the web server. 
 
-### ✅ Checkpoint
+#### ✅ Checkpoint
 
 You now know how to set up an application integration in Okta.
 
-### 🎉 End of Module 1 Labs
+#### 🎉 End of Module 1 Labs
 **You may close this workspace project, ensuring all changes were saved.**
 
-# Module 2: Customizing the Okta-Hosted Sign In Widget 
+## Module 2: Customizing the Okta-Hosted Sign In Widget 
 
 ## Lab 2.1 Configure a Custom Domain
 
@@ -388,7 +388,7 @@ You now know how to set up an application integration in Okta.
 
 ⏱️ **Duration:**     20 minutes
 
-### Configure a Subdomain
+#### Configure a Subdomain
 
 1. Log in to your Okta org as `oktatraining`.
 2.  Click `Customizations` > `Domain`.
@@ -397,7 +397,7 @@ You now know how to set up an application integration in Okta.
 
 ![Start Code Tour](./.tour-resources/1-1_expand_sidebar.gif)
 
-### Fill Out Your Fully-Qualified Domain 
+#### Fill Out Your Fully-Qualified Domain 
 
 The fully-qualified domain you will use for this step consists of a **subdomain** and a **domain** in the format `oktaice########.coffee-ice.com`
 
@@ -416,7 +416,7 @@ The fully-qualified domain you will use for this step consists of a **subdomain*
 Okta will now provide you with a `TXT` value and a `CNAME` value, which we will use in the next step to verify that we own this domain.
 ![Getting values from Okta to set up the custom domain](./.tour-resources/custom-domain.gif)
 
-### Log In to the DNS Configuration Tool
+#### Log In to the DNS Configuration Tool
 In a new tab, navigate to our DNS configuration tool at [https://oktaice.store/ciam/](https://oktaice.store/ciam/) and log in with the following information (replacing ######### with your assigned subdomain number from the **Credentials** panel in your VM)
 
 | Field Name | Value |
@@ -457,7 +457,7 @@ There should not be any entries. If there are, delete them.
 
 ![Adding the TXT contents](./.tour-resources/add-txt.gif)
 
-### Add the CNAME Entry
+#### Add the CNAME Entry
 
 1.  In the `Type` section, choose `CNAME`
 2.  Switch back to your Okta tab
@@ -475,7 +475,7 @@ There should not be any entries. If there are, delete them.
 
 ![Adding the NAME contents](./.tour-resources/add-name.gif)
 
-### Issue an Okta-Managed Certificate
+#### Issue an Okta-Managed Certificate
 
 Navigate back to the Okta tab and click `Next`. Okta will take a moment to verify the DNS 01 challenge:
 
@@ -485,7 +485,7 @@ Navigate back to the Okta tab and click `Next`. Okta will take a moment to verif
 
 You will see a status of **Pending** for your custom domain as it can take several minutes to half an hour for the domain to become ready.
 
-### ✅ Checkpoint
+#### ✅ Checkpoint
 
 At this point, you have configured a custom domain for your Okta org. Setting up a custom domain also allows you to customize the Okta-hosted SIW.
 
@@ -507,7 +507,7 @@ At this point, you have configured a custom domain for your Okta org. Setting up
 You will see the default Sign-in page code, which we'll walk through next.
 
 
-### The Default Sign-in Page Code
+#### The Default Sign-in Page Code
 
 The code from the default Okta-hosted sign-in Page has been copied here so we can explore it more in depth. You can customize the Okta-hosted sign-in page, not only by modifying the code in the Sign-in Page Code Editor, but by configuring settings in Okta's Branding UI. Your Okta org must have Branding enabled to use these macros in the Sign In Page code editor.
 
@@ -556,47 +556,47 @@ The code from the default Okta-hosted sign-in Page has been copied here so we ca
 </html>
 ```
 
-### Examine the Sign-in Page Macros
+#### Examine the Sign-in Page Macros
 
 Throughout the default Sign-in Page code, you will see entries surrounded by curly braces `{{}}` such as the one highlighted here. These are called **macros**. Macros generate code that can be applied in the Sign-In Page code editor. The data these macros depend upon are configurable in Okta's Branding UI.  
 
-### Sign-in Page Macro: `themedStylesUrl`
+#### Sign-in Page Macro: `themedStylesUrl`
 
 The macro `{{themedStylesUrl}}` generates a CSS file that defines the primary and secondary colors for this page.
 
-### Sign-in Page Macro: `faviconUrl`
+#### Sign-in Page Macro: `faviconUrl`
 
 The `{{faviconUrl}}` macro inserts the URL for the favicon. The favicon can be changed in the Okta Branding UI.
 
-### Sign-in Page Macro: `pageTitle`
+#### Sign-in Page Macro: `pageTitle`
 
 The `{{pageTitle}}` macro inserts the page title set in the Okta Branding UI.
 
-### Sign-in Page Macro: `SignInWidgetResource`
+#### Sign-in Page Macro: `SignInWidgetResource`
 
 The `SignInWidgetResource` inserts the JavaScript and CSS files required to use the Okta Sign-In Widget.
 
-### Sign-in Page Macro: `bgImageUrl`
+#### Sign-in Page Macro: `bgImageUrl`
 
 The `{{bgImageUrl}}` macro inserts the URL to the background image configured in your Okta organization. You can upload and set this background image in the Okta Branding UI.
 
-### Sign-in Page Macro: `OktaUtil`
+#### Sign-in Page Macro: `OktaUtil`
 
 Defines a global `OktaUtil` JavaScript object that contains methods used to complete the Okta sign-in flow. When an application uses the Okta-hosted sign-in page to sign a user in, information (called request context) is available about the target application and the request.
 
-### Sign-In Widget JavaScript
+#### Sign-In Widget JavaScript
 Next we'll walk through this bit of JavaScript that is responsible for rendering the Okta Sign-In Widget (SIW) on the sign in page. The SIW itself is a JavaScript library.
 
-### SIW JavaScript: `config` Variable
+#### SIW JavaScript: `config` Variable
 
 The `config` variable gets the configuration of the Sign-In Widget, This configuration, at minimum, defines the `issuer`, `clientId`, and `redirectUri`
 
-### SIW JavaScript: Creating an `OktaSignIn` Object
+#### SIW JavaScript: Creating an `OktaSignIn` Object
 
 This line instantiates a new `OktaSignIn` object with the configurations we have stored in `config`. This will be used to render the SIW in the following lines.
 
 
-### SIW JavaScript: Rendering the Okta SIW
+#### SIW JavaScript: Rendering the Okta SIW
 The `OktaSignIn` object is then used to call the `renderEl()` method to render the SIW. Let's take a look at the method signature to break down what's being passed to this method:
 
 ```
@@ -614,7 +614,7 @@ This parameter expects a function, which gets called upon successfully configuri
 This paramater expects a function, which gets called if there is an error when configuring and rendering the widget. Currently, we are simply logging the error to console.
 
 
-### Access the Okta Branding UI
+#### Access the Okta Branding UI
 Before we make any changes to the default Sign-in Page code, let's see what we can customize the SIW without touching any code at all. We'll do this with Okta's Branding UI.
 
 Navigate to `Customize` > `Branding`
@@ -625,7 +625,7 @@ Under the `Theme` section, you can define:
 - Favicon
 - Background
 
-### Customize the Primary and Secondary Colors
+#### Customize the Primary and Secondary Colors
 
 In the default Sign-in Page code, the primary color is applied to the `Sign In` button and the secondary color is applied to the background color of the Sign-in page.
 
@@ -653,7 +653,7 @@ Next, we're going to upload a custom favicon.
 
 ![Our Custom Logo](./img/favicon.png)
 
-### Customize the Background Image
+#### Customize the Background Image
 
 Next, we're going to upload a custom background image. 
 
@@ -674,7 +674,7 @@ Now that we have customized our theme, we need to apply it to our Sign-in page.
 4. Click `Save and Publish`
 
 
-### Preview the Sign-In Page
+#### Preview the Sign-In Page
 
 We're going to navigate back to the Sign-in page code editor to preview the Sign In Page and add some additional customizations.
 
@@ -687,7 +687,7 @@ You should now see a customized Sign-in Page, which we've achieved without chang
 
 **Leave this page open for the next lab.**
 
-### ✅  Checkpoint
+#### ✅  Checkpoint
 
 We have seen how we could customize the SIW without touching the Sign-In Page code through Okta's Branding UI. For some use cases, this level of customization is enough! For other use cases, we might want to customize the Sign-In Page beyond what Okta's Branding UI can offer. In the next lab, we use the integrated Sign-In Page code editor to achieve this.
 
@@ -707,7 +707,7 @@ In this lab, you will be adding code to the default Okta Sign-In Page html. For 
 To provide a differentiated experience for learners of all types, we've included an `Insert Code` link after each coding segment. This inserts the code to the correct line(s) automatically. After you insert the code, you will still have to click `Next` to advance to the next lab step.
 
 
-### Inspect the Sign-In Page Elements
+#### Inspect the Sign-In Page Elements
 
 You should still have the Sign-In Page preview open from the last lab. If you do not have this page open, ensure you are signed in as your `oktatraining` and:
 
@@ -719,7 +719,7 @@ On the preview of your Sign-In Page, right click on the page and select `Inspect
 
 Alternatively, you can use the keyboard shortcut `SHIFT` + `CONTROL` + `C`
 
-### Inspect the Form Label Element
+#### Inspect the Form Label Element
 
 One of the elements we may want to customize, is the font color of the text in the SIW. Let's inspect the `Username` form label in the SIW by right-clicking on the element and selecting `Inspect`
 
@@ -727,7 +727,7 @@ Notice that this updates what we see in `Elements` and `Style` and we can see th
 
 ![Inspect Elements](./.tour-resources/inspect-label.gif)
 
-### Update the Font Color of General Text in the SIW
+#### Update the Font Color of General Text in the SIW
 
 We now know that the text color of the general text elements in the SIW is defined by the `#okta-sign-in *` selector so now we can add some embedded CSS to the Sign-In Page code. We'll make changes here first before checking the changes in the embedded Sign-In Page Code Editor.
 
@@ -745,7 +745,7 @@ Type in the following embedded CSS **or** use the `Insert Code` link to add it a
 
 Finally, save your `HTML` file.
 
-### Preview Font Color Change in the Sign-In Page Code Editor
+#### Preview Font Color Change in the Sign-In Page Code Editor
 
 Notice that this step has automatically opened the the HTML file for you here in VSCode.
 
@@ -766,7 +766,7 @@ Notice that this step has automatically opened the the HTML file for you here in
 ![Preview font color change](./.tour-resources/preview-text-color.gif)
 
 
-### Inspect the SIW Form Header
+#### Inspect the SIW Form Header
 
 Notice that our font color change was not applied to the `Sign In` header on above the form in the SIW. Let's inspect the Sign-In Page code again. In your latest preview of the Sign-In Page, right click on on the `Sign-In` text and select `Inspect`
 
@@ -775,7 +775,7 @@ When we do this, we see that the font color for this element is specified in the
 ![Inspect the header text above the form](./.tour-resources/inspect-header.gif)
 
 
-### Update the SIW Form Header Font Color
+#### Update the SIW Form Header Font Color
 
 We're going to add some more embedded CSS to change the color of the form header to match the Okta Ice dark blue of the other text in the SIW. 
 
@@ -791,7 +791,7 @@ As always, we recommend manually typing in the following code segment, but you m
 
 Finally, [Click here to `Save`](command:workbench.action.files.save) your `HTML` file.
 
-### Preview Font Color Change of Form Header
+#### Preview Font Color Change of Form Header
 
 
 Notice that this step has automatically opened the the HTML file for you here in VSCode.
@@ -812,13 +812,13 @@ Notice that this step has automatically opened the the HTML file for you here in
 
 ![Preview font color change](./.tour-resources/preview-header-color.gif)
 
-### Inspect the SIW Header
+#### Inspect the SIW Header
 
 Next, let's find out what selector we can access to change the background color of the SIW header area. In your latest preview of the Sign-In Page, right click into the header area of the SIW. Here we see the selector `#okta-sign-in.auth-container .okta-sign-in-header`
 
 ![Inspect SIW container](./.tour-resources/inspect-siw-container.gif)
 
-### Update the SIW Header Background Color
+#### Update the SIW Header Background Color
 Notice that this step automatically opens our HTML file and selects the line where we can add to our code. Let's add some custom CSS that will change the background color of the SIW header to a dark blue. We'll use the `#okta-sign-in.auth-container .okta-sign-in-header` selector to do this.
 
 As always, we recommend manually typing in the following code segment, but you may alternatively use the `Insert Code` link.
@@ -831,7 +831,7 @@ As always, we recommend manually typing in the following code segment, but you m
 
 Finally, [Click here to `Save`](command:workbench.action.files.save) your `HTML` file.
 
-### Preview the SIW Header Background Color Change
+#### Preview the SIW Header Background Color Change
 
 Notice that this step has automatically opened the the HTML file for you here in VSCode.
 
@@ -851,7 +851,7 @@ Notice that this step has automatically opened the the HTML file for you here in
 
 ![Preview bg color change](./.tour-resources/preview-bg-siw.gif)
 
-### Inspect Link Element
+#### Inspect Link Element
 
 Let's change the color of the `Help` so it stands out a bit more and matches our branding. In your latest preview of the Sign-In Page, right click on the `Help` link at the bottom of the SIW and select `Inspect`
 
@@ -859,7 +859,7 @@ Here we find the relevant selectors: `#okta-sign-in.auth-container .link:link` a
 
 ![Inspect link element](./.tour-resources/inspect-link.gif)
 
-### Update the SIW Link Color
+#### Update the SIW Link Color
 
 We're going to add to our embedded CSS at the indicated line of the HTML file. Not only are we going to define the link color, but we'll define the color for a visited link as well. We'll define both as a light blue.
 
@@ -876,7 +876,7 @@ As always, we recommend manually typing in the following code segment, but you m
 
 Finally, [Click here to `Save`](command:workbench.action.files.save) your `HTML` file.
 
-### Preview the Link Color Change
+#### Preview the Link Color Change
 
 Notice that this step has automatically opened the the HTML file for you here in VSCode.
 
@@ -897,20 +897,20 @@ Notice that this step has automatically opened the the HTML file for you here in
 
 ![Preview bg color change](./.tour-resources/preview-link.gif)
 
-### Save and Publish Changes
+#### Save and Publish Changes
 
 If there's time remaining, feel free to continue tinkering and finding out what else you can customize here. When you're done, click the `Save and Publish` button in the Sign-In Page Code Editor.
 
-### ✅ Checkpoint
+#### ✅ Checkpoint
 
 At this point, you've investigated additional customizations you can make to the Sign-In Page by using the embedded Sign-In Page Code Editor. 
 
-### 🎉 End of Module 2 Labs
+#### 🎉 End of Module 2 Labs
 **You may close this workspace project, ensuring all changes were saved.**
 
-# Module 3: Exploring Authentication Protocol Flows
+## Module 3: Exploring Authentication Protocol Flows
 
-## Lab 3.1 Project Set Up
+### Lab 3.1 Project Set Up
 
 🎯 Objective: In order to have working copies of our previously configured redirect apps in our portal, we'll need to copy them to this workspace. This will be necessary to see how SSO works as we configure additional applications in the portal.
 
@@ -918,7 +918,7 @@ At this point, you've investigated additional customizations you can make to the
 
 ⚠️ Prerequisite: Lab 1.4
 
-### Copy Redirect Applications 
+#### Copy Redirect Applications 
 
 Copy the `redirect` directory to this workspace:
 
@@ -930,25 +930,25 @@ Copy the `redirect` directory to this workspace:
 mkdir redirect; cp ../01-introducing-okta/redirect/* redirect
 ```
 
-### ✅ Checkpoint
+#### ✅ Checkpoint
 
 At this point, you have copies of the apps you configured in `Lab 1.4` in the current workspace. This will be necessary to see how SSO works as we configure additional applications in the portal.
 
 
-## Lab 3.2: Configure the Customer Polling App Using the Embedded Widget
+### Lab 3.2: Configure the Customer Polling App Using the Embedded Widget
 
 🎯 Objective: Create an an Okta application integration and deploy authentication using the embedded Sign-In Widget.
 
 ⏱️ Duration: 15 min
 
 
-### A Note on Cross-Origin Resource Sharing (CORS)
+#### A Note on Cross-Origin Resource Sharing (CORS)
 
 Recall that we have already enabled CORS for the Okta Ice Portal in Module 1. This is necessary when deploying authentication using the Embedded Widget model. In Okta, **CORS** allows JavaScript hosted on your website to make a request using an
 `XMLHttpRequest` to the Okta API. Every website origin must be explicitly permitted as a **Trusted Origin** in your Okta org. 
 
 
-### Create an Application Integration for the Customer Polling App
+#### Create an Application Integration for the Customer Polling App
 
 The Polling app is an existing application in this project. We're going to set up an integration in Okta so our customers can access this application. 
 
@@ -982,13 +982,13 @@ The Polling app is an existing application in this project. We're going to set u
 
 2. Paste the `Client ID` into the `appClientID` variable.
 
-### Configure the Polling Application `baseOktaURL`
+#### Configure the Polling Application `baseOktaURL`
 
 1. Update the value of `baseOktaURL` to match your assigned Okta org URL. Recall that you can access this URL from the `Link` section of the **Credentials** panel in your VM.
 
 2. `Save` your `polling.html` file.
 
-### Import the Okta Sign-In Widget Library
+#### Import the Okta Sign-In Widget Library
 
 We're going to import Okta's Sign In Widget JavaScript and CSS library from a CDN (Content Delivery Network) by adding the followng two lines to the `<head>` section of the Customer Polling app:
 
@@ -1001,21 +1001,21 @@ The libraries imported here are the same ones used by the Okta-hosted Sign-In Wi
 
 Embedding the Sign In Widget directly to a page in your application allows for full customization.
 
-### ✅ Checkpoint
+#### ✅ Checkpoint
 
 At this point, you have configured an application using the Embedded Sign-In Widget model of deploying authentication.
 
-## Lab 3.3 Test Web SSO
+### Lab 3.3 Test Web SSO
 
 🎯 Objective: Now that we have deployed authentication on two applications assigned to the Customers group, we can test out web SSO.
 
 ⏱️ Duration: 10 min
 
-### Log Out of Okta
+#### Log Out of Okta
 
 1. If you are still logged in on your Okta org, log out.
 
-### Start the Web Server
+#### Start the Web Server
 
 1. Open a new terminal in VSCode 
 
@@ -1023,7 +1023,7 @@ At this point, you have configured an application using the Embedded Sign-In Wid
 
 3. Issue the command `python -m http.server 8080`
 
-### Test the Polling App
+#### Test the Polling App
 
 1. In Chrome, visit http://localhost:8080
 
@@ -1045,7 +1045,7 @@ You should now see the ID Token (which is formatted as a JSON web token or **JWT
 - `exp` (expiration time): Time the JWT expires. Expressed in Unix time.
 - `jti` (JWT ID): Unique identifier used to prevent the JWT from being replayed
 
-### Test the Rewards App
+#### Test the Rewards App
 
 1. Click on `Return to Portal`
 
@@ -1055,22 +1055,22 @@ You should now see the ID Token (which is formatted as a JSON web token or **JWT
 
 You should see the ID Token value and its claims. Much of this content is the same as you saw on the Polling App. However, notice that the `jti` (JWT ID) and the `aud` (audience) are different. You should now see that the `aud` is this Client ID of the Rewards app.
 
-### ✅ Checkpoint
+#### ✅ Checkpoint
 
 At this point, you have seen how web SSO works between two applications accessible to members of the Customer group.
 
-### 🎉 End of Module 3 Labs
+#### 🎉 End of Module 3 Labs
 **You may close this workspace project, ensuring all changes were saved.**
 
-# Module 4: Exploring the Okta Data Model
+## Module 4: Exploring the Okta Data Model
 
-## Lab 4.1: Get an API token and set up the Postman Environment
+### Lab 4.1: Get an API token and set up the Postman Environment
 
 🎯 Objective: Create an Okta service account for administrative tasks and associations with API tokens. Set up the Postman environment to make API requests to Okta.
 
 ⏱️ Duration: 15 min
 
-### Create an Okta Service Account
+#### Create an Okta Service Account
 
 1. Ensure you are signed in as your Super Admin account, `oktatraining`.
 
@@ -1094,7 +1094,7 @@ At this point, you have seen how web SSO works between two applications accessib
 
 Last, click the `Save` button.
 
-### Assign Administrator Permissions
+#### Assign Administrator Permissions
 
 1. Navigate to `Security` > `Administrators`
 
@@ -1106,7 +1106,7 @@ Last, click the `Save` button.
 
 5. Click `Save Changes`
 
-### Sign In to Service Account
+#### Sign In to Service Account
 
 1. Log out of the **oktatraining** account.
 
@@ -1114,7 +1114,7 @@ Last, click the `Save` button.
 
 3. Click on the `Admin` button.
 
-### Create an API Token
+#### Create an API Token
 
 1.	Ensure you are still logged in to the Admin Dashboard as **Okta Service**
 
@@ -1131,7 +1131,7 @@ Copy this value by clicking the clipboard button.
 
 7. Click here to save the text file.
 
-### Import the Postman Environment
+#### Import the Postman Environment
 
 1. In the VM, launch the Postman app (an orange circular icon).
 
@@ -1143,7 +1143,7 @@ Copy this value by clicking the clipboard button.
 
 5. Click `Continue` and then `Import` to confirm.
 
-### Rename the Postman Environment
+#### Rename the Postman Environment
 
 1.	At the top of the Postman window, there's a drop down that says `No Environment` Click this drop down and select the environment you just imported:  `${yourOktaDomain}`
 
@@ -1153,23 +1153,23 @@ Copy this value by clicking the clipboard button.
 
 4.	Rename the environment `oktaice########.oktapreview.com`, replacing `########` with your unique Okta org number.
 
-### Configure the Postman Environment Variables
+#### Configure the Postman Environment Variables
 
 In the next steps, you will define certain environment variables so that you can make calls to the Core Okta API in the next lab. When defining varialbles, update the CURRENT VALUE column.
 
-### Configure the `url` Environment Variable
+#### Configure the `url` Environment Variable
 
 Update the `CURRENT VALUE` of `url` to your Okta org's url, e.g. `http://oktaice########.oktapreview.com`
 
-### Configure the `apikey` Environment Variable
+#### Configure the `apikey` Environment Variable
 
 Copy the API Token from the text file opened above and paste it into the `CURRENT VALUE` column of the `apikey` variable
 
-### Configure the `email-suffix` Environment Variable
+#### Configure the `email-suffix` Environment Variable
 
 Enter `okta-ice.com` in in the `CURRENT VALUE` column for the `email-suffix` variable.
 
-### Persist and Update all Environment Variables
+#### Persist and Update all Environment Variables
 
 1. Click `Persist All`
 
@@ -1177,11 +1177,11 @@ Enter `okta-ice.com` in in the `CURRENT VALUE` column for the `email-suffix` var
 
 3. You may now close the environment variable tab.
 
-### ✅ Checkpoint
+#### ✅ Checkpoint
 
 At this point, Postman is now configured to make API calls to Okta. In the next lab, you will import the Okta Users API Collection. A collection is a group of saved API requests. 
 
-## Lab 4.2: Create an Okta User via the Users API
+### Lab 4.2: Create an Okta User via the Users API
 
 🎯 Objective: Import the Okta Users API collection into Postman and create an Okta user via API request.
 
@@ -1189,7 +1189,7 @@ At this point, Postman is now configured to make API calls to Okta. In the next 
 
 ⚠️ Prerequisite: Lab 4.1
 
-### Import the Okta Users API Collection Into Postman
+#### Import the Okta Users API Collection Into Postman
 
 1. Within the Chrome browser in your VM, visit https://developer.okta.com/docs/reference/api/users/
 
@@ -1205,7 +1205,7 @@ At this point, Postman is now configured to make API calls to Okta. In the next 
 
 You should now see the **Users (Okta API)** collection under **Collections**
 
-### Open the `Create Activated User with Password` Request
+#### Open the `Create Activated User with Password` Request
 
 1. Click on the **Users (Okta API)** collection to expand it.
 
@@ -1213,7 +1213,7 @@ You should now see the **Users (Okta API)** collection under **Collections**
 
 3. Click on the **Create Activated User with Password** request to open it in a tab.
 
-### Examine the Request Params
+#### Examine the Request Params
 
 Let's take a moment to examine this request and its parameters. Ensure you are on the `params` tab.
 
@@ -1225,7 +1225,7 @@ Let's take a moment to examine this request and its parameters. Ensure you are o
 
 3. Finally, notice that this request uses the HTTP `POST` method. This method is used when creating a new web resource, in this case, an Okta User.
 
-### Examine Request Header
+#### Examine Request Header
 
 1. Click on the `Headers` tab.
 
@@ -1235,7 +1235,7 @@ Let's take a moment to examine this request and its parameters. Ensure you are o
 
 4. The `Content-Type` header communicates the type of data we are sending in our request to Okta. This is also `application/json` data.
 
-### Examine the Request Body
+#### Examine the Request Body
 
 1. Click on the `Body` tab.
 
@@ -1245,7 +1245,7 @@ Let's take a moment to examine this request and its parameters. Ensure you are o
 
 4. The `Credentials` object consists of a `password`.
 
-### Update the Request Body
+#### Update the Request Body
 
 The `Profile` object in this request only includes the four profile attributes that are required by default on Okta. We can include additional optional attributes as well!
 
@@ -1273,7 +1273,7 @@ Your updated request body will be:
 
 (You can ignore the **Insert Code** link above and simply copy and paste the JSON into the request body in Postman)
 
-### Update the `password` Environment Variable
+#### Update the `password` Environment Variable
 
 1. Click the eyeball icon to the right of your Postman environment drop down.
 
@@ -1285,13 +1285,13 @@ Your updated request body will be:
 
 5. Close the Environment variable tab and return to the **Create Activated User with Password** request tab.
 
-### Send the Request
+#### Send the Request
 
 1. Click `Send`
 
 2. Verify that you get a `200 OK` response (visible at the bottom of Postman). If not, go back and ensure you entered the JSON in your request body correctly and that all of your environment variables have been set correctly.
 
-### Examine the Response
+#### Examine the Response
 
 1. Click on the `Body` tab in the Response area (bottom half of the Postman window).
 
@@ -1307,7 +1307,7 @@ Your updated request body will be:
 
 7. Finally, the `_links` section exposes additional Okta Users API endpoints relevant to this user's lifecycle. Notice that all of these links have the user's `id` as a URI parameter in them.
 
-### Set the `userId` Environment Variable
+#### Set the `userId` Environment Variable
 
 You just saw that some API endpoints require a user's `id` as a URI parameter. Next, we're going to call an endpoint that will list all the Groups a user is a member of.
 
@@ -1321,7 +1321,7 @@ We'll store the `id` in the `userId` environment variable:
 
 4. Select `Set: {environment name}` and then `userId`
 
-### Get Groups for User
+#### Get Groups for User
 
 1. In the `Users (Okta API)` collection, click on the `Get Groups for User` request to open it.
 
@@ -1335,11 +1335,11 @@ We'll store the `id` in the `userId` environment variable:
 
 6. Scroll down to locate the second entry in the JSON data, which should be the **Customers** group.
 
-### ✅ Checkpoint
+#### ✅ Checkpoint
 
 At this point, you have created an activated user with a password using the Users API. This has allowed you to see how a User is represented in Okta.
 
-## Lab 4.3: Update an Okta User Profile Via the Users API
+### Lab 4.3: Update an Okta User Profile Via the Users API
 
 🎯 Objective: Update an existing Okta User using a request from the Okta Users API collection in Postman.
 
@@ -1347,7 +1347,7 @@ At this point, you have created an activated user with a password using the User
 
 ⚠️ Prerequisite: Lab 4.2
 
-### Access Okta's Users API Documentation
+#### Access Okta's Users API Documentation
 
 Although the `Users (Okta API)` collection does not have a request to perform updates on a User's profile, the endpoint is documented here: https://developer.okta.com/docs/reference/api/users/#update-user
 
@@ -1359,7 +1359,7 @@ Alternatively, the `PUT` method can be used for a complete update. This would me
 
 For our purposes, we will use the `POST` method for a partial update.
 
-### Create the Request
+#### Create the Request
 
 1. In Postman, click the big orange `+ New` button.
 
@@ -1377,7 +1377,7 @@ For our purposes, we will use the `POST` method for a partial update.
 
 8. Click `Save`
 
-### Set the Authorization Header
+#### Set the Authorization Header
 
 1. Click on `Headers`
 
@@ -1387,7 +1387,7 @@ For our purposes, we will use the `POST` method for a partial update.
 
 4. Click `Save`
 
-### Set the Request Body to JSON
+#### Set the Request Body to JSON
 
 1. Click on the `Body` tab of the request.
 
@@ -1397,7 +1397,7 @@ For our purposes, we will use the `POST` method for a partial update.
 
 4. Click `Save`
 
-### Create the Request Body JSON Payload
+#### Create the Request Body JSON Payload
 
 In order to update the User, we'll need to craft a JSON payload that specifies what profile attributes need to be updated. 
 
@@ -1416,7 +1416,7 @@ In this case, we can imagine that the user's `lastName` needs to be updated. Sin
 
 Click `Save` and then `Send` to issue the request.
 
-### Examine the Response Body
+#### Examine the Response Body
 
 1. You should get a `200 OK` response. If not, ensure you have followed all the prerequisite steps correctly, including setting the `userId` environment variable in `Lab 4.2`
 
@@ -1424,16 +1424,16 @@ Click `Save` and then `Send` to issue the request.
 
 3. Notice that the `lastName` is now updated, but all other profile attributes remain the same.
 
-### ✅ Checkpoint
+#### ✅ Checkpoint
 
 You now have an understanding of how a partial update of a user's profile is performed by the Users API, which is used by Okta's Management SDKs.
 
-### 🎉 End of Module 4 Labs
+#### 🎉 End of Module 4 Labs
 **You may close this workspace project, ensuring all changes were saved.**
 
-# Module 5: Implementing Self-Service Registration
+## Module 5: Implementing Self-Service Registration
 
-## Lab 5.1 Modify the Default User Profile Requirements.
+### Lab 5.1 Modify the Default User Profile Requirements.
 
  🎯 **Objective**    Update the required attributes in the Default User Profile to minimize sign up friction.
 
@@ -1441,7 +1441,7 @@ You now have an understanding of how a partial update of a user's profile is per
 
   ⏱️ **Duration**    15 minutes
 
-### Access the User Profile Editor
+#### Access the User Profile Editor
 
 1. Ensure you are logged in to the Admin dashboard as `oktatraining`
 
@@ -1451,7 +1451,7 @@ You now have an understanding of how a partial update of a user's profile is per
 
 4. Click `User (default)` under the **Profile** column.
 
-### Update Which Attributes Are Required
+#### Update Which Attributes Are Required
 
 Recall that Okta requires four User Profile attributes by default: `login` (Username), `firstName`, `lastName`, and `email`
 
@@ -1469,7 +1469,7 @@ Let's change this!
 
 6. Click the `Save Attribute` button.
 
-### Update Username Requirements
+#### Update Username Requirements
 
 By default, Okta requires usernames to be in the format of an email. Let's disable that requirement.
 
@@ -1479,7 +1479,7 @@ By default, Okta requires usernames to be in the format of an email. Let's disab
 
 3. Do not save the changes just yet as we still have more to do in this section.
 
-### Update Permissions on Attributes
+#### Update Permissions on Attributes
 
 In order to allow users to set their own username and email address during self-service registration, they will need write access to these attributes.
 
@@ -1495,12 +1495,12 @@ In order to allow users to set their own username and email address during self-
 
 6. Click the `Save Attribute` button.
 
-### ✅ Checkpoint
+#### ✅ Checkpoint
 
 At this point, you have updated the default User Profile and attribute permissions. Now you are ready to enable self-service registration for Okta Ice's customer applications!
 
 
-## Lab 5.2 Enable Self-Service Registration
+### Lab 5.2 Enable Self-Service Registration
 
  🎯 **Objective**    Configure Self-Service Registration for customer applications.
 
@@ -1509,7 +1509,7 @@ At this point, you have updated the default User Profile and attribute permissio
   ⏱️ **Duration**    15 minutes
 
 
-### Create Profile Enrollment Policy
+#### Create Profile Enrollment Policy
 
 1. Navigate to `Security` > `Profile Enrollment`
 
@@ -1519,7 +1519,7 @@ At this point, you have updated the default User Profile and attribute permissio
 
 4. Click `Save`
 
-### Enable Self-Registration in the Profile Enrollment Policy
+#### Enable Self-Registration in the Profile Enrollment Policy
 
 1. Click the `Pencil icon` next to the policy you just created (`Customer Apps Enrollment Policy`)
 
@@ -1529,7 +1529,7 @@ At this point, you have updated the default User Profile and attribute permissio
 
 4. Next to **Add the user to group**, enter and select `Customers`
 
-### Add Customer Applications to the Profile Enrollment Policy
+#### Add Customer Applications to the Profile Enrollment Policy
 
 1. Click `Manage Apps`
 
@@ -1541,7 +1541,7 @@ At this point, you have updated the default User Profile and attribute permissio
 
 5. Click `Close`
 
-### Specify Fields for the Enrollment Form
+#### Specify Fields for the Enrollment Form
 
 The Enrollment Form will appear during Self-Service Registation
 
@@ -1555,11 +1555,11 @@ The Enrollment Form will appear during Self-Service Registation
 
 5. Delete `First Name` and `Last Name`
 
-### ✅ Checkpoint
+#### ✅ Checkpoint
 
 At this point, you have configured self-service registration for the the customer applications.
 
-## Lab 5.3 Customize an Email Template
+### Lab 5.3 Customize an Email Template
 
  🎯 **Objective**    Customize the email template used to generate the email customers receive when they sign up for Okta Ice's customer apps.
 
@@ -1568,13 +1568,13 @@ At this point, you have configured self-service registration for the the custome
   ⏱️ **Duration**    15 minutes
 
 
-### Navigate to the Branding UI
+#### Navigate to the Branding UI
 
 1. Ensure you are logged in to the Okta Admin dashboard as `oktatraining`
 
 2. From the Admin menu, go to `Customizations` > `Branding`
 
-### Edit the Base Email Style
+#### Edit the Base Email Style
 
 1. Under **Communication**, find the **Base email style** section
 
@@ -1584,11 +1584,11 @@ At this point, you have configured self-service registration for the the custome
 
 4. At the top of the page, click `Save and publish`
 
-### Navigate to the Emails UI
+#### Navigate to the Emails UI
 
 1. From the Admin menu, go to `Customizations` > `Emails`
 
-### Open the Default Email Editor
+#### Open the Default Email Editor
 
 Now we're going to customize the content of the **Email Factor Verification** email that users receive when they sign up for customer applications.
 
@@ -1598,7 +1598,7 @@ Now we're going to customize the content of the **Email Factor Verification** em
 
 3. Click `Edit`
 
-### Examine the Email Factor Verification Template
+#### Examine the Email Factor Verification Template
 
 For your convenience, we've displayed an editable copy of the default HTML code used to generate the Email Factor Verification emails here in VSCode. 
 
@@ -1611,7 +1611,7 @@ Notice that it references the profile attribute `user.profile.firstName`
 
 This doesn't look very professional at all, so let's fix this by greeting the user by their `login` (username) instead.
 
-### Edit the Email Factor Verification Template
+#### Edit the Email Factor Verification Template
 
 Let's edit the highlighted line so that it references the user's `login` profile attribute:
 
@@ -1623,7 +1623,7 @@ You can do this by manually editing the line, or by clicking the **Insert Code**
 
 Finally, click here to save your changes.
 
-### Apply the Changes in the Email UI
+#### Apply the Changes in the Email UI
 
 1. Highlight and copy the entire contents of the `custom-email-template.html` file that is open in VSCode.
 
@@ -1639,7 +1639,7 @@ Finally, click here to save your changes.
 
 7. Optionally, click on `English (en)` to preview a sample email.
 
-### Import And Run Your Previously Configured Web Apps
+#### Import And Run Your Previously Configured Web Apps
 
 We will now copy the web applications we previously configured to this workspace, so that we can test out self-service registration and the customized Email Factor Verification email.
 
@@ -1647,7 +1647,7 @@ We will now copy the web applications we previously configured to this workspace
 
 2. Click here to launch the web server.
 
-### Explore Self Service Registration Availability
+#### Explore Self Service Registration Availability
 
 1. Log out of `oktatraining`
 
@@ -1671,7 +1671,7 @@ We will now copy the web applications we previously configured to this workspace
 
 11. Once again, press the `Back` button in the Chrome browser to return to the index page.
 
-### Test Self Service Registration
+#### Test Self Service Registration
 
 1. Click on `Rewards App (Redirect)`
 
@@ -1683,7 +1683,7 @@ We will now copy the web applications we previously configured to this workspace
 
 5. Click the `Sign Up` button.
 
-### Set Up a Password
+#### Set Up a Password
 
 You'll now be asked to set up a password.
 
@@ -1691,7 +1691,7 @@ You'll now be asked to set up a password.
 
 2. Click `Next`
 
-### Verify Your Email
+#### Verify Your Email
 
 Since you must verify our email upon self-service registration, you get to see your custom **Email Factor Verification** email!
 
@@ -1709,7 +1709,7 @@ Since you must verify our email upon self-service registration, you get to see y
 
 You should now be redirected to the Rewards app.
 
-### Test Web SSO
+#### Test Web SSO
 
 It may seem like you are only registered for the Rewards app. However, recall that our Profile Enrollment Policy adds self-registered users to the **Customers** group. So, you should have access to the Polling app too!
 
@@ -1719,19 +1719,17 @@ It may seem like you are only registered for the Rewards app. However, recall th
 
 Because you have an existing session and are a member of the **Customers** group, you are authenticated for the Polling App without having to register for this application or enter your credentials again!
 
-### Close Your Okta Session
+#### Close Your Okta Session
 
 1. In the Polling App in the Chrome browser, click the `Close Okta Session` button.
 
 2. You may now close this browser tab.
 
-### ✅ Checkpoint
+#### ✅ Checkpoint
 
 At this point, you have customized the email template used to generate the **Email Factor Verification** customers receive when they sign up for applications. You have also verified that self-service registration works for customer applications, and that these users can access all customer applications via web SSO.
 
-
-
-## Lab 5.4 Customize Implement a Registration Inline Hook
+### Lab 5.4 Customize Implement a Registration Inline Hook
 
  🎯 **Objective**    Implement an Okta Inline Hook to customize the Profile Enrollment flow during Self-Service Registration.
 
@@ -1739,7 +1737,7 @@ At this point, you have customized the email template used to generate the **Ema
 
   ⏱️ **Duration**    20 minutes
 
-### Preparation and Background
+#### Preparation and Background
 
 The Okta registration inline hook allows you to integrate your own custom code into Okta's Profile Enrollment flow. The hook is triggered after Okta receives the registration or profile update request. Your custom code can:
 
@@ -1751,7 +1749,7 @@ This custom code must be accessible publicly on the Internet rather than our loc
 
 Our custom code that will handle the profile enrollment flow during self-service registration is a Nodejs app hosted on Glitch at: https://es-okta-hooks.glitch.me/
 
-### Examine `registrationHooks.js` - Routing
+#### Examine `registrationHooks.js` - Routing
 
 While our custom code for the inline hook is hosted on Glitch the contents of `registrationHooks.js` is copied and opened here so we can walk through it.
 
@@ -1759,13 +1757,13 @@ While our custom code for the inline hook is hosted on Glitch the contents of `r
 
 This is the URL Okta will need to call to via the inline hook during self-service registration.   
 
-### Examine `registrationHooks.js` - Payload Validation
+#### Examine `registrationHooks.js` - Payload Validation
 
 When our application on Glitch receives a `POST` request to `domain`, the request data is validated. We check if there is a JSON object named `data` and if that object has a `userProfile` object. The `data.userProfile` object appears in SSR requests from Okta.
 
 If `data` or `data.userProfile` are null, the application returns a response that tells Okta to `DENY` registration. Let's take a closer look at how that response is formed.
 
-### Examine `registrationHooks.js` - Response to Invalid Payload
+#### Examine `registrationHooks.js` - Response to Invalid Payload
 
 When Okta sends a request to your customer code via the Registration Inline Hook, Okta expects a JSON response that contains:
 
@@ -1781,7 +1779,7 @@ Additionally, we create an `error` object specifying that there was an invalid r
 
 This tells Okta to deny the registration request with the specified error.
 
-### Examine `registrationHooks.js` - Parse Email
+#### Examine `registrationHooks.js` - Parse Email
 
 What happens if the payload our app receives is valid? We get the `email` from the `data.userProfile` object and parse out certain components of the email address to handle whether we will allow or deny the registration. This decision is handled by switch cases later on in the script.
 
@@ -1793,7 +1791,7 @@ What happens if the payload our app receives is valid? We get the `email` from t
 
 - `parsedEmail`: The complete email address without the `emailPrefix` so that we can still receive Okta activation emails when we register with an email like `user@allow.gmail.com` (the activation email will be sent to `user@gmail.com`)
 
-### Examine `registrationHooks.js` - Allow Case
+#### Examine `registrationHooks.js` - Allow Case
 
 If a user attempts to register with an email address with the prefix `allow` in the domain, two commands are added to the `commands` array:
 
@@ -1805,7 +1803,7 @@ Note that the command that allows registration is not required, as it is given b
 
 Finally, there is no **error** object for this case since it is not relevant.
 
-### Examine `registrationHooks.js` - Default Deny Case
+#### Examine `registrationHooks.js` - Default Deny Case
 
 If a user attempts to register with any other email address, the `commands` array will contain a single command to deny the registration, similar to the case when Okta sent an invalid payload. 
 
@@ -1814,7 +1812,7 @@ In addition to this, an `error` object is created. The `errorCauses.errorSummary
 Both the `commands` array and `error` object are sent in the response to Okta later in this script.
 
 
-### Create the Registration Inline Hook
+#### Create the Registration Inline Hook
 
 1. Ensure you are signed in to the Okta Admin dashboard as your Super Admin account, `oktatraining`.
 
@@ -1832,7 +1830,7 @@ Both the `commands` array and `error` object are sent in the response to Okta la
 
 8. Click `Save`
 
-### Enable the Registration Inline Hook
+#### Enable the Registration Inline Hook
 
 📝 **Note:** You can associate only one inline hook at a time with your Profile Enrollment policy.
 
@@ -1848,7 +1846,7 @@ Both the `commands` array and `error` object are sent in the response to Okta la
 
 6. **Log out** of Okta.
 
-### Test the Registration Inline Hook 
+#### Test the Registration Inline Hook 
 
 1. Visit the Okta Ice Portal at http://localhost:8080 
   >> If your Okta Ice Portal app is no longer running, run in with this command:
@@ -1867,7 +1865,7 @@ In the next steps, we are going to test the following cases (where `example.com`
 
 - **any other domain** - The response to Okta will include a command to deny the registration, an error object that will be displayed in the Sign-In widget, and a debugContext message.
 
-### Test the Registration Inline Hook - Allow Case
+#### Test the Registration Inline Hook - Allow Case
 
 1. In the `Email` field, enter an email address you can check so that it fits the `allow` case.
   >> For example, if your email is `user@gmail.com`, you would enter **`user@allow.gmail.com`**
@@ -1882,7 +1880,7 @@ In the next steps, we are going to test the following cases (where `example.com`
 
 You're now registered and logged in to the Customer Rewards app.
 
-### Test the Registration Inline Hook - Default Deny Case
+#### Test the Registration Inline Hook - Default Deny Case
 
 Now we'll test the default (deny) case, which should display a custom error in the Okta Sign-In widget
 
@@ -1906,7 +1904,7 @@ You will now see that your registration is denied with a custom error displayed 
 Invalid email domain: gmail.com (message from inline hook)
 ```
 
-### ✅ Checkpoint
+#### ✅ Checkpoint
 
 At this point, you have created and enabled a Registration Inline Hook in a self-service registration Profile Enrollment Policy in Okta. This hook calls out to our custom Nodejs hosted on Glitch and determines whether or not a user can register for a customer application, depending on the value of their email address. Only users who register with  `allow.example.com` email addresses will be permitted to register for customer applications.
 
@@ -1918,7 +1916,7 @@ At this point, you have created and enabled a Registration Inline Hook in a self
 
 ⏱️ Duration: 20 min
 
-### Preparation and Background
+#### Preparation and Background
 
 Event hooks are outbound calls from Okta that can be used to notify your own software systems of events occurring in your Okta org. 
 
@@ -1932,7 +1930,7 @@ Setting up an event hook in your Okta org requires the following generic steps:
 
 4. Begin receiving ongoing delivery of event notifications.
 
-### Examine `eventHooks.js`
+#### Examine `eventHooks.js`
 
 While our custom code for the inline hook is hosted on Glitch the contents of `eventHooks.js` is copied and opened here so we can walk through it.
 
@@ -1940,7 +1938,7 @@ While our custom code for the inline hook is hosted on Glitch the contents of `e
 
 Let's take a look at the `GET` route first.
 
-### Examine `eventHooks.js` - `GET /user-profile/update`
+#### Examine `eventHooks.js` - `GET /user-profile/update`
 
 When setting up an Okta event hook, Okta will issue a one-time `GET` request to the endpoint we specify. To verify that we truly own that endpoint, Okta requires a response with a request header named `verification` with whatever value Okta sent in its request header named `x-okta-verification-challenge`.
 
@@ -1958,7 +1956,7 @@ Then, our application should send a response with the header:
 
 Examine the highlighted segment in `eventHooks.js`. This segment handles `GET` requests to the `user-profile/update` endpoint. It extracts the value from the request header `x-okta-verification-challenge` and returns that value in a response header named `verification`. This meets the criteria Okta expects when verifying that we own the endpoint.
 
-### Examine `eventHooks.js` - `POST /user-profile/update`
+#### Examine `eventHooks.js` - `POST /user-profile/update`
 
 When Okta logs an event our event hook is registered to, Okta will sent to our a request to our endpoint. The `body` of that request will contain JSON data in the following format:
 
@@ -1990,7 +1988,7 @@ Examine the highlighted segment in `eventHooks.js` This handles the `POST` reque
 The event type (embedded in a `description` string), requesting URL, and the entire request body, are then sent to the **Hook Viewer**, which stands in for our logging system. We'll look at the Hook Viewer when we start logging events.
 
 
-### Create the User Account Update Event Hook
+#### Create the User Account Update Event Hook
 
 1. Ensure you are signed in to the Okta Admin dashboard as your Super Admin account, `oktatraining`.
 
@@ -2008,7 +2006,7 @@ The event type (embedded in a `description` string), requesting URL, and the ent
 
 8. Click `Save & Continue`
 
-### Verify the User Account Update Event Hook
+#### Verify the User Account Update Event Hook
 
 At this stage, Okta will ask you to **verify** the endpoint that Okta will post event data to. This is where Okta will make a `GET` request with the `x-okta-verification-challenge` header and our application will send a `verfication` header in the response.
 
@@ -2017,13 +2015,13 @@ Click the `Verify` button.
 If verification fails, double check that you have entered the correct `URL` in the previous step.
 
 
-### Open the Hook Viewer
+#### Open the Hook Viewer
 
 Open a new tab and visit https://es-okta-hooks.glitch.me/ 
 
 We will use this page to view logged events. Keep in mind that the endpoint we are using in this example is shared among all classmates, so you will see events logged from other orgs here.
 
-### Test the User Account Update Event Hook
+#### Test the User Account Update Event Hook
 
 1. Switch to your Okta tab
 
@@ -2041,13 +2039,13 @@ We will use this page to view logged events. Keep in mind that the endpoint we a
 
 8. Scroll down and click `Save`
 
-### Check the Hook Viewer
+#### Check the Hook Viewer
 
 1. Switch back to the Hook Viewer tab
 
 2. Verify that an event was logged from your Okta org. Your org URL will be listed as the `source`
 
-### ✅ Checkpoint
+#### ✅ Checkpoint
 
 At this point, you have created and registered an Event Hook for logging updates to user's accounts to an external service using these four steps:
 
@@ -2066,7 +2064,6 @@ At this point, you have created and registered an Event Hook for logging updates
 
 ## Module 7: Securing Your Environment with Policies and MFA
 
-
 ### Lab 7.1 Configure Passwordless Authentication with Email Magic Link
 
  🎯 **Objective**    Configure passwordless authentication with Email Magic Link
@@ -2075,7 +2072,7 @@ At this point, you have created and registered an Event Hook for logging updates
 
   ⏱️ **Duration**    15 minutes
 
-### Import And Run Your Previously Configured Web Apps
+#### Import And Run Your Previously Configured Web Apps
 
 We will now copy the web applications we previously configured to this workspace, so that we can test out passwordless authentication and, later, multifactor authentication and self-service account recovery.
 
@@ -2083,7 +2080,7 @@ We will now copy the web applications we previously configured to this workspace
 
 2. Click [here to launch the web server](command:codetour.sendTextToTerminal?["python -m http.server 8080"]).
 
-### Enable the Authentication and Recovery Options
+#### Enable the Authentication and Recovery Options
 
 1.In the Admin menu, go to `Security` > `Authenticators`
 
@@ -2097,7 +2094,7 @@ We will now copy the web applications we previously configured to this workspace
 
 This means that email can now be used as an authenticator and not just for account recovery. We'll still need to configure a Sign On policy to use email as an authenticator.
 
-### Disable Unused Authenticators
+#### Disable Unused Authenticators
 
 For the purposes of this class, we'll only be using the Password and Email (Magic Link) authenticators. So, let's disable the ones we aren't using.
 
@@ -2107,7 +2104,7 @@ For the purposes of this class, we'll only be using the Password and Email (Magi
 4. Change **Phone** to `Disabled`
 5. **Email** should be `Optional` and **Password** should be `Required`
 
-### Configure the Email Magic Link Sign On Policy
+#### Configure the Email Magic Link Sign On Policy
 
 1. Ensure you are logged in to the Admin Dashboard as `oktatraining`
 
@@ -2135,7 +2132,7 @@ select the `Customers` group
 
 12. Click `Save`
 
-### Configure Customer Apps to Use the Email Magic Link Sign On Policy
+#### Configure Customer Apps to Use the Email Magic Link Sign On Policy
 
 1. Back on the `Email Magic Link` policy page, click the `Applications` tab.
 
@@ -2149,7 +2146,7 @@ select the `Customers` group
 
 6. Log out of Okta.
 
-### Test the Email Magic Link Sign On Policy
+#### Test the Email Magic Link Sign On Policy
 
 1. Navigate to http://localhost:8080
 2. Click on `Rewards App (Redirect)`
@@ -2164,7 +2161,7 @@ select the `Customers` group
 
 📝 **Note**: In order for the clickable Email Magic Link to work, the link must be clicked in the same device that the authentication process was initiated. Since we're using a VM and you are likely checking your email on a personal device, we circumvent this by using the verification code instead.
 
-### ✅ Checkpoint
+#### ✅ Checkpoint
 
 At this point, you have configured and enabled passwordless authentication for Okta Ice's customers. You have done this by creating a Sign On Policy that specifies that any user in the customer group can sign in with any one factor. Since this policy was applied to the Customer Rewards and Customer Polling apps, customers can choose to authenticate with email or password when accessing this application.
 
@@ -2176,7 +2173,7 @@ At this point, you have configured and enabled passwordless authentication for O
 
   ⏱️ **Duration**    15 minutes
 
-### Make Yourself a Franchisee
+#### Make Yourself a Franchisee
 
 1. Log in to your Okta org as `oktatraining` and access the Admin dashboard.
 
@@ -2187,7 +2184,7 @@ At this point, you have configured and enabled passwordless authentication for O
 6. Update the **Primary email** to your personal email address
 7. Click `Save`
 
-### Create the Franchisee Two Factor Okta Sign-On Policy
+#### Create the Franchisee Two Factor Okta Sign-On Policy
 1. In the Admin menu, go to `Security` > `Okta Sign-On Policy`.
 2. Click `Add a Policy`
 3. Name the policy `Franchisee Two Factor`
@@ -2206,7 +2203,7 @@ select the `Franchisees` group
 
 11. Click `Save`
 
-### Configure Franchisee CRM App to Use Two Factor Sign On Policy
+#### Configure Franchisee CRM App to Use Two Factor Sign On Policy
 
 1. Back on the `Franchisee Two Factor` policy page, click the `Applications` tab.
 
@@ -2218,7 +2215,7 @@ select the `Franchisees` group
 
 5. Log out of Okta.
 
-### Test the Two Factor Sign On Policy
+#### Test the Two Factor Sign On Policy
 
 1. Navigate to http://localhost:8080
 2. Click on `CRM App (Redirect)`
@@ -2234,7 +2231,7 @@ select the `Franchisees` group
 
 📝 **Note**: In order for the clickable Email Magic Link to work, the link must be clicked in the same device that the authentication process was initiated. Since we're using a VM and you are likely checking your email on a personal device, we circumvent this by using the verification code instead.
 
-### ✅ Checkpoint
+#### ✅ Checkpoint
 
 At this point, you have configured and enabled MFA using two authentication factors -- Knowledge (password) and Possession (email) You have done this by creating a Sign On Policy that specifies that any user in the Franchisee group must sign in with a password and an additional factor. Since this policy was applied to the Franchisee CRM app, any Franchisee must authenticate with a password and an additional factor. Since we've only configured email as an additional factor, that is the only other factor available in this case.
 
@@ -2256,7 +2253,7 @@ At this point, you have configured and enabled MFA using two authentication fact
 
 Note that the existing **Default Policy** applies to `Everyone`. We want to create a policy that only affects **Customers** and not **Franchisees**. So, in the next step, we will create a new Authenticators Enrollment Policy that will allow self-service account recovery.
 
-### Create the Customer Authenticators Enrollment Policy
+#### Create the Customer Authenticators Enrollment Policy
 1. Click `Add a policy`
 2. Name the policy `Customer Self-Service Recovery`
 3. In the `Assign to groups` section, type and select `Customers`
