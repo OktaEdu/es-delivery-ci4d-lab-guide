@@ -99,7 +99,7 @@ You may now collapse the Credentials side panel in your VM.
 
 At this point, you have access to your lab environment to complete the rest of the labs.
 
-## Lab 1.2: Create Okta Groups
+### Lab 1.2: Create Okta Groups
 
   🎯 **Objective**   Create Okta Groups -- one for Okta Ice Franchisees and one for Okta Ice customers. Create a Group rule for automatically adding certain users to the Customers group.
 
@@ -134,7 +134,7 @@ At this point, you have access to your lab environment to complete the rest of t
 You now have two Okta Groups that you will use to manage access to applications. 
 
 
-## Lab 1.3 Create Okta Users
+### Lab 1.3 Create Okta Users
   
   🎯 **Objective**:   Create some End User accounts and assign them to Okta Groups for testing configurations.
 
@@ -192,7 +192,7 @@ Last, click the `Save` button.
 
 You now have a test user in the Franchisee group and a test user in the Customer group.
 
-## Lab 1.4: Create Okta Application Integrations
+### Lab 1.4: Create Okta Application Integrations
 
  🎯 **Objective**    Create Okta application integrations for two existing applications. Assign one application to the Customers group and assign one application to the Franchisee group.
 
@@ -380,7 +380,7 @@ You now know how to set up an application integration in Okta.
 
 ## Module 2: Customizing the Okta-Hosted Sign In Widget 
 
-## Lab 2.1 Configure a Custom Domain
+### Lab 2.1 Configure a Custom Domain
 
 🎯 **Objective:**   Configure a custom domain in Okta and configure your DNS to support the custom URL. 
 
@@ -489,7 +489,7 @@ You will see a status of **Pending** for your custom domain as it can take sever
 
 At this point, you have configured a custom domain for your Okta org. Setting up a custom domain also allows you to customize the Okta-hosted SIW.
 
-## Lab 2.2: Customize the Okta Sign-In Page With the Branding UI
+### Lab 2.2: Customize the Okta Sign-In Page With the Branding UI
 🎯 **Objective:**  Customize the Okta Sign-In Page with Okta Ice branding.    
 
 🎬 **Scenario**    Okta Ice needs a branded Sign-In Page for a complete white label experience.
@@ -691,7 +691,7 @@ You should now see a customized Sign-in Page, which we've achieved without chang
 
 We have seen how we could customize the SIW without touching the Sign-In Page code through Okta's Branding UI. For some use cases, this level of customization is enough! For other use cases, we might want to customize the Sign-In Page beyond what Okta's Branding UI can offer. In the next lab, we use the integrated Sign-In Page code editor to achieve this.
 
-## Lab 2.3: Customize the Okta Sign-In Page Using the Sign-In Page Code Editor
+### Lab 2.3: Customize the Okta Sign-In Page Using the Sign-In Page Code Editor
 
 🎯 **Objective:**  Further customize the Sign-In Page with the Sign-In Page Code Editor.
 
