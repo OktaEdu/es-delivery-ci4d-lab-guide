@@ -2290,7 +2290,7 @@ Note that the existing **Default Policy** applies to `Everyone`. We want to crea
 
 🎬 **Scenario** Okta Ice wants to allow customers to be able to authenticate via additional external IdPs. For our proof of concept that doesn't require getting developer keys from social IdPs (e.g., Facebook or Twitter), we'll use AD FS.
 
-⏱️ **Duration** 15 minutes
+⏱️ **Duration** 20 minutes
 
 ### Review the Partner Organizational Unit in AD
 
@@ -2301,8 +2301,6 @@ The Partner OU contains users that are not synced to Okta via Active Directory. 
 2. On the left menu, go to `oktaice.local` > `Partners`.
 
 3. Confirm that the `Partners OU` contains six users.
-
-4. Optionally, access your org and confirm that the partner users do not exist in Okta, since they were not imported via the AD Agent since you did not select this OU for import in Module 6.
 
 ### Validate your AD FS Configuration
 
@@ -2397,8 +2395,7 @@ After the last step, the **Edit Claim Rules** window should have appeared. The c
 | `E-Mail-Addresses` | `email`                 |
 | `E-Mail-Addresses` | `Name ID`               |
 
-6. Click `Finish`
-7. In the **Edit Claim Rules** window, click `OK`
+Finally, click `Finish` and then click `OK` in the **Edit Claim Rules** window.
 
 ### Create a Relying Party Identifier in AD FS for Okta Ice
 
@@ -2432,3 +2429,7 @@ The Relying party identifier is used to trigger a login without passing by a sel
 ### ✅ Checkpoint
 
 At this point, you have Okta integrated with AD FS as Identity Provider using SAML. This integration allows users located under the Partner OU to log into Okta using via AD FS. Okta leverages Just-In-Time (JIT) provisioning to automatically recognize and create users federated via integration with AD FS.
+
+### 🎉 End of Module 8 Labs
+
+**You may close this workspace project, ensuring all changes were saved.**
