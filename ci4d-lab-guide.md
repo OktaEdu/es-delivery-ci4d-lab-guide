@@ -50,7 +50,7 @@ Copyright 2022 Okta, Inc. All Rights Reserved.
 
 - [Module 6: Migrating and Managing Users](#module-6-migrating-and-managing-users)
 
-  - Lab 6.1
+  - Lab 6.1 Migrate Users and Passwords with Okta's Inline Password Hook
 
 - [Module 7: Securing Your Environment with Policies and MFA](#module-7-securing-your-environment-with-policies-and-mfa)
 
@@ -130,6 +130,28 @@ At this point, you have access to your lab environment to complete the rest of t
 2.  This time, enter `Customers` in the `Name` field and `All Customers` in the `Description` field.
 
 3.  Click `Save`
+
+### Create a Group Rule for the Customer Group
+
+Now we will create a rule so that any user created that has the `userType` `customer` will automatically be added to the Customer group. This will be helpful when we import existing users with the Users API in Module 6.
+
+1. On the top of the **Groups** page, click the `Rules` tab.
+2. Click **Add Rule**
+3. Name the rule `Add customer userType to Customers Group`
+4. Set the **IF** section to read: IF `User attribute` `userType` `Equals` `customer`
+5. In the **THEN Assign to** section, type and select the `Customers` group.
+
+6. Click `Save`
+
+### Activate the Group Rule
+
+You should now see the `Add customer userType to Customers Group` rule listed on the **Group Rules** page.
+
+Notice, however, that the `Status` is `Inactive`, so we'll need to activate it:
+
+1. Click the drop down next to `Inactive`
+
+2. Select `Activate`
 
 ### ✅ Checkpoint
 
@@ -2066,7 +2088,13 @@ At this point, you have created and registered an Event Hook for logging updates
 
 ## Module 6: Migrating and Managing Users
 
-### Lab 6.1
+### Lab 6.1 Migrate Users and Passwords with Okta's Inline Password Hook
+
+🎯 **Objective** Migrate users from an existing store into Okta using Okta's Inline Password.
+
+🎬 **Scenario** Okta Ice would like import their existing customers from an existing datastore, so that customers can seamlessly authenticate with Okta into their customer apps.
+
+⏱️ **Duration** 20 minutes
 
 ## Module 7: Securing Your Environment with Policies and MFA
 
@@ -2241,6 +2269,10 @@ At this point, you have configured and enabled passwordless authentication for O
 ### ✅ Checkpoint
 
 At this point, you have configured and enabled MFA using two authentication factors -- Knowledge (password) and Possession (email) You have done this by creating a Sign On Policy that specifies that any user in the Franchisee group must sign in with a password and an additional factor. Since this policy was applied to the Franchisee CRM app, any Franchisee must authenticate with a password and an additional factor. Since we've only configured email as an additional factor, that is the only other factor available in this case.
+
+### 🎉 End of Module 7 Labs
+
+**You may close this workspace project, ensuring all changes were saved.**
 
 ## Module 8: Authenticating to Okta from External IdPs
 
