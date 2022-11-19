@@ -2242,46 +2242,6 @@ At this point, you have configured and enabled passwordless authentication for O
 
 At this point, you have configured and enabled MFA using two authentication factors -- Knowledge (password) and Possession (email) You have done this by creating a Sign On Policy that specifies that any user in the Franchisee group must sign in with a password and an additional factor. Since this policy was applied to the Franchisee CRM app, any Franchisee must authenticate with a password and an additional factor. Since we've only configured email as an additional factor, that is the only other factor available in this case.
 
-### Lab 7.3: Enable and Configure Self-Service Account Recovery
-
-🎯 **Objective** Enable and configure self-service account recovery.
-
-🎬 **Scenario** Okta Ice would like to allow their customers to be able to recover their account without having to contact an administrator.
-
-⏱️ **Duration** 15 minutes
-
-### Navigate to Authenticators Enrollment Policies
-
-1. Log in to your Okta org as `oktatraining` and access the Admin dashboard.
-
-2. In the Admin menu, go to `Security` > `Authenticators`.
-
-3. Click on the `Enrollment` tab.
-
-Note that the existing **Default Policy** applies to `Everyone`. We want to create a policy that only affects **Customers** and not **Franchisees**. So, in the next step, we will create a new Authenticators Enrollment Policy that will allow self-service account recovery.
-
-### Create the Customer Authenticators Enrollment Policy
-
-1. Click `Add a policy`
-2. Name the policy `Customer Self-Service Recovery`
-3. In the `Assign to groups` section, type and select `Customers`
-4. Click `Create policy`
-
-5. Select the Default Policy and add a new Rule.
-6. Click Add rule.
-7. In Rule Name, type the name Self Service Password and Unlock Rule.
-8. Modify the Self Service Password and Unlock Rule with the following
-   a. Scroll down to THEN Users can perform self-service.
-   i. Ensure Password change (from account settings) is
-   enabled.
-   ii. Ensure Password reset is enabled.
-   iii. Ensure Unlock Account is enabled.
-9. Scroll down to AND Users can initiate recovery with.
-   a. Enable Okta Verify (Push notification only).
-   b. Enable Phone (SMS/Voice call).
-   c. Enable Email.
-10. Click Create rule.
-
 ## Module 8: Authenticating to Okta from External IdPs
 
 ### Lab 8.1 Authenticate with AD FS as an External IdP
@@ -2331,7 +2291,7 @@ The signing certificate is used by AD FS to sign its SAML assertions. In this se
 
 We'll use our service account to add an AD FS as a SAML 2.0 IdP.
 
-1. Open Chrome and log in to your Okta org as `okta.service@oktaice.com` / `Tra!nme4321!`
+1. Open Chrome and log in to the Okta Admin Dashboard as `oktatraining`
 2. From the Admin menu, go to `Security` > `Identity Providers`
 3. Click `Add Identity Provider`
 4. Select `SAML 2.0 IdP`
@@ -2352,15 +2312,21 @@ We'll use our service account to add an AD FS as a SAML 2.0 IdP.
 
 ### Configure IdP Routing Rules
 
+We're going to create a routing rule that tells Okta to use AD FS as our IdP for any user that logs in with an `oktaice.local` email address.
+
 1. Click the `Routing rules` tab
 2. Click `Add Routing Rule`
-   **TODO**
+3. Name the rule `AD FS Rule`
+4. Next to **User matches** select `Domain list on login` and, in the field that appears beneath, type in `oktaice.local`
+5. In the **Use this identity provider** section, keep `Use specific IdP(s) selected.
+6. In the **IdPs** section at the bottom, remove `Okta` by clicking the `X` and then type and select `AD FS`
+7. Click `Create rule`
 
 ### Download the Metadata
 
-1. After finishing the previous step, the **Identity Providers** table will now have an entry named `AD FS`
+1. Click on the `Identity providers` tab
 
-2. Expand the `AD FS` entry
+2. In the table of identity providers, click the arrow next to the `AD FS` entry to expand it.
 
 3. Click `Download metadata` and the `metadata.xml` file will be saved to your `Downloads` folder.
 
@@ -2409,22 +2375,24 @@ The Relying party identifier is used to trigger a login without passing by a sel
 
 5. Click `OK`
 
-### Verify the Results
+### Test Authentication with AD FS
 
-**Change to app initiated**
+1. In Chrome, sign out of Okta.
 
-1. In Chrome, launch an incognito window.
-2. Go to https://adfs.oktaice.local/adfs/ls/idpinitiatedsignon?loginToRp=OktaIce
-3. Login as `OKTAICE\dsmith`.
-   After a successful login, the Okta Ice home page is displayed.
-   This confirms that AD FS as IdP is working.
-4. Close the Incognito window.
-5. Return to your Okta Ice org as `okta.service`
-6. Click `Directory` > `People`
-7. Search and open Diane Smith.
-8. Confirm that Okta displays the message **Profile sourced by SAML 2.0 IdP**.
-9. Click the `Profile` tab.
-10. Confirm that the user profile now contains the user email and name. This confirms that the Just in Time provisioning (JIT) is working.
+2. Enter `dsmith@oktaice.local` for `Username`
+
+3. Enter `Tra!nme4321` as the `Password`
+
+The user should now be logged in via AD FS as an IdP. This should also create a new Okta-managed user via Just-in-Time (JIT) provisioning with the profile attribute mapping we set up in AD FS.
+
+### Verify JIT Provisioning
+
+1. Log out of Okta and then log back in to the Okta Admin Dashboard as `oktatraining`
+2. Click `Directory` > `People`
+3. Search and open Diane Smith.
+4. Confirm that Okta displays the message **Profile sourced by SAML 2.0 IdP**.
+5. Click the `Profile` tab.
+6. Confirm that the user profile now contains the user email and name. This confirms that the Just in Time provisioning (JIT) is working.
 
 ### ✅ Checkpoint
 
