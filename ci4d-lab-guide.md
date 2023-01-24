@@ -4,6 +4,14 @@
 
 Copyright 2023 Okta, Inc. All Rights Reserved.
 
+Window captures and dialog box sample views are the copyright of their respective owners.
+
+Use of this user documentation is subject to the terms and conditions of the applicable End-User License Agreement.
+
+Release Version 2023.01
+
+Printed January, 24, 2023
+
 ### Table of Contents
 
 - [Module 1: Introducing Okta](#module-1-introducing-okta)
@@ -26,13 +34,11 @@ Copyright 2023 Okta, Inc. All Rights Reserved.
 
   - [Lab 2.4: Configure the Redirect Apps to Use the Custom Domain](#lab-24-configure-the-redirect-apps-to-use-the-custom-domain)
 
-- [Module 3: Exploring Authentication Protocol Flows](#module-3-exploring-authentication-protocol-flows)
+- [Module 3: Exploring Authentication Protocol Flows](#lab3)
 
-  - [Lab 3.1: Project Set Up](#lab-31-project-set-up)
+  - [Lab 3.1: Configure the Customer Polling App Using the Embedded Widget](#lab-31-deploy-authentication-with-the-embedded-sign-in-widget)
 
-  - [Lab 3.2: Configure the Customer Polling App Using the Embedded Widget](#lab-32-configure-the-customer-polling-app-using-the-embedded-widget)
-
-  - [Lab 3.3: Test Web SSO](#lab-33-test-web-sso)
+  - [Lab 3.2: Test Web SSO](#lab-32-test-web-sso)
 
 - [Module 4: Exploring the Okta Data Model](#module-4-exploring-the-okta-data-model)
 
@@ -58,9 +64,10 @@ Copyright 2023 Okta, Inc. All Rights Reserved.
 
   - [Lab 6.1 Migrate Users and Hashed Passwords with Okta's Users API](#lab-61-migrate-users-and-hashed-passwords-with-oktas-users-api)
 
-- [Module 7: Securing Your Environment with Policies and MFA](#module-7-securing-your-environment-with-policies-and-mfa)
+- [Module 7: Securing Your Environment with Sign-On Policies and MFA](#module-7-securing-your-environment-with-policies-and-mfa)
 
   - [Lab 7.1 Configure Passwordless Authentication with Email Magic Link](#lab-71-configure-passwordless-authentication-with-email-magic-link)
+
   - [Lab 7.2: Configure MFA with Two Factor Types](#lab-72-configure-mfa-with-two-factor-types)
 
 - [Module 8: Authenticating to Okta with External IdPs](#module-8-authenticating-to-okta-from-external-idps)
