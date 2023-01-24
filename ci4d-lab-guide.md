@@ -2307,7 +2307,7 @@ Okta employs built-in rate limit controls designed to protect the Okta service f
 
 **You may close this workspace project, ensuring all changes were saved.**
 
-## Module 7: Securing Your Environment with Policies and MFA
+## Module 7: Securing Your Environment with Sign-On Policies and MFA
 
 ### Lab 7.1 Configure Passwordless Authentication with Email Magic Link
 
@@ -2317,13 +2317,19 @@ Okta employs built-in rate limit controls designed to protect the Okta service f
 
 ⏱️ **Duration** 15 minutes
 
+⚠️ **Prerequisites:** Labs 1.4, 2.4, and 3.1
+
 ### Import And Run Your Previously Configured Web Apps
 
 We will now copy the web applications we previously configured to this workspace, so that we can test out passwordless authentication and, later, multifactor authentication and self-service account recovery.
 
-1. Click [here to copy the previously configured applications](command:codetour.sendTextToTerminal?["mkdir redirect; mkdir embedded; cp ../03-exploring-authentication-protocol-flows/redirect/* redirect; cp ../03-exploring-authentication-protocol-flows/* embedded"]).
+1. Copy the `redirect` and `embedded` directories from your Module 3 folder into this workspace.
 
-2. Click [here to launch the web server](command:codetour.sendTextToTerminal?["python -m http.server 8080"]).
+2. Open a terminal and start a web server with the following command:
+
+```
+python -m http.server 8080
+```
 
 ### Enable the Authentication and Recovery Options
 
@@ -2348,8 +2354,9 @@ For the purposes of this class, we'll only be using the Password and Email (Magi
 3. Change **Okta Verify** to `Disabled`
 4. Change **Phone** to `Disabled`
 5. **Email** should be `Optional` and **Password** should be `Required`
+6. Click `Update policy` button
 
-### Configure the Email Magic Link Sign On Policy
+### Configure the Email Magic Link Authentication Policy
 
 1. Ensure you are logged in to the Admin Dashboard as `oktatraining`
 
@@ -2365,11 +2372,9 @@ For the purposes of this class, we'll only be using the Password and Email (Magi
 
 7. Name the rule `Customers Email Magic Link Rule`
 
-8. Next to **User's group membership includes**, click the drop-down and
-   select `At least one of the following groups`
+8. Next to **User's group membership includes**, click the drop-down and select `At least one of the following groups`
 
-9. In the `Enter groups to include` field that pops up below, search for and
-   select the `Customers` group
+9. In the `Enter groups to include` field that pops up below, search for and select the `Customers` group
 
 10. Next to **User must authenticate with**, select `Any 1 factor type` from the drop-down.
 
@@ -2377,7 +2382,7 @@ For the purposes of this class, we'll only be using the Password and Email (Magi
 
 12. Click `Save`
 
-### Configure Customer Apps to Use the Email Magic Link Sign On Policy
+### Configure Customer Apps to Use the Email Magic Link Authentication Policy
 
 1. Back on the `Email Magic Link` policy page, click the `Applications` tab.
 
@@ -2391,7 +2396,7 @@ For the purposes of this class, we'll only be using the Password and Email (Magi
 
 6. Log out of Okta.
 
-### Test the Email Magic Link Sign On Policy
+### Test the Email Magic Link Authentication Policy
 
 1. Navigate to http://localhost:8080
 2. Click on `Rewards App (Redirect)`
@@ -2406,7 +2411,7 @@ For the purposes of this class, we'll only be using the Password and Email (Magi
 
 📝 **Note**: In order for the clickable Email Magic Link to work, the link must be clicked in the same device that the authentication process was initiated. Since we're using a VM and you are likely checking your email on a personal device, we circumvent this by using the verification code instead.
 
-### ✅ Checkpoint
+## ✅ Checkpoint
 
 At this point, you have configured and enabled passwordless authentication for Okta Ice's customers. You have done this by creating a Sign On Policy that specifies that any user in the customer group can sign in with any one factor. Since this policy was applied to the Customer Rewards and Customer Polling apps, customers can choose to authenticate with email or password when accessing this application.
 
@@ -2417,6 +2422,8 @@ At this point, you have configured and enabled passwordless authentication for O
 🎬 **Scenario** Okta Ice would like to secure the Franchisee CRM application with MFA. They'd like to require franchisees to authenticate with a knowledge factor (password) and a possession factor (email).
 
 ⏱️ **Duration** 15 minutes
+
+⚠️ **Prerequisites:** Labs 1.2-1.4, 2.4, 3.1, and 3.2
 
 ### Make Yourself a Franchisee
 
@@ -2429,9 +2436,9 @@ At this point, you have configured and enabled passwordless authentication for O
 6. Update the **Primary email** to your personal email address
 7. Click `Save`
 
-### Create the Franchisee Two Factor Okta Sign-On Policy
+### Create the Franchisee Two Factor Okta Authentication Policy
 
-1. In the Admin menu, go to `Security` > `Okta Sign-On Policy`.
+1. In the Admin menu, go to `Security` > `Authentication Policies`.
 2. Click `Add a Policy`
 3. Name the policy `Franchisee Two Factor`
 4. Click `Save`
@@ -2439,7 +2446,6 @@ At this point, you have configured and enabled passwordless authentication for O
 6. Name the rule `Franchisee Two Factor Rule`
 7. Next to **User's group membership includes**, click the drop-down and
    select `At least one of the following groups`
-
 8. In the `Enter groups to include` field that pops up below, search for and
    select the `Franchisees` group
 
@@ -2449,7 +2455,7 @@ At this point, you have configured and enabled passwordless authentication for O
 
 11. Click `Save`
 
-### Configure Franchisee CRM App to Use Two Factor Sign On Policy
+### Configure Franchisee CRM App to Use Two Factor Authentication Policy
 
 1. Back on the `Franchisee Two Factor` policy page, click the `Applications` tab.
 
@@ -2461,7 +2467,7 @@ At this point, you have configured and enabled passwordless authentication for O
 
 5. Log out of Okta.
 
-### Test the Two Factor Sign On Policy
+### Test the Two Factor Authentication Policy
 
 1. Navigate to http://localhost:8080
 2. Click on `CRM App (Redirect)`
