@@ -34,7 +34,7 @@ Printed January, 24, 2023
 
   - [Lab 2.4: Configure the Redirect Apps to Use the Custom Domain](#lab-24-configure-the-redirect-apps-to-use-the-custom-domain)
 
-- [Module 3: Exploring Authentication Protocol Flows](#lab3)
+- [Module 3: Exploring Authentication Protocol Flows](#module-3-exploring-authentication-protocol-flows)
 
   - [Lab 3.1: Configure the Customer Polling App Using the Embedded Widget](#lab-31-deploy-authentication-with-the-embedded-sign-in-widget)
 
@@ -46,7 +46,7 @@ Printed January, 24, 2023
 
   - [Lab 4.2: Create an Okta User Via the Users API](#lab-42-create-an-okta-user-via-the-users-api)
 
-  - [Lab 4.3: Update a User Via the Users API](#lab-43-update-an-okta-user-profile-via-the-users-api)
+  - [Lab 4.3: Update a User Via the Users API](#lab-43-update-an-okta-user-via-the-users-api)
 
 - [Module 5: Implementing Self-Service Registration](#module-5-implementing-self-service-registration)
 
@@ -64,7 +64,7 @@ Printed January, 24, 2023
 
   - [Lab 6.1 Migrate Users and Hashed Passwords with Okta's Users API](#lab-61-migrate-users-and-hashed-passwords-with-oktas-users-api)
 
-- [Module 7: Securing Your Environment with Sign-On Policies and MFA](#module-7-securing-your-environment-with-policies-and-mfa)
+- [Module 7: Securing Your Environment with Sign-On Policies and MFA](#module-7-securing-your-environment-with-sign-on-policies-and-mfa)
 
   - [Lab 7.1 Configure Passwordless Authentication with Email Magic Link](#lab-71-configure-passwordless-authentication-with-email-magic-link)
 
@@ -1163,7 +1163,7 @@ You should see the ID Token value and its claims. Much of this content is the sa
 
 At this point, you have seen how web SSO works between two applications accessible to members of the Customer group.
 
-## 🎉 End of Module 3 Labs
+### 🎉 End of Module 3 Labs
 
 **You may close this workspace project, ensuring all changes were saved.**
 
