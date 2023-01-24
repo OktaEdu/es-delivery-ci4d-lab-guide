@@ -1003,35 +1003,13 @@ At this point, you've set up the Rewards and CRM applications to use the custom 
 
 ## Module 3: Exploring Authentication Protocol Flows
 
-### Lab 3.1 Project Setup
-
-🎯 Objective: In order to have working copies of our previously configured redirect apps in our portal, we'll need to copy them to this workspace. This will be necessary to see how SSO works as we configure additional applications in the portal.
-
-⏱️ Duration: 1 min
-
-⚠️ Prerequisite: Lab 1.4
-
-### Copy Redirect Applications
-
-Copy the `redirect` directory to this workspace:
-
-1. Open a new terminal in VSCode. Notice it open the terminal in the root directory of the workspace.
-
-2. Issue the command:
-
-```bash
-mkdir redirect; cp ../01-introducing-okta/redirect/* redirect
-```
-
-### ✅ Checkpoint
-
-At this point, you have copies of the apps you configured in `Lab 1.4` in the current workspace. This will be necessary to see how SSO works as we configure additional applications in the portal.
-
-### Lab 3.2: Deploy Authentication with the Embedded Sign In Widget
+### Lab 3.1: Deploy Authentication with the Embedded Sign In Widget
 
 🎯 Objective: Create an an Okta application integration and deploy authentication using the embedded Sign-In Widget.
 
 ⏱️ Duration: 15 min
+
+⚠️ Prerequisites: Labs 1.4 and 2.4
 
 ### A Note on Cross-Origin Resource Sharing (CORS)
 
@@ -1080,13 +1058,13 @@ The Polling app is an existing application in this project. We're going to set u
 
 1. Copy the `Client ID` that was displayed after you saved your integration.
 
-2. Paste the `Client ID` into the `appClientID` variable.
+2. Paste the `Client ID` into the `appClientID` variable above.
 
 ### Configure the Polling Application `baseOktaURL`
 
-1. Update the value of `baseOktaURL` to match your assigned Okta org URL. Recall that you can access this URL from the `Link` section of the **Credentials** panel in your VM.
+1. Update the value of `baseOktaURL` to match your **custom URL** (e.g., `oktaice########.coffee-ice.com`). You can use the **Credentials** panel in your VM to get the **Subdomain** of this URL.
 
-2. `Save` your `polling.html` file.
+2. [Click here to `Save`](command:workbench.action.files.save) your `polling.html` file.
 
 ### Import the Okta Sign-In Widget Library
 
@@ -1094,15 +1072,19 @@ We're going to import Okta's Sign In Widget JavaScript and CSS library from a CD
 
 ```html
 <script
-  src="https://global.oktacdn.com/okta-signin-widget/5.8.3/js/okta-sign-in.min.js"
+  src="https://global.oktacdn.com/okta-signin-widget/7.2.1/js/okta-sign-in.min.js"
   type="text/javascript"
 ></script>
 <link
-  href="https://global.oktacdn.com/okta-signin-widget/5.8.3/css/okta-sign-in.min.css"
+  href="https://global.oktacdn.com/okta-signin-widget/7.2.1/css/okta-sign-in.min.css"
   type="text/css"
   rel="stylesheet"
 />
 ```
+
+1. Enter the code above into into `polling.html` on the line highlighted in the editor above.
+
+2. Save your `polling.html` file.
 
 The libraries imported here are the same ones used by the Okta-hosted Sign-In Widget that we saw in Module 2.
 
@@ -1112,11 +1094,19 @@ Embedding the Sign In Widget directly to a page in your application allows for f
 
 At this point, you have configured an application using the Embedded Sign-In Widget model of deploying authentication.
 
-### Lab 3.3 Test Web SSO
+### Lab 3.2 Test Web SSO
 
 🎯 Objective: Now that we have deployed authentication on two applications assigned to the Customers group, we can test out web SSO.
 
 ⏱️ Duration: 10 min
+
+⚠️ Prerequisites: Labs 1.4, 2.4, and 3.1
+
+### Copy Redirect Applications
+
+In order to have working copies of the apps we previously configured (Redirect Model of deploying authentication) in our portal, we'll need to copy them to this workspace. This will be necessary to see how Web SSO works between our two Customer applications (Rewards and Polling).
+
+Copy the `redirect` directory from the Module 01 folder to this workspace.
 
 ### Log Out of Okta
 
@@ -1134,7 +1124,7 @@ At this point, you have configured an application using the Embedded Sign-In Wid
 
 1. In Chrome, visit http://localhost:8080
 
-2. Click the `Polling App (Embedded Widget)` link.
+2. Click the `Polling App (Embedded Widget)` link. If you don't see this link, refresh your browser.
 
 3. Notice that you are not redirected to Okta for authentication. Instead, the Sign-In Widget loads on the page of your website.
 
@@ -1142,12 +1132,12 @@ At this point, you have configured an application using the Embedded Sign-In Wid
 
 You should now see the ID Token (which is formatted as a JSON web token or **JWT**) value and its claims, including:
 
-- `sub` (subject of the JWT): Soraya's Okta User ID
+- `sub` (subject of the JWT): Soraya's Okta UserId
 - `name`: Soraya's name
 - `email`: Soraya's email address
 - `ver`: Okta API version
 - `iss` (issuer of the JWT): The URL of your Okta Authorization server
-- `aud` (audience): Your app's Client ID
+- `aud` (audience): Your app's Client Id
 - `iat` (issued at time): Time the JWT was issued. Expressed in Unix time.
 - `exp` (expiration time): Time the JWT expires. Expressed in Unix time.
 - `jti` (JWT ID): Unique identifier used to prevent the JWT from being replayed
@@ -1158,7 +1148,7 @@ You should now see the ID Token (which is formatted as a JSON web token or **JWT
 
 2. Click the `Rewards App (Redirect)` link.
 
-3. Notice that you are not prompted to authenticate again as you have an existing session.
+3. Notice that you are not prompted to authenticate again as you have an existing session, so an ID Token is issued.
 
 You should see the ID Token value and its claims. Much of this content is the same as you saw on the Polling App. However, notice that the `jti` (JWT ID) and the `aud` (audience) are different. You should now see that the `aud` is this Client ID of the Rewards app.
 
@@ -1166,7 +1156,7 @@ You should see the ID Token value and its claims. Much of this content is the sa
 
 At this point, you have seen how web SSO works between two applications accessible to members of the Customer group.
 
-### 🎉 End of Module 3 Labs
+## 🎉 End of Module 3 Labs
 
 **You may close this workspace project, ensuring all changes were saved.**
 
