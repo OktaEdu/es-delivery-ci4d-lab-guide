@@ -1544,7 +1544,7 @@ You now have an understanding of how a partial update of a user's profile is per
 
 🎯 **Objective** Update the required attributes in the Default User Profile to minimize sign up friction.
 
-🎬 **Scenario** Okta Ice wants to minimize customer self-registration by only requiring a username and password. Additionally, Okta Ice does not want to enforce the default email-formatted username.
+🎬 **Scenario** Okta Ice wants to simplify customer self-registration by only requiring a username and password. Additionally, Okta Ice does not want to enforce the default email-formatted username.
 
 ⏱️ **Duration** 15 minutes
 
@@ -1552,11 +1552,9 @@ You now have an understanding of how a partial update of a user's profile is per
 
 1. Ensure you are logged in to the Admin dashboard as `oktatraining`
 
-2. Click on `Directory` > `User` from the Admin menu
+2. Click on `Directory` > ` Profile Editor` from the Admin menu
 
-3. Click on `Profile Editor`
-
-4. Click `User (default)` under the **Profile** column.
+3. Click `User (default)` under the **Profile** column.
 
 ### Update Which Attributes Are Required
 
@@ -1564,13 +1562,13 @@ Recall that Okta requires four User Profile attributes by default: `login` (User
 
 Let's change this!
 
-1. In the **Attributes** section, click on the `i` icon that is in the **First name** `firstName` row.
+1. In the **Attributes** section, click on the blue circular `i` icon that is in the **First name** `firstName` row.
 
 2. Uncheck the `Attribute required` box.
 
 3. Click the `Save Attribute` button.
 
-4. Click on the `i` icon in the **Last name** `lastName` row.
+4. Click on the blue circular `i` icon in the **Last name** `lastName` row.
 
 5. Uncheck the `Attribute required` box.
 
@@ -1580,25 +1578,25 @@ Let's change this!
 
 By default, Okta requires usernames to be in the format of an email. Let's disable that requirement.
 
-1. Click on the `i` icon in the **Username** `login` row.
+1. Click on the blue circular `i` icon in the **Username** `login` row.
 
 2. Next to **Format restrictions**, select `None` from the drop down menu.
 
 3. Do not save the changes just yet as we still have more to do in this section.
 
-### Update Permissions on Attributes
+### Check Permissions on Attributes
 
 In order to allow users to set their own username and email address during self-service registration, they will need write access to these attributes.
 
 1. Still in the `Username` editing window, find the to **User permission** section.
 
-2. Click the `Read-Write` radio button.
+2. Ensure the `Read-Write` radio button is checked.
 
 3. Click the `Save Attribute` button.
 
-4. Click the `i` icon in the **Primary email** `email` row.
+4. Click the blue circular `i` icon in the **Primary email** `email` row.
 
-5. In the **User permission** section, click the `Read-Write` radio button.
+5. In the **User permission** section, ensure the `Read-Write` radio button is checked.
 
 6. Click the `Save Attribute` button.
 
@@ -1606,13 +1604,15 @@ In order to allow users to set their own username and email address during self-
 
 At this point, you have updated the default User Profile and attribute permissions. Now you are ready to enable self-service registration for Okta Ice's customer applications!
 
-### Lab 5.2 Enable Self-Service Registration
+### Lab 5.2: Enable Self-Service Registration
 
 🎯 **Objective** Configure Self-Service Registration for customer applications.
 
 🎬 **Scenario** Okta Ice would like to allow customers to self-register to access customer applications.
 
 ⏱️ **Duration** 15 minutes
+
+⚠️ Prerequisites: Labs 1.4, 2.4, and 5.1
 
 ### Create Profile Enrollment Policy
 
@@ -1634,11 +1634,13 @@ At this point, you have updated the default User Profile and attribute permissio
 
 4. Next to **Add the user to group**, enter and select `Customers`
 
+5. Scroll down and click `Save`
+
 ### Add Customer Applications to the Profile Enrollment Policy
 
 1. Click `Manage Apps`
 
-2. Click `Add App to this Policy`
+2. Click `Add an App to this Policy`
 
 3. Next to `Customer Rewards`, click `Apply`
 
@@ -1650,7 +1652,7 @@ At this point, you have updated the default User Profile and attribute permissio
 
 The Enrollment Form will appear during Self-Service Registation
 
-1. Click the `← Back to Profile Enrollment Policy` link at the top of the page.
+1. Click the `Back to Profile Enrollment Policy` link at the top of the page.
 
 2. Scroll down to the **Profile enrollment form** section.
 
@@ -1658,7 +1660,7 @@ The Enrollment Form will appear during Self-Service Registation
 
 4. Select `Username (login)`
 
-5. Delete `First Name` and `Last Name`
+5. Click `Save`
 
 ### ✅ Checkpoint
 
@@ -1672,6 +1674,8 @@ At this point, you have configured self-service registration for the the custome
 
 ⏱️ **Duration** 15 minutes
 
+⚠️ Prerequisites: Labs 1.4, 3.1, 5.1, and 5.2
+
 ### Navigate to the Branding UI
 
 1. Ensure you are logged in to the Okta Admin dashboard as `oktatraining`
@@ -1680,33 +1684,29 @@ At this point, you have configured self-service registration for the the custome
 
 ### Edit the Base Email Style
 
-1. Under **Communication**, find the **Base email style** section
-
-2. Click the `Edit` button.
-
+1. Under **Communication**, find the **Emails** section and click the `Edit` button.
+2. On the **Emails** page, locate the **Base email styles** section and click `Configure`
 3. Select `Solid background` -- this will replace the Okta logo with the logo we uploaded in Module 2. It will also set the email background color to the secondary color we set in Module 2.
 
 4. At the top of the page, click `Save and publish`
 
 ### Navigate to the Emails UI
 
-1. From the Admin menu, go to `Customizations` > `Emails`
+On the **Base email style** page, click on the `Emails` breadcrumb link to get to the mail **Emails** page.
 
 ### Open the Default Email Editor
 
 Now we're going to customize the content of the **Email Factor Verification** email that users receive when they sign up for customer applications.
 
-1. In the **Emails** UI, scroll down to the **Other** section.
+1. In the **Email Templates** table, locate and click on `Email Factor verification`
 
-2. Select **Email Factor Verification**
-
-3. Click `Edit`
+2. In the **Preview** window, select the `Code` tab and click on the `Edit` button within that window.
 
 ### Examine the Email Factor Verification Template
 
-For your convenience, we've displayed an editable copy of the default HTML code used to generate the Email Factor Verification emails here in VSCode.
+For your convenience, we've added an editable copy of the default HTML code used to generate the Email Factor Verification emails here in this VSCode workspace. It's called `default-email-template.html`
 
-1. Examine the highlighted line. This generates the salutation.
+1. Examine the line above the comment. This generates the salutation.
    Notice that it references the profile attribute `user.profile.firstName`
 
 2. Recall that we've updated the Default User Profile so that customers do not have to provide a first name. This means the email generated will look like:
@@ -1719,37 +1719,29 @@ This doesn't look very professional at all, so let's fix this by greeting the us
 
 Let's edit the highlighted line so that it references the user's `login` profile attribute:
 
-```html
+```javascript
 Hi $!{StringTool.escapeHtml($!{user.profile.login})},
 ```
 
-You can do this by manually editing the line, or by clicking the **Insert Code** link above.
+You can do this by manually editing the line.
 
-Finally, click here to save your changes.
-
-### Apply the Changes in the Email UI
-
-1. Highlight and copy the entire contents of the `custom-email-template.html` file that is open in VSCode.
-
-2. Switch back to your Chrome browser.
-
-3. Highlight the contents of **Message** by clicking in the field and pressing `CTRL`+`A`
-
-4. Delete the default HTML code.
-
-5. Paste the updated HTML code by pressing `CTRL`+`V`
-
-6. Scroll all the way to the bottom and click `Save`
-
-7. Optionally, click on `English (en)` to preview a sample email.
+Finally, save the file `custom-email-template.html` file.
 
 ### Import And Run Your Previously Configured Web Apps
 
 We will now copy the web applications we previously configured to this workspace, so that we can test out self-service registration and the customized Email Factor Verification email.
 
-1. Click here to copy the previously configured applications.
+1. Copy the `redirect` and `embedded` folders from the Module 3 folder to this workspace.
 
-2. Click here to launch the web server.
+2. Open an terminal and run this command:
+
+```
+python -m http.server 8080
+```
+
+You should now see the following message in your terminal:
+
+`Serving HTTP on :: port 8080 (http://[::]:8080/) ...`
 
 ### Explore Self Service Registration Availability
 
@@ -1759,7 +1751,7 @@ We will now copy the web applications we previously configured to this workspace
 
 3. Click on `Polling App (Embedded Widget)`
 
-4. Notice there is now a `Sign up` link
+4. Notice there is now a `Sign up` link at the bottom of the Sign In Widget
 
 5. Click on `Return to Portal`
 
@@ -1769,7 +1761,7 @@ We will now copy the web applications we previously configured to this workspace
 
 8. Click the `Back` button in Chrome to return to the index page.
 
-9. Click `CSRM App (Redirect)
+9. Click `CRM App (Redirect)`
 
 10. Notice that there is no `Sign up` link here since this is a Franchisee app, and only applied our Profile Enrollment Policy to customer apps.
 
@@ -1783,7 +1775,7 @@ We will now copy the web applications we previously configured to this workspace
 
 3. For the **Email**, enter an email you have access to, so that you will be able to receive the Email Factor Verification email. If you have a Gmail account, we recommend using an email alias like `<your-gmail-username>+oktalab@gmail.com`. So if your email address was `samusaran@gmail.com`, you would enter `samusaran+oktalab@gmail.com`
 
-4. Enter whatever you like for the **Username**
+4. Enter `oktalab` for the **Username**
 
 5. Click the `Sign Up` button.
 
@@ -1791,9 +1783,10 @@ We will now copy the web applications we previously configured to this workspace
 
 You'll now be asked to set up a password.
 
-1. Set and confirm your password as `Tra!nme4321`
+1. Click `Setup up` under **Password**
+2. Set and confirm your password as `Tra!nme4321`
 
-2. Click `Next`
+3. Click `Next`
 
 ### Verify Your Email
 
@@ -1825,9 +1818,11 @@ Because you have an existing session and are a member of the **Customers** group
 
 ### Close Your Okta Session
 
-1. In the Polling App in the Chrome browser, click the `Close Okta Session` button.
+1. In the Polling App in the Chrome browser, click the `Close Okta Session` button. This will log you out of Okta.
 
 2. You may now close this browser tab.
+
+3. Keep your web server running, as it will be used in the next labs.
 
 ### ✅ Checkpoint
 
@@ -1840,6 +1835,8 @@ At this point, you have customized the email template used to generate the **Ema
 🎬 **Scenario** During their testing phase, Okta Ice would like to limit self-service registration to their customer applications to people with certain email domain names.
 
 ⏱️ **Duration** 20 minutes
+
+⚠️ Prerequisites: Labs 1.4, 3.1, 5.1, 5.2, and 5.3
 
 ### Preparation and Background
 
@@ -1915,11 +1912,13 @@ In addition to this, an `error` object is created. The `errorCauses.errorSummary
 
 Both the `commands` array and `error` object are sent in the response to Okta later in this script.
 
-### Create the Registration Inline Hook
+#
+
+## Create the Registration Inline Hook
 
 1. Ensure you are signed in to the Okta Admin dashboard as your Super Admin account, `oktatraining`.
 
-2. In the Admin menu, select `Workflows` > `Inline Hooks`
+2. In the Admin menu, select `Workflow` > `Inline Hooks`
 
 3. Click `Add Inline Hook` and select `Registration` from the drop down menu.
 
@@ -2020,6 +2019,8 @@ At this point, you have created and enabled a Registration Inline Hook in a self
 
 ⏱️ Duration: 20 min
 
+⚠️ Prerequisites: Labs 1.4, 3.1, 5.1, 5.2, and 5.3
+
 ### Preparation and Background
 
 Event hooks are outbound calls from Okta that can be used to notify your own software systems of events occurring in your Okta org.
@@ -2096,7 +2097,7 @@ The event type (embedded in a `description` string), requesting URL, and the ent
 
 1. Ensure you are signed in to the Okta Admin dashboard as your Super Admin account, `oktatraining`.
 
-2. In the Admin menu, select `Workflows` > `Event Hooks`
+2. In the Admin menu, select `Workflow` > `Event Hooks`
 
 3. Click `Create Event Hook`
 
