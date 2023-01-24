@@ -2167,7 +2167,7 @@ At this point, you have created and registered an Event Hook for logging updates
 
 ## Module 6: Migrating and Managing Users
 
-### Lab 6.1 Migrate Users and Hashed Passwords with Okta's Users API
+### Lab 6.1: Migrate Users and Hashed Passwords with Okta's Users API
 
 🎯 **Objective** Migrate users with Okta's Users API
 
@@ -2175,7 +2175,11 @@ At this point, you have created and registered an Event Hook for logging updates
 
 ⏱️ **Duration** 20 minutes
 
-### Examine the Create User with Imported Hashed Password API Endpoint
+⚠️ Prerequisite: Lab 4.1
+
+#
+
+## Examine the Create User with Imported Hashed Password API Endpoint
 
 Okta's Users API has an endpoint that allows us to [create a user with an imported hashed password](https://developer.okta.com/docs/reference/api/users/#create-user-with-imported-hashed-password).
 
@@ -2226,7 +2230,7 @@ Since the Create User with imported Hashed Password API request is not included 
 
 3. Copy the following JSON and paste it into the request body:
 
-```JSON
+```json
 {
   "profile": {
     "firstName": "Hashem",
@@ -2235,16 +2239,16 @@ Since the Create User with imported Hashed Password API request is not included 
     "login": "hashem.pesar@{{email-suffix}}",
     "userType": "customer"
   },
-"credentials": {
-    "password" : {
+  "credentials": {
+    "password": {
       "hash": {
         "algorithm": "BCRYPT",
         "workFactor": 12,
         "salt": "S77ORXjoSbjRMdvG/Yvc0u",
         "value": "x6WB1d4z5BjpeuyANyVWZqBbIfCq24q"
-            }
-        }
+      }
     }
+  }
 }
 ```
 
@@ -2258,7 +2262,7 @@ This will import our existing user with a username of `hashem.pesar@oktaice.com`
 
 You'll notice Okta echoes back the user profile details. If you look at the `credentials` entry, you should see:
 
-```
+```json
 "credentials": {
         "password": {},
         "provider": {
@@ -2271,9 +2275,13 @@ This indicates that the user credentials were imported from an external source v
 
 ### Test the Imported User
 
-1. Click [here to copy the previously configured applications](command:codetour.sendTextToTerminal?["mkdir redirect; mkdir embedded; cp ../03-exploring-authentication-protocol-flows/redirect/* redirect; cp ../03-exploring-authentication-protocol-flows/* embedded"]).
+1. Copy the `redirect` and `embedded` directories from your Module 3 folder into this workspace.
 
-2. Click [here to launch the web server](command:codetour.sendTextToTerminal?["python -m http.server 8080"]).
+2. Open a terminal and start a web server with the following command:
+
+```
+python -m http.server 8080
+```
 
 3. Navigate to http://localhost:8080
 
