@@ -1191,7 +1191,7 @@ At this point, you have seen how web SSO works between two applications accessib
 
 Last, click the `Save` button.
 
-### Assign Administrator Permissions
+#### Assign Administrator Permissions
 
 1. Navigate to `Security` > `Administrators`
 
@@ -1199,7 +1199,7 @@ Last, click the `Save` button.
 
 3. In the `Admin` field, type and select the user `Okta Service`
 
-4. In the `Role` field, select `Super Administrator`
+4. In the `Role` field, select `Super Administrator` -- If you are unable to select this role, refresh the page and repeat Step 3.
 
 5. Click `Save Changes`
 
@@ -1215,28 +1215,29 @@ Last, click the `Save` button.
 
 1. Ensure you are still logged in to the Admin Dashboard as **Okta Service**
 
-2. Navigate to `Security` > `API`.
+2. Navigate to `Security` > `API`
 
-3. On the `Tokens` tab, click `Create Token`.
+3. On the `Tokens` tab, click `Create Token`
 
-4. Enter `Postman` as the token name and click `Create Token`.
+4. Enter `Postman` as the token name and click `Create Token`
 
-5. A token value is generated and displayed in a popup modal.
-   Copy this value by clicking the clipboard button.
+5. A token value is generated and displayed in a popup modal. Copy this value by clicking the clipboard button.
 
-6. Paste the value in the text file here.
+6. Paste the value into the `postman-api-token.txt` file in this workspace.
 
-7. Click here to save the text file.
+7. Save the text file.
+
+8. Back in Chrome, click the `OK, got it` button. Once you click this button, you will no longer be able to view the API token through Okta.
 
 ### Import the Postman Environment
 
-1. In the VM, launch the Postman app (an orange circular icon).
+1. In the VM, launch the Postman app (an orange circular icon) from the taskbar of your VM.
 
 2. Click the `Import` button on the top left of the application.
 
 3. Click `Link`.
 
-4. Paste the URL `https://developer.okta.com/docs/api/postman/example.oktapreview.com.environment`
+4. Paste the URL https://developer.okta.com/docs/api/postman/example.oktapreview.com.environment
 
 5. Click `Continue` and then `Import` to confirm.
 
@@ -1244,11 +1245,16 @@ Last, click the `Save` button.
 
 1. At the top of the Postman window, there's a drop down that says `No Environment` Click this drop down and select the environment you just imported: `${yourOktaDomain}`
 
-2. Click the eyeball icon next to the environment name.
+2. Click the icon to the right of the environment name (eyeball superimposed over a document).
 
-3. Click `Edit`.
+3. Click `Edit`
 
-4. Rename the environment `oktaice######.oktapreview.com`, replacing `######` with your unique Okta org number.
+4. Click the pencil icon next to the environment name `${yourOktaDomain}`
+
+5. Rename the environment `oktaice########.oktapreview.com`, replacing `########` with your unique Okta org number.
+   Recall that you can easily get this information from the **Credentials** panel of your VM.
+
+6. Press the `Enter` key to set your environment's new name.
 
 ### Configure the Postman Environment Variables
 
@@ -1256,7 +1262,7 @@ In the next steps, you will define certain environment variables so that you can
 
 ### Configure the `url` Environment Variable
 
-Update the `CURRENT VALUE` of `url` to your Okta org's url, e.g. `http://oktaice######.oktapreview.com`
+Update the `CURRENT VALUE` of `url` to your Okta org's url, e.g. `https://oktaice########.oktapreview.com`
 
 ### Configure the `apikey` Environment Variable
 
@@ -1264,13 +1270,13 @@ Copy the API Token from the text file opened above and paste it into the `CURREN
 
 ### Configure the `email-suffix` Environment Variable
 
-Enter `okta-ice.com` in in the `CURRENT VALUE` column for the `email-suffix` variable.
+Enter `oktaice.com` in in the `CURRENT VALUE` column for the `email-suffix` variable.
 
-### Persist and Update all Environment Variables
+### Persist and Save all Environment Variables
 
 1. Click `Persist All`
 
-2. Scroll down and click `Update`
+2. Click `Save`
 
 3. You may now close the environment variable tab.
 
@@ -1298,9 +1304,7 @@ At this point, Postman is now configured to make API calls to Okta. In the next 
 
 5. After a moment, you should see a toast notification saying that the **Users (Okta API)** collection was successfully imported.
 
-6. Click on the `Collections` tab and you should now see the **Users (Okta API)** collection with 42 requests.
-
-You should now see the **Users (Okta API)** collection under **Collections**
+6. Click on the `Collections` tab and you should now see the **Users (Okta API)** collection.
 
 ### Open the `Create Activated User with Password` Request
 
@@ -1308,7 +1312,7 @@ You should now see the **Users (Okta API)** collection under **Collections**
 
 2. Click on the **Create User** subfolder to expand it.
 
-3. Click on the **Create Activated User with Password** request to open it in a tab.
+3. Click on the **Create Activated User with Password** request to open it in a tab. This should be the **6th** one in the list of requests in the **Create User** subfolder.
 
 ### Examine the Request Params
 
@@ -1368,7 +1372,7 @@ Your updated request body will be:
 }
 ```
 
-(You can ignore the **Insert Code** link above and simply copy and paste the JSON into the request body in Postman)
+You can copy and paste this JSON into the request body in Postman, replacing the existing JSON that is there by default.
 
 ### Update the `password` Environment Variable
 
@@ -1378,7 +1382,7 @@ Your updated request body will be:
 
 3. Scroll down to the `password` variable and enter `Tra!nme4321` in the `CURRENT VALUE` column.
 
-4. Click `Persist All` and then scroll down and click `Update`
+4. Click `Persist All` and then and click `Save`
 
 5. Close the Environment variable tab and return to the **Create Activated User with Password** request tab.
 
@@ -1436,13 +1440,13 @@ We'll store the `id` in the `userId` environment variable:
 
 At this point, you have created an activated user with a password using the Users API. This has allowed you to see how a User is represented in Okta.
 
-### Lab 4.3: Update an Okta User Profile Via the Users API
+### Lab 4.3: Update an Okta User Via the Users API
 
 🎯 Objective: Update an existing Okta User using a request from the Okta Users API collection in Postman.
 
 ⏱️ Duration: 15 min
 
-⚠️ Prerequisite: Lab 4.2
+⚠️ Prerequisites: Labs 4.1 and 4.2
 
 ### Access Okta's Users API Documentation
 
@@ -1452,25 +1456,25 @@ We'll use this documentation to craft our request in Postman.
 
 From the documentation, we see that the endpoint we need to issue our request to is `/api/v1/users/{{userId}}` and that we should use the `POST` method for a partial update. A partial update means we only provide the data for the profile attributes we want to update.
 
-Alternatively, the `PUT` method can be used for a complete update. This would mean that any attributes that are not specified in the request body will be deleted from the user's profile.
+Alternatively, the `PUT` method can be used for a complete update. This would mean that any attribute values that are not specified in the request body will be deleted from the user's profile.
 
 For our purposes, we will use the `POST` method for a partial update.
 
 ### Create the Request
 
-1. In Postman, click the big orange `+ New` button.
+1. In Postman, click the `New` button.
 
 2. In the window that pops up, click `HTTP REQUEST`
 
-3. Enter `Update User` as the **Request name**
+3. In the new request tab that opens, click the drop down menu and change the HTTP method from `GET` to `POST`
 
-4. Select `Users (Okta API)` in the **Select a collection or folder to save to** section.
+4. For the request URL, enter `{{url}}/api/v1/users/{{userId}}`
 
-5. Click `Save to Users (Okta API)`
+5. Click the down arrow next to the `Save` button an click `Save As...`
 
-6. In the new request tab that opens, click the drop down menu and change the HTTP method from `GET` to `POST`
+6. Enter `Update User` as the **Request name**
 
-7. For the request URL, enter `{{url}}/api/v1/users/{{userId}}`
+7. Select `Users (Okta API)` in the **Select a collection or folder to save to** section.
 
 8. Click `Save`
 
@@ -1508,9 +1512,11 @@ In this case, we can imagine that the user's `lastName` needs to be updated. Sin
 }
 ```
 
-**Ignore the Insert code link above**
+1. Copy and paste the JSON above into the body of your request.
 
-Click `Save` and then `Send` to issue the request.
+2. Click `Save`
+
+3. Click `Send` to issue the request.
 
 ### Examine the Response Body
 
@@ -1523,6 +1529,10 @@ Click `Save` and then `Send` to issue the request.
 ### ✅ Checkpoint
 
 You now have an understanding of how a partial update of a user's profile is performed by the Users API, which is used by Okta's Management SDKs.
+
+## 🎉 End of Module 4 Labs
+
+**You may close this workspace project, ensuring all changes were saved.** You can also close Postman.
 
 ### 🎉 End of Module 4 Labs
 
