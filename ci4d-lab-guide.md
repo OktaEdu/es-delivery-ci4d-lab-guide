@@ -2182,7 +2182,7 @@ At this point, you have created and registered an Event Hook for logging updates
 
 ⏱️ **Duration** 20 minutes
 
-⚠️ Prerequisite: Lab 4.1
+⚠️ Prerequisites: Labs 1.2, 4.1
 
 #
 
