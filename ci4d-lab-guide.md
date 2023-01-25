@@ -2479,7 +2479,7 @@ At this point, you have configured and enabled passwordless authentication for O
 1. Navigate to http://localhost:8080
 2. Click on `CRM App (Redirect)`
 3. Enter the **Username** `kay.west@oktaice.com` and click `Next`
-4. Enter the **Password** `Tra!nme4321!` and click `Verify`
+4. Enter the **Password** `Tra!nme4321` and click `Verify`
 5. You are now prompted for a email as a second factor of authentication.
 6. Click `Send me an email`
 7. Click `Enter a verification code instead`
