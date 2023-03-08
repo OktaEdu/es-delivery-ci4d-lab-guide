@@ -451,7 +451,7 @@ Okta will now provide you with a `TXT` value and a `CNAME` value, which we will 
 
 ### Log In to the DNS Configuration Tool
 
-In a new tab, navigate to our DNS configuration tool at [https://oktaice.store/ciam/](https://oktaice.store/ciam/) and log in with the following information (replacing ######## with your assigned subdomain number from the **Credentials** panel in your VM)
+In a new tab, navigate to our DNS configuration tool at [https://oktaice.store/dns/](https://oktaice.store/dns/) and log in with the following information (replacing ######## with your assigned subdomain number from the **Credentials** panel in your VM)
 
 | Field Name |             Value |
 | ---------- | ----------------: |
