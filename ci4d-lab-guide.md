@@ -2385,9 +2385,7 @@ For the purposes of this class, we'll only be using the Password and Email (Magi
 
 10. Next to **User must authenticate with**, select `Any 1 factor type` from the drop-down.
 
-11. Next to **Possession factor constraints are**, uncheck `Exclude phone and email authenticators`
-
-12. Click `Save`
+11. Click `Save`
 
 ### Configure Customer Apps to Use the Email Magic Link Authentication Policy
 
