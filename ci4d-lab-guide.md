@@ -2640,17 +2640,16 @@ The **Add Relying Party Trust Wizard** is launched.
 7. Continue clicking `Next`, taking the default values, until the Wizard reaches the last step.
 8. Click `Close`
 
-A window labelled **Edit Claim Issuance Policy for Okta Ice** should pop up. We'll configure the AD FS Claim rule in this window in the next step.
-
 ### Configure an AD FS Claim Rule
 
 Claim rules define what user data will be sent from AD FS to Okta via SAML assertion.
 
-1. In the **Edit Claim Issuance Policy for Okta Ice** window, click `Add Rule...`
-2. Select `Send LDAP Attributes as Claims` in the **Claim rule template** drop-down and click `Next`
-3. **Name** the claim rule `Attributes to Okta`
-4. Select`Active Directory` under the **Attribute store** drop-down.
-5. Under **Mapping of LDAP attributes to outgoing claim types** add these additional attributes:
+1. On the right side of the AD FS window, click `Edit Claim Issuance Policy`
+2. In the **Edit Claim Issuance Policy for Okta Ice** window, click `Add Rule...`
+3. Select `Send LDAP Attributes as Claims` in the **Claim rule template** drop-down and click `Next`
+4. **Name** the claim rule `Attributes to Okta`
+5. Select`Active Directory` under the **Attribute store** drop-down.
+6. Under **Mapping of LDAP attributes to outgoing claim types** add these additional attributes:
 
 | **LDAP Attribute** | **Outgoing Claim Type** |
 | ------------------ | ----------------------- |
