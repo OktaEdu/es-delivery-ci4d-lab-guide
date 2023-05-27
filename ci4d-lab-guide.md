@@ -670,7 +670,7 @@ This paramater expects a function, which gets called if there is an error when c
 
 Before we make any changes to the default Sign-in Page code, let's see what we can customize the SIW without touching any code at all. We'll do this with Okta's Branding UI.
 
-1. Navigate to `Customize` > `Brands`
+1. Navigate to `Customizations` > `Brands`
 2. Select `Okta Ice` from your list of brands.
 
 Under the `Theme` section, you can define:
