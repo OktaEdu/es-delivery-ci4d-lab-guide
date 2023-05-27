@@ -1709,14 +1709,6 @@ At this point, you have configured self-service registration for the the custome
 
 3. Click on `Okta Ice` from your list of brands.
 
-### Edit the Base Email Style
-
-1. Click **Emails**
-2. On the **Emails** page, locate the **Base email styles** section and click `Configure`
-3. Select `Solid background` -- this will replace the Okta logo with the logo we uploaded in Module 2. It will also set the email background color to the secondary color we set in Module 2.
-
-4. At the top of the page, click `Save and publish`
-
 ### Navigate to the Email Templates
 
 1. Click **Emails**
@@ -1751,7 +1743,7 @@ You can do this by manually editing the line.
 
 Finally, save the file `custom-email-template.html` file.
 
-### Update the Email Factor Verification Template
+### Apply the Changes in the Email UI
 
 Notice that the `custom-email-template.html` file is open in VSCode.
 
