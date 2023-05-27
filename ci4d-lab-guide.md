@@ -421,12 +421,20 @@ You now know how to set up an application integration in Okta.
 
 ⏱️ **Duration:** 20 minutes
 
-### Configure a Subdomain
+### Create a New Brand
 
 1. Log in to your Okta org as `oktatraining` and click the `Admin` button to enter the Admin Dashboard.
-2. Click `Customizations` > `Domain`
-3. In the **Redirect URL** section, click `Edit` and then click the `Get started` button.
-4. To prepare for the next step, expand the **Credentials** panel in your VM.
+2. Click `Customizations` > `Brands`.
+   You'll see that you have a default Okta brand, which is limited since it only works with your default Okta subdomain. We will create a new brand so we can configure a custom subdomain.
+3. Click the `+ Create brand` button.
+4. Enter `Okta Ice` as your brand name and click `Create brand`.
+   You should now see your new **Okta Ice** brand in your list of brands.
+
+### Configure a Subdomain
+
+1. Click `Okta Ice` from your list of brands.
+2. Click `Add domain`
+3. To prepare for the next step, expand the **Credentials** panel in your VM.
 
 ![Start Code Tour](./.tour-resources/1-1_expand_sidebar.gif)
 
@@ -537,12 +545,12 @@ At this point, you have configured a custom domain for your Okta org. Setting up
 ### Access the Sign-in Page Code Editor
 
 1.  If you aren't already, sign in to your Okta org as your Super Admin acount `oktatraining`
-
-2.  From the Admin dashboard, click `Customizations` > `Branding`
-
-3.  Under the **Pages** section, find the `Sign-in page` and click `Edit`
-
-4.  Click the `Code editor` toggle button
+2.  From the Admin dashboard, click `Customizations` > `Brands`
+3.  Click on `Okta Ice` in your list of brands.
+4.  Click `Pages`
+5.  In the **Sign-in page** section, click `Configure`
+6.  Click the `Code editor` toggle button
+7.  Click `Proceed to code editor`
 
 ### The Default Sign-in Page Code
 
@@ -613,9 +621,9 @@ The `{{faviconUrl}}` variable inserts the URL for the favicon. The favicon can b
 
 The `{{pageTitle}}` variable inserts the page title set in the Okta Branding UI.
 
-### Sign-in Page Variable: `SignInWidgetResource`
+### Sign-in Page Variable: `SignInWidgetResources`
 
-The `SignInWidgetResource` variable loads the JavaScript and CSS files required to use the Okta Sign-In Widget.
+The `SignInWidgetResources` variable loads the JavaScript and CSS files required to use the Okta Sign-In Widget.
 
 ### Sign-in Page Variable: `bgImageUrl`
 
@@ -662,7 +670,8 @@ This paramater expects a function, which gets called if there is an error when c
 
 Before we make any changes to the default Sign-in Page code, let's see what we can customize the SIW without touching any code at all. We'll do this with Okta's Branding UI.
 
-Navigate to `Customize` > `Branding`
+1. Navigate to `Customize` > `Brands`
+2. Select `Okta Ice` from your list of brands.
 
 Under the `Theme` section, you can define:
 
@@ -715,18 +724,19 @@ Click `Save Changes`
 
 Now that we have customized our theme, we need to apply it to our Sign-in page.
 
-1. In the section labeled `Pages`, click `Edit` on the item labelled `Okta-hosted Sign-In Page`
-2. Click the style labeled `Solid background` and observe the change in the preview panel. This style uses our custom logo, applies the primary color to the `Sign In` button, and uses the secondary color as the solid background for the page.
-3. Click the style labelled `Image background` and observe the change in the preview panel. This style is the same as the above, but it applies our image background to the page.
-4. Click `Save and Publish`
+1. Click `Pages`
+2. In the **Sign-in Page** section, click `Configure`
+3. Click the style labeled `Solid background` and observe the change in the preview panel. This style uses our custom logo, applies the primary color to the `Sign In` button, and uses the secondary color as the solid background for the page.
+4. Click the style labelled `Image background` and observe the change in the preview panel. This style is the same as the above, but it applies our image background to the page.
+5. Click `Save and Publish` (Note: The `Save and Publish` button will be greyed out if **Image background** was already set by default. In this case, it is safe to proceed to the next step)
 
 ### Preview the Sign-In Page
 
 Notice that you can see a preview of the Sign-In Page to the right.
 
-To see a live version of this page, click the `Visit page` link near the top of the page.
+1. Click the `Visit page` link near the top of the page, and a new tab will open with a live preview of your Sign-In Page.
 
-**Keep your Sign-In Page open for the next lab**
+2. **Keep your Sign-In Page open for the next lab**
 
 ### ✅ Checkpoint
 
@@ -752,9 +762,11 @@ To provide a differentiated experience for learners of all types, we've included
 
 You should still have the Sign-In Page preview open from the last lab. If you do not have this page open, ensure you are signed in as your `oktatraining` and:
 
-1. Navigate to `Customizations` > `Branding`
-2. In the **Pages** section, find `Sign-in page` and click the `Edit` button.
-3. Click `Visit page`
+1. Navigate to `Customizations` > `Brands`
+2. Click `Okta Ice` from your list of brands.
+3. Click `Pages`
+4. In the`Sign-in page`, click `Configure`
+5. Click `Visit page`
 
 On the preview of your Sign-In Page, right click on the page and select `Inspect` and ensure that you are viewing the `Elements` tab and the `Styles` sub-tab.
 ![Inspect Elements](./.tour-resources/inspect-element.gif)
@@ -795,17 +807,21 @@ Notice that this step has automatically opened the the HTML file for you here in
 
 2. Press `CTRL`+`C` to copy the code.
 
-3. Go back to your Okta Sign-In Page Code Editor tab in Chrome.
+3. Go back to your Sign-In Page configuration tab in Chrome.
 
-4. Click inside of the Code Editor box and press `CTRL`+`A` to highlight the entire contents and press `BACKSPACE` to delete it.
+4. Click the `Code editor` toggle button and click `Proceed to code editor`
 
-5. Press `CTRL`+`V` to paste in your updated code.
+5. Click `Edit`
 
-6. Scroll up and verify that your embedded CSS now appears in the code.
+6. Click inside of the **Code editor** box and press `CTRL`+`A` to highlight the entire contents and press `BACKSPACE` to delete it.
 
-7. Click the `Preview` button and observe the font color change.
+7. Press `CTRL`+`V` to paste in your updated code.
 
-![Preview font color change](./.tour-resources/preview-text-color.gif)
+8. Scroll up and verify that your embedded CSS now appears in the code.
+
+9. Click `Save to draft`
+
+10. Click the `Preview` button and observe the font color change.
 
 ### Inspect the SIW Form Header
 
@@ -839,7 +855,7 @@ Notice that this step has automatically opened the the HTML file for you here in
 
 2. Press `CTRL`+`C` to copy the code.
 
-3. Go back to your Okta Sign-In Page Code Editor tab in Chrome.
+3. Go back to your Okta Sign-In Page Code Editor tab in Chrome, and click `Edit`
 
 4. Click inside of the Code Editor box and press `CTRL`+`A` to highlight the entire contents and press `BACKSPACE` to delete it.
 
@@ -847,7 +863,9 @@ Notice that this step has automatically opened the the HTML file for you here in
 
 6. Scroll up and verify that your updated embedded CSS now appears in the code.
 
-7. Click the `Preview` button and observe the font color change of the header.
+7. Click the `Save to draft` button.
+
+8. Click the `Preview` button and observe the font color change of the header.
 
 ![Preview font color change](./.tour-resources/preview-header-color.gif)
 
@@ -879,7 +897,7 @@ Notice that this step has automatically opened the the HTML file for you here in
 
 2. Press `CTRL`+`C` to copy the code.
 
-3. Go back to your Okta Sign-In Page Code Editor tab in Chrome.
+3. Go back to your Okta Sign-In Page Code Editor tab in Chrome, and click `Edit`
 
 4. Click inside of the Code Editor box and press `CTRL`+`A` to highlight the entire contents and press `BACKSPACE` to delete it.
 
@@ -887,7 +905,9 @@ Notice that this step has automatically opened the the HTML file for you here in
 
 6. Scroll up and verify that your updated embedded CSS now appears in the code.
 
-7. Click the `Preview` button and observe that the background color of the SIW header has changed.
+7. Click the `Save to draft` button.
+
+8. Click the `Preview` button and observe that the background color of the SIW header has changed.
 
 ![Preview bg color change](./.tour-resources/preview-bg-siw.gif)
 
@@ -924,7 +944,7 @@ Notice that this step has automatically opened the the HTML file for you here in
 
 2. Press `CTRL`+`C` to copy the code.
 
-3. Go back to your Okta Sign-In Page Code Editor tab in Chrome.
+3. Go back to your Okta Sign-In Page Code Editor tab in Chrome, and click `Edit`
 
 4. Click inside of the Code Editor box and press `CTRL`+`A` to highlight the entire contents and press `BACKSPACE` to delete it.
 
@@ -932,7 +952,9 @@ Notice that this step has automatically opened the the HTML file for you here in
 
 6. Scroll up and verify that your updated embedded CSS now appears in the code.
 
-7. Click the `Preview` button and observe that the color of the `Help` link in the SIW has changed to cyan.
+7. Click the `Save to draft` button.
+
+8. Click the `Preview` button and observe that the color of the `Help` link in the SIW has changed to cyan.
 
 ![Preview bg color change](./.tour-resources/preview-link.gif)
 
@@ -1687,36 +1709,35 @@ At this point, you have configured self-service registration for the the custome
 
 1. Ensure you are logged in to the Okta Admin dashboard as `oktatraining`
 
-2. From the Admin menu, go to `Customizations` > `Branding`
+2. From the Admin menu, go to `Customizations` > `Brands`
+
+3. Click on `Okta Ice` from your list of brands.
 
 ### Edit the Base Email Style
 
-1. Under **Communication**, find the **Emails** section and click the `Edit` button.
+1. Click **Emails**
 2. On the **Emails** page, locate the **Base email styles** section and click `Configure`
 3. Select `Solid background` -- this will replace the Okta logo with the logo we uploaded in Module 2. It will also set the email background color to the secondary color we set in Module 2.
 
 4. At the top of the page, click `Save and publish`
 
-### Navigate to the Emails UI
+### Navigate to the Email Templates
 
-On the **Base email style** page, click on the `Emails` breadcrumb link to get to the mail **Emails** page.
-
-### Open the Default Email Editor
-
-Now we're going to customize the content of the **Email Factor Verification** email that users receive when they sign up for customer applications.
-
-1. In the **Email Templates** table, locate and click on `Email Factor verification`
-
-2. In the **Preview** window, select the `Code` tab and click on the `Edit` button within that window.
+1. Click **Emails**
+2. In the **Email Templates** table, locate and click on `Email Factor verification`
+3. Notice that your custom logo is automatically applied to this template.
 
 ### Examine the Email Factor Verification Template
 
-For your convenience, we've added an editable copy of the default HTML code used to generate the Email Factor Verification emails here in this VSCode workspace. It's called `default-email-template.html`
+Now we're going to customize the content of the **Email Factor Verification** email that users receive when they sign up for customer applications.
 
-1. Examine the line above the comment. This generates the salutation.
+1. Click `Edit` to open the code editor for the Email Factor Verification template.
+   For your convenience, we've added an editable copy of the default HTML code used to generate the Email Factor Verification emails here in this VSCode workspace. It's called `default-email-template.html`
+
+2. Examine the line above the comment. This generates the salutation.
    Notice that it references the profile attribute `user.profile.firstName`
 
-2. Recall that we've updated the Default User Profile so that customers do not have to provide a first name. This means the email generated will look like:
+3. Recall that we've updated the Default User Profile so that customers do not have to provide a first name. This means the email generated will look like:
 
 `Hi , `
 
@@ -1733,6 +1754,17 @@ Hi $!{StringTool.escapeHtml($!{user.profile.login})},
 You can do this by manually editing the line.
 
 Finally, save the file `custom-email-template.html` file.
+
+### Update the Email Factor Verification Template
+
+Notice that the `custom-email-template.html` file is open in VSCode.
+
+1. Highlight the contents of `custom-email-template.html` by clicking into the VSCode editor and pressing `CTRL`+`A`
+2. Copy the contents of `custom-email-template.html` by pressing `CTRL`+`A`
+3. Return to your Chrome browser tab that has the **Email Factor verification** code editor page.
+4. Click into the code editor box and highlight the contents with `CTRL`+`A` and delete the contents pressing `BACKSPACE`
+5. Paste the contents of your clipboard by pressing `CTRL`+`V`
+6. Click `Save changes`
 
 ### Import And Run Your Previously Configured Web Apps
 
