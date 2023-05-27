@@ -867,8 +867,6 @@ Notice that this step has automatically opened the the HTML file for you here in
 
 8. Click the `Preview` button and observe the font color change of the header.
 
-![Preview font color change](./.tour-resources/preview-header-color.gif)
-
 ### Inspect the SIW Header
 
 Next, let's find out what selector we can access to change the background color of the SIW header area. In your latest preview of the Sign-In Page, right click into the header area of the SIW. Here we see the selector `#okta-sign-in.auth-container .okta-sign-in-header`
@@ -908,8 +906,6 @@ Notice that this step has automatically opened the the HTML file for you here in
 7. Click the `Save to draft` button.
 
 8. Click the `Preview` button and observe that the background color of the SIW header has changed.
-
-![Preview bg color change](./.tour-resources/preview-bg-siw.gif)
 
 ### Inspect Link Element
 
