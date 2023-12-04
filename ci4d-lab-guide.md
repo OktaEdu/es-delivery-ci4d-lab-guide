@@ -1256,6 +1256,8 @@ Last, click the `Save` button.
 
 ### Import the Postman Environment
 
+**📝 Note: In order to import collections and environments, you must log in to the Postman application. If you do not already have an account, you can register for free at https://www.postman.com/**
+
 1. In the VM, launch the Postman app (an orange circular icon) from the taskbar of your VM.
 
 2. Click the `Import` button on the top left of the application.
