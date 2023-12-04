@@ -1260,13 +1260,15 @@ Last, click the `Save` button.
 
 1. In the VM, launch the Postman app (an orange circular icon) from the taskbar of your VM.
 
-2. Click the `Import` button on the top left of the application.
+2. Sign into Postman using your own credentials. You can do this by clicking `Sign In` in the top right corner of the application.
 
-3. Click `Link`.
+3. Click the `Import` button on the top left of the application.
 
-4. Paste the URL https://developer.okta.com/docs/api/postman/example.oktapreview.com.environment
+4. Click `Link`.
 
-5. Click `Continue` and then `Import` to confirm.
+5. Paste the URL https://developer.okta.com/docs/api/postman/example.oktapreview.com.environment
+
+6. Click `Continue` and then `Import` to confirm.
 
 ### Rename the Postman Environment
 
