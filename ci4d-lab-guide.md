@@ -2,7 +2,7 @@
 
 [![Okta Training](./.tour-resources/oktaeduservices.png "Okta Education Services")](https://www.okta.com/services/training/)
 
-Copyright 2023 Okta, Inc. All Rights Reserved.
+Copyright 2024 Okta, Inc. All Rights Reserved.
 
 Window captures and dialog box sample views are the copyright of their respective owners.
 
