@@ -10,7 +10,7 @@ Use of this user documentation is subject to the terms and conditions of the app
 
 Release Version 2023.01.02
 
-Updated May 26, 2023
+Updated May 15, 2024
 
 ### Table of Contents
 
