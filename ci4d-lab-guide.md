@@ -8,9 +8,9 @@ Window captures and dialog box sample views are the copyright of their respectiv
 
 Use of this user documentation is subject to the terms and conditions of the applicable End-User License Agreement.
 
-Release Version 2023.01.02
+Release Version 2023.01.03
 
-Updated May 15, 2024
+Updated Jan 06, 2026
 
 ### Table of Contents
 
