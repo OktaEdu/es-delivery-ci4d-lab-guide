@@ -473,14 +473,14 @@ Okta will now provide you with a `TXT` value and a `CNAME` value, which we will 
 
 7.  Switch back to the DNS configuration tool and paste this value into the **Value** field.
 
-8. Select the **Submit** button. (There won't be any feedback, but your DNS record should have been added.
+8. Select the **Submit** button. (There won't be any feedback, but your DNS record should have been added).
 
 1.  Now select **CNAME** from the **Type** dropwdown.
 2.  Switch back to your Okta tab and copy the **Host** entry in the **CNAME** row (e.g., `oktaice########.coffee-ice.com`)
 4.  Switch back to the DNS configuration tool and paste the value you just copied into the **Host** field.
 6.  Switch back to your Okta tab and copy the **Value** entry in the **CNAME** row (Your Okta org URL).
 8.  Switch back to the DNS configuration tool and paste this value into the **Value** field.
-10. Select the **Submit** button. (There won't be any feedback, but your DNS record should have been added.
+10. Select the **Submit** button. (There won't be any feedback, but your DNS record should have been added).
 11. You can now close out of the DNS configuration tool tab.
 
 ![Adding the NAME contents](./.tour-resources/add-name.gif)
