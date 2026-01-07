@@ -483,15 +483,14 @@ Okta will now provide you with a `TXT` value and a `CNAME` value, which we will 
 10. Select the **Submit** button. (There won't be any feedback, but your DNS record should have been added).
 11. You can now close out of the DNS configuration tool tab.
 
-![Adding the NAME contents](./.tour-resources/add-name.gif)
 
 ### Issue an Okta-Managed Certificate
 
-Navigate back to the Okta tab and click `Next`. Okta will take a moment to verify the DNS 01 challenge:
+Navigate back to the Okta tab and select **Submit**. Okta will take a moment to verify the DNS 01 challenge:
 
-- If verification fails, you may need to wait a minute or so for the DNS records to be picked up.
+- If verification fails, you may need to wait a minute or so for the DNS records to be picked up. After this, you can select the **Next** button again.
 
-- If verification is successful, Okta will issue a TLS certificate for your custom domain. Click `Finish`.
+- If verification is successful, Okta will issue a TLS certificate for your custom domain. Select **Finish**.
 
 You will see a status of **Pending** for your custom domain as it can take several minutes to half an hour for the domain to become ready.
 
