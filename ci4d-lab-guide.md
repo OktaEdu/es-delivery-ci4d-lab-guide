@@ -489,7 +489,7 @@ Okta will now provide you with a `TXT` value and a `CNAME` value, which we will 
 Navigate back to the Okta tab and select **Submit**. Okta will take a moment to verify the DNS 01 challenge:
 
 - If verification fails, you may need to wait a minute or so for the DNS records to be picked up. After this, you can select the **Next** button again.
-- If verification still fails, double check that your DNS records were entered correctly. You can search for your Host values here: https://cloud-flare-tool-e673fb910ddb.herokuapp.com/update/find
+- If verification still fails, double check that your DNS records were entered correctly. You can search for your Host values here: https://cloud-flare-tool-e673fb910ddb.herokuapp.com/update/find. This would be _acme-challenge.oktaice########.coffee-ice.com for the TXT record and oktaice########.coffee-ice.com for the CNAME record.
 
 - If verification is successful, Okta will issue a TLS certificate for your custom domain. Select **Finish**.
 
